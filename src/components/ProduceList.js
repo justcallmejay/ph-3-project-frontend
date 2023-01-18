@@ -1,8 +1,8 @@
 import React from 'react';
 
-function ProduceCard( { sear })  {
+function ProduceList( {sear} ) {
     return(
-        <div className='card'>
+        <div className='list'>
             <img src={sear.image} alt={sear.name}/>
             <a>{sear.name}</a>
             <a>{sear.price}</a>
@@ -10,4 +10,4 @@ function ProduceCard( { sear })  {
     )
 }
 
-export default ProduceCard;
+export default ProduceList;

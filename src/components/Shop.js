@@ -11,7 +11,7 @@ function Shop() {
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/produce`)
         .then(res => res.json())
-        .then(setProduce)
+        .then(res => setProduce(res))
     }, [])
 
     console.log(produce)
@@ -22,7 +22,7 @@ function Shop() {
             <Navbar />
                 <Switch>
                     <Route path="/shop">
-                        <Produce />
+                        <Produce produce={produce}/>
                     </Route>
                     <Route path="/checkout">
                         <Checkout />
