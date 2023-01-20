@@ -8,7 +8,7 @@ function ProduceCard( { sear, userCart, handleAddtoCart })  {
     function addToCart(item) {
         if (!userCart.includes(item)) {
             fetch(`${process.env.REACT_APP_API_URL}/cart/`, {
-                method: "PATCH",
+                method: "POST",
                 headers: {"Content-Type" : "application/json"},
                 body: JSON.stringify({
                     produce : item.produce,

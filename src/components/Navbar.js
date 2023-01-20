@@ -25,23 +25,26 @@ function Navbar() {
     return(
         <div className="navbar">
             <NavLink
-            to='/'
+            to='/about'
             exact style={linkStyles}
             activeStyle={activeLink}
             >About Us
             </NavLink>
+
             <NavLink
             to='/checkout'
             exact style={linkStyles}
             activeStyle={activeLink}
             >Checkout
             </NavLink>
+            
             <NavLink
             to='/my-account'
             exact style={linkStyles}
             activeStyle={activeLink}
             >My Account
             </NavLink>
+            
             <NavLink
             to='/shop'
             exact style={linkStyles}

@@ -3,6 +3,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Produce from './Produce';
 import Navbar from './Navbar';
 import Checkout from './Checkout'
+import AccountInfo from './AccountInfo';
 
 function Shop() {
 
@@ -34,6 +35,9 @@ function Shop() {
                     </Route>
                     <Route path="/checkout">
                         <Checkout userCart={userCart}/>
+                    </Route>
+                    <Route path="/account-information">
+                        <AccountInfo />
                     </Route>
                 </Switch>
             </BrowserRouter>

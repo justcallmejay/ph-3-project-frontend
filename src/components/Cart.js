@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'
 import CartList from './CartList'
 import '../css/Cart.css'
 
@@ -25,7 +26,9 @@ function Cart( { userCart } ) {
             </div>
             <div className="total">
                 <h1>Total: {null}</h1>
-                <button className="checkout-btn">Checkout</button>
+                <Link to='/checkout'>
+                    <button className="checkout-btn">Checkout</button>
+                </Link>
                 </div>
             </div>
         </>

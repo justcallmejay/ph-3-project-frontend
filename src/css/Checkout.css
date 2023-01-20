@@ -3,3 +3,49 @@
     left: 2%;
     position: relative;
 }
+
+.checkout-label {
+    width: 1000px;
+    border: inset rgb(0, 0, 0) 1px;
+    top: 20px;
+    left: 15%;
+    position: relative;
+}
+
+.checkout-main-info {
+    margin: 0 40px 10px 30px;
+    overflow-y: hidden;
+}
+
+.checkout-img {
+    height: 100px;
+    width: 100px;
+}
+
+.checkout-container {
+    top: 80px;
+    left: 15%;
+    position: relative;
+    height: 800px;
+    width: 1000px;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.checkout-list {
+    height: 150px;
+    width: 900px;
+    border: inset rgb(0, 0, 0) 1px;
+    display: flex;
+    margin: 20px 10px 0 30px;
+}
+
+.produce-info {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.checkout-delete {
+    float: right;
+}
