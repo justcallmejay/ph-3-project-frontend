@@ -1,0 +1,23 @@
+.home {
+    top: 10%;
+    position: relative;
+    background:   linear-gradient(to right, rgba(255, 255, 255, 0.99), rgba(244, 211, 185, 0.83)), url('/public/image/photomania-da9f281d008bdb01f65cb32ff3c762e9.jpg');
+    width: 100%;
+    min-height: 80%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    position: absolute
+}
+
+.home-container {
+    top: 200px;
+    left: 20%;
+    position: relative;
+    width: 80%;
+}
+
+section {
+    max-width: 80%;
+}

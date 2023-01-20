@@ -1,0 +1,83 @@
+.searchbar {
+    left: 10px;
+    top: 70px;
+    position: relative;
+    margin: 20px 10px 10px 10px;
+}
+
+.search-btn {
+    height: 34.8px;
+    border-radius: 0 15px 15px 0;
+}
+
+input[placeholder='Type Here'] {
+    width: 400px;
+    height: 30px;
+    margin: 0 0px 10px 800px;
+    border-radius: 15px 0 0 15px;
+}
+
+.toggle {
+    margin: 0 0 0 100px;
+    height: 40px;
+    width: 100px;
+}
+
+.cart-container {
+    top: 50px;
+    right: 1%;
+    position: relative;
+    float: right;
+    margin: 30px;
+    width: 400px;
+    height: 600px;
+    border: inset gray 1px;
+}
+
+.produce {
+    top: 100px;
+    left: 3%;
+    position: relative;
+}
+
+.produce-container {
+    font-size: 14px;
+    height: 1200px;
+    /* width: 90%; */
+    min-width: 400px;
+    top: 15px;
+    left: 2%;
+    position: relative;
+    border: inset gray 1px;
+    margin: 5px;
+    background: white;
+    overflow-x: hidden;
+    
+}
+
+.produce-items {
+    top: 80px;
+    position: relative;
+    height: 1000px;
+    width: 2000px;
+    border: inset gray 1px;
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.produce-column {
+    top: 80px;
+    position: relative;
+    height: 1000px;
+    width: 2000px;
+    margin: 10px;
+    position: relative;
+    border: inset rgb(0, 0, 0) 1px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    /* justify-content: center; */
+}

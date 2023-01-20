@@ -7,6 +7,7 @@ import Checkout from './Checkout'
 function Shop() {
 
     const [produce, setProduce] = useState([])
+    const [userCart, setUserCart] = useState([])
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/produce`)
@@ -14,7 +15,14 @@ function Shop() {
         .then(res => setProduce(res))
     }, [])
 
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API_URL}/cart`)
+        .then(res => res.json())
+        .then(res => setUserCart(res))
+    }, [])
+
     console.log(produce)
+    console.log(userCart)
 
     return(
         <div className='shop'>
@@ -22,10 +30,10 @@ function Shop() {
             <Navbar />
                 <Switch>
                     <Route path="/shop">
-                        <Produce produce={produce}/>
+                        <Produce produce={produce} userCart={userCart} setUserCart={setUserCart}/>
                     </Route>
                     <Route path="/checkout">
-                        <Checkout />
+                        <Checkout userCart={userCart}/>
                     </Route>
                 </Switch>
             </BrowserRouter>
