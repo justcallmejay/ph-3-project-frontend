@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../css/Produce.css'
 
-function Search( { setSearchFood, setFilterFood, toggleBtn } ) {
+function Search( { setSearchFood, filterFood, setFilterFood, toggleBtn } ) {
 
 const [currentSearch, setCurrentSearch] = useState('')
 
@@ -10,7 +10,9 @@ function findFood() {
     setCurrentSearch('')
 }
 
-
+function onChangeValue(e) {
+    setFilterFood(e.target.value)
+}
 
 return(
     <div className='searchbar'>
@@ -22,6 +24,10 @@ return(
             <option value='vegetable'>Vegetables</option>
         </select> */}
         <button className="toggle" onClick={toggleBtn}>View</button>
+        <input type="radio" value="" checked={filterFood === ""} onChange={onChangeValue}/>All
+        <input type="radio" value="fruit" checked={filterFood === "fruit"} onChange={onChangeValue}/>Fruit
+        <input type="radio" value="vegetable" checked={filterFood === "vegetable"} onChange={onChangeValue}/>Vegetable
+
     </div>
     )
 }

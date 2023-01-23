@@ -22,7 +22,7 @@ function Cart( { userCart } ) {
 
                 <h3>Your cart:</h3>
                 {userCart.map(cart => 
-                <CartList cart={cart}/>)}
+                <CartList cart={cart} key={cart.id}/>)}
             </div>
             <div className="total">
                 <h1>Total: {null}</h1>

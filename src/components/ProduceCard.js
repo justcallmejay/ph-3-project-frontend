@@ -48,11 +48,11 @@ function ProduceCard( { sear, userCart, handleAddtoCart })  {
             : ""}
             <div className='order-card'>
 
+            <input value={quantityCount} className="quantity-num-card" type="text" placeholder="" onChange={(e) => setQuantityCount(e.target.value)}/>
             <button onClick={() => addToCart(sear)}>Add to Cart</button>
-            <input value={quantityCount} type="quantity" placeholder="" onChange={(e) => setQuantityCount(e.target.value)}/>
             </div>
         </div>
-    )
+    ) 
 }
 
 export default ProduceCard;

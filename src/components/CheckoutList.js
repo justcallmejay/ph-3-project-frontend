@@ -24,10 +24,11 @@ function CheckoutList( { item } ) {
                 <a>Total: {item.quantity} * {item.price}</a>
             </div>
             <div className='produce-total'>
-            </div>
+                <a></a>
+                </div>
             {hover ? 
                 <button className='checkout-delete'>Delete</button> : ""}
-        </div>
+            </div>
     )
 }
 

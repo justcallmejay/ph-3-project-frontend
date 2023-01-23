@@ -1,3 +1,15 @@
+.produce {
+    top: 100px;
+    left: 3%;
+    position: relative;
+}
+
+.search-container {
+    min-width: 400px;
+    height: 200px;
+    border: inset gray 1px;
+}
+
 .searchbar {
     left: 10px;
     top: 70px;
@@ -8,6 +20,21 @@
 .search-btn {
     height: 34.8px;
     border-radius: 0 15px 15px 0;
+}
+
+.produce-container {
+    top: 15px;
+    left: 2%;
+    position: relative;
+    background: white;
+    border: inset gray 1px;
+    /* float: left;     */
+    font-size: 14px;
+    height: 1200px;
+    margin: 5px;
+    min-width: 400px;
+    overflow: hidden;
+    width: 90%;
 }
 
 input[placeholder='Type Here'] {
@@ -24,43 +51,30 @@ input[placeholder='Type Here'] {
 }
 
 .cart-container {
-    top: 50px;
+    /* top: 50px;
     right: 1%;
-    position: relative;
-    float: right;
-    margin: 30px;
+    position: relative; */
+    /* float: right; */
+    /* margin: 10px; */
     width: 400px;
     height: 600px;
     border: inset gray 1px;
 }
 
-.produce {
-    top: 100px;
-    left: 3%;
-    position: relative;
-}
 
-.produce-container {
-    font-size: 14px;
-    height: 1200px;
-    /* width: 90%; */
-    min-width: 400px;
-    top: 15px;
-    left: 2%;
-    position: relative;
+
+.shopper-container {
+    height: 100%;
+    width: 100%;
     border: inset gray 1px;
-    margin: 5px;
-    background: white;
-    overflow-x: hidden;
-    float: left;
-    
+    display: flex;
 }
 
 .produce-items {
-    top: 80px;
+    /* top: 80px; */
     position: relative;
     height: 1000px;
-    width: 2000px;
+    max-width: 1125px;
     border: inset gray 1px;
     margin: 10px;
     display: flex;
@@ -73,7 +87,7 @@ input[placeholder='Type Here'] {
     top: 80px;
     position: relative;
     height: 1000px;
-    width: 2000px;
+    max-width: 1125px;
     margin: 10px;
     position: relative;
     border: inset rgb(0, 0, 0) 1px;

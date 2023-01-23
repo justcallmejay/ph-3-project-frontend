@@ -14,13 +14,14 @@ function Checkout( { userCart } ) {
             {userCart.length > 0 ? 
         <div className='checkout-cart'>
             {userCart.map(item => 
-            <CheckoutList item={item}/>)}
+            <CheckoutList item={item} key={item.id}/>)}
         <Link to="account-information">
+        <a>Total:</a>
             <button>Proceed to Checkout</button>
         </Link>
         </div> 
     : 
-        <h1>There is nothing in your cart</h1>    
+        <h1>There is nothing in your cart</h1>
         }
         </div>
     </div>

@@ -5,9 +5,31 @@ import ProduceCard from './ProduceCard';
 import ProduceList from './ProduceList';
 import '../css/Produce.css'
 
-function Produce( { produce, setUserCart, userCart } ) {
+function Produce( { setUserCart, userCart } ) {
 
+    const [produce, setProduce] = useState([])
     const [filterFood, setFilterFood] = useState('')
+    const [searchFood, setSearchFood] = useState("")
+    const [toggleDisplay, setToggleDisplay] = useState(true)
+    
+    useEffect(() => {
+        if (filterFood !== '') {
+        fetch(`${process.env.REACT_APP_API_URL}/produce/*`)
+        .then(res => res.json())
+        .then(res => setProduce(res))
+        } else {
+        fetch(`${process.env.REACT_APP_API_URL}/produce`)
+        .then(res => res.json())
+        .then(res => setProduce(res))
+        }
+    }, [])
+
+    const filterProduce = produce.filter(food => {
+        if (filterFood === '') return true;
+
+        return food.kind === filterFood
+    })
+
 
     // useEffect(() => {
     //     fetch(`${process.env.REACT_APP_API_URL}/produce/${filterFood}`)
@@ -15,13 +37,11 @@ function Produce( { produce, setUserCart, userCart } ) {
     //     .then(res => console.log(res))
     // })
 
-    const [searchFood, setSearchFood] = useState("")
     
-    const search = produce.filter(food => {
+    const search = filterProduce.filter(food => {
         return food.produce.toUpperCase().includes(searchFood.toUpperCase())
     })
     
-    const [toggleDisplay, setToggleDisplay] = useState(true)
 
     function toggleBtn() {
         setToggleDisplay(!toggleDisplay)
@@ -41,21 +61,44 @@ function Produce( { produce, setUserCart, userCart } ) {
     return(
         <div className='produce'>
             <div className='produce-container'>
-                <Search setSearchFood={setSearchFood} toggleBtn={toggleBtn} setFilterFood={setFilterFood}/>
-                <div className='cart-container'>
-                <Cart userCart={userCart}/>
+                <div className="search-container">
+                    <Search 
+                        setSearchFood={setSearchFood} 
+                        toggleBtn={toggleBtn}
+                        filterFood={filterFood} 
+                        setFilterFood={setFilterFood}
+                    />
                 </div>
+                <div className="shopper-container">
+
                 {toggleDisplay ?
                 <div className='produce-items'>
                     {search.map(sear =>
-                    <ProduceCard sear={sear} key={sear.id} userCart={userCart} setUserCart={setUserCart} handleAddtoCart={handleAddtoCart}/>)}
+                    <ProduceCard 
+                        sear={sear} 
+                        key={sear.id} 
+                        userCart={userCart} 
+                        setUserCart={setUserCart} 
+                        handleAddtoCart={handleAddtoCart}
+                        />
+                    )}
                  </div>
                  : 
                  <div className='produce-column'>
                     {search.map(sear => 
-                    <ProduceList sear={sear} key={sear.id} userCart={userCart}/>)}
+                    <ProduceList 
+                        sear={sear} 
+                        key={sear.id} 
+                        userCart={userCart}
+                    />)}
                 </div>
                 }
+                <div className='cart-container'>
+                <Cart 
+                    userCart={userCart}
+                    />
+                </div>
+                </div>
             </div>
         </div>
     )
