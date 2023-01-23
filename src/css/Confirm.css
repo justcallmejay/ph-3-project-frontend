@@ -1,0 +1,40 @@
+.confirm-container {
+    top: 200px;
+    left: 15%;
+    width: 1000px;
+    height: 800px;
+    position: relative;
+    border: inset rgb(0, 0, 0) 1px;
+}
+
+.receipt-container {
+    width: 90%;
+    height: 200px;
+    left: 10%;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.receipt {
+    left: 10%;
+    position:relative;
+    height: 20px;
+    width: 60%;
+    margin: 5px 10px 0 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#confirm-back {
+    top: 23%;
+    left: 4%;
+    position: relative;
+}
+
+#confirm-next {
+    top: 202px;
+    left: 82%;
+    position: relative;
+
+}
