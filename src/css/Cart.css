@@ -35,3 +35,17 @@
     border-radius: 20px;
     cursor: pointer;
 }
+
+.delete-container {
+    background-color: rgba(70, 70, 70, 0.884);
+}
+
+.delete-box {
+    height: 300px;
+    width: 500px;
+}
+
+.edit-num {
+    width: 30px;
+    height: 12px;
+}

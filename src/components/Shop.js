@@ -23,8 +23,8 @@ const initialStateForm = {
 function Shop() {
 
     const [formData, setFormData] = useState(initialStateForm)
-    
     const [userCart, setUserCart] = useState([])
+    
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/cart`)
         .then(res => res.json())
@@ -39,13 +39,20 @@ function Shop() {
             <Navbar />
                 <Switch>
                     <Route path="/shop">
-                        <Produce userCart={userCart} setUserCart={setUserCart}/>
+                        <Produce 
+                            userCart={userCart} 
+                            setUserCart={setUserCart}
+                        />
                     </Route>
                     <Route path="/checkout">
                         <Checkout userCart={userCart}/>
                     </Route>
                     <Route path="/account-information">
-                        <AccountInfo formData={formData} setFormData={setFormData} initialStateForm={initialStateForm}/>
+                        <AccountInfo 
+                            formData={formData} 
+                            setFormData={setFormData} 
+                            initialStateForm={initialStateForm}
+                            />
                     </Route>
                     <Route path="/confirm">
                         <Confirm formData={formData} userCart={userCart}/>

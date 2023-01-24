@@ -1,6 +1,6 @@
 .list {
     height: 500px;
-    width: 1600px;
+    width: 100%;
     margin: 30px 20px 20px 50px;
     border: inset rgb(0, 0, 0) 1px;
     display: flex;
@@ -21,4 +21,20 @@
 .quantity-num-list {
     width: 40px;
     height: 30px;
+}
+
+.quantity-num-list {
+    width: 30px;
+    height: 25px;
+    text-align: left;
+}
+
+.add-cart-btn-list {
+    height: 35px;
+    width: 90px;
+    margin: 0 0 10px 10px;
+    border-radius: 20px;
+    color: #fff;
+    background-color: black;
+    cursor: pointer;
 }

@@ -21,8 +21,10 @@ function Produce( { setUserCart, userCart } ) {
         fetch(`${process.env.REACT_APP_API_URL}/produce`)
         .then(res => res.json())
         .then(res => setProduce(res))
-        }
+        } return 
     }, [])
+
+    console.log(produce)
 
     const filterProduce = produce.filter(food => {
         if (filterFood === '') return true;
@@ -48,14 +50,18 @@ function Produce( { setUserCart, userCart } ) {
     }
 
     function handleAddtoCart(item) {
-        const newItem = userCart.map(car => {
-            if (car.id === item.id) {
+        setUserCart([...userCart, item])
+    }
+
+    function onHandleChange(item) {
+        const reviseInventory = produce.map(food => {
+            if (food.id === item.id) {
                 return item
             } else {
-                return car
+                return food
             }
         })
-        setUserCart(newItem)
+        setProduce(reviseInventory)
     }
 
     return(
@@ -78,8 +84,8 @@ function Produce( { setUserCart, userCart } ) {
                         sear={sear} 
                         key={sear.id} 
                         userCart={userCart} 
-                        setUserCart={setUserCart} 
                         handleAddtoCart={handleAddtoCart}
+                        onHandleChange={onHandleChange}
                         />
                     )}
                  </div>
@@ -90,12 +96,17 @@ function Produce( { setUserCart, userCart } ) {
                         sear={sear} 
                         key={sear.id} 
                         userCart={userCart}
+                        handleAddtoCart={handleAddtoCart}
+                        onHandleChange={onHandleChange}
                     />)}
                 </div>
                 }
                 <div className='cart-container'>
                 <Cart 
                     userCart={userCart}
+                    setUserCart={setUserCart}
+                    produce={produce}
+                    setProduce={setProduce}
                     />
                 </div>
                 </div>

@@ -18,6 +18,17 @@
 }
 
 .quantity-num-card {
-    width: 15px;
-    height: 15x;
+    width: 30px;
+    height: 25px;
+    text-align: left;
+}
+
+.add-cart-btn {
+    height: 35px;
+    width: 90px;
+    margin: 0 0 10px 10px;
+    border-radius: 20px;
+    color: #fff;
+    background-color: black;
+    cursor: pointer;
 }
