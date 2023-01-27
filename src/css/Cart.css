@@ -1,3 +1,14 @@
+.cart-title {
+    margin: 0 0 20px 0;
+}
+
+.cart-container-thing {
+    height: 450px;
+    width: 100%;
+    border: inset rgb(0, 0, 0) 1px;
+    overflow-y: auto;
+}
+
 .cart-list-container {
     width: 95%;
     height: 100px;
@@ -5,8 +16,12 @@
     border-radius: 10px;
     display: flex;
     overflow: hidden;
-    margin: 10px 10px 0 10px;
+    margin: 10px 10px 0 8px;
+    /* transition: 1s; */
+    /* transform: translateY(-200px); */
+    /* animation-name: myanimation; */
 }
+
 
 .cart-list-container:hover {
     cursor: pointer;
@@ -28,7 +43,7 @@
 }
 
 .checkout-btn {
-    width: 80%;
+    width: 200px;
     height:50px;
     background-color: black;
     color: white;
@@ -48,4 +63,11 @@
 .edit-num {
     width: 30px;
     height: 12px;
+}
+
+.total {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

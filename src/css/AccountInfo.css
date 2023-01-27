@@ -1,8 +1,8 @@
 .info-container {
     height: 800px;
     width: 1000px;
-    top: 300px;
-    left: 20%;
+    top: 145px;
+    left: 45%;
     border: inset rgb(0, 0, 0) 1px;
     position: relative;
     display: flex;
@@ -13,13 +13,23 @@
     top: 50px;
     position: relative;
     height: 700px;
-    width: 500px;
+    width: 800px;
     border: inset rgb(0, 0, 0) 1px;
 }
 
-.name {
+.name-container {
     top: 0px;
     position: relative;
+    border: inset rgb(0, 0, 0) 1px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+
+.phone {
+    height: 100px;
+    border: inset rgb(0, 0, 0) 1px;
+
 }
 
 .placeholder {
@@ -38,12 +48,17 @@
     text-align: center;
 }
 
+.credit-card {
+    
+}
+
 .credit-no {
     width: 50px;
     height: 30px;
     margin: 20px 10px 5px 10px;
     border-radius: 8px;
     text-align: center;
+    font-family: monospace;
 }
 
 .exp-no {
@@ -75,11 +90,17 @@
     top: 23%;
     left: 4%;
     position: relative;
+    cursor: pointer;
 }
 
 #confirm-next {
     top: 202px;
     left: 82%;
     position: relative;
+    cursor: pointer;
+}
 
+.toa {
+    height: 100px;
+    border: inset rgb(0, 0, 0) 1px;
 }

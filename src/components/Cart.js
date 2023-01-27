@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import CartList from './CartList'
 import '../css/Cart.css'
 
-function Cart( { produce, setProduce, userCart, setUserCart } ) {
+function Cart( { yAxis, produce, setProduce, userCart, setUserCart } ) {
 
     // const [sum, setSum] = useState(0)
 
@@ -11,11 +11,11 @@ function Cart( { produce, setProduce, userCart, setUserCart } ) {
         return item.total
     })
 
-    console.log(sumItem)
+    // console.log(sumItem)
 
     const cost = sumItem.reduce((a, b) => a + b, 0)
 
-    console.log(cost)
+    // console.log(cost)
 
     function onHandleDelete(item) {
         const deleteItem = userCart.filter(cart => item.id !== cart.id)
@@ -35,22 +35,24 @@ function Cart( { produce, setProduce, userCart, setUserCart } ) {
     return(
         <>
             <div className='cart'>
-                <div className='cart-conatiner-2'>
+                <h3 className="cart-title">Your cart:</h3>
+                <div className='cart-container-thing'>
 
-                <h3>Your cart:</h3>
                 {userCart.map(cart => 
+                cart.purchase === false ? 
                 <CartList 
                     cart={cart}
                     produce={produce}
                     key={cart.id}
                     onHandleDelete={onHandleDelete}
                     onHandleUpdate={onHandleUpdate}
-                />
+                    yAxis={yAxis}
+                /> : ""
                 
                 )}
             </div>
             <div className="total">
-                <h1>Total: {cost}</h1>
+                <h1>Total: {cost.toFixed(2)}</h1>
                 <Link to='/checkout'>
                     <button className="checkout-btn">Checkout</button>
                 </Link>

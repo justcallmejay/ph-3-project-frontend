@@ -5,45 +5,20 @@ import ProduceCard from './ProduceCard';
 import ProduceList from './ProduceList';
 import '../css/Produce.css'
 
-function Produce( { setUserCart, userCart } ) {
+function Produce( { produce, setProduce, filterFood, setFilterFood, setUserCart, userCart, onHandleChange } ) {
 
-    const [produce, setProduce] = useState([])
-    const [filterFood, setFilterFood] = useState('')
     const [searchFood, setSearchFood] = useState("")
     const [toggleDisplay, setToggleDisplay] = useState(true)
-    
-    useEffect(() => {
-        if (filterFood !== '') {
-        fetch(`${process.env.REACT_APP_API_URL}/produce/*`)
-        .then(res => res.json())
-        .then(res => setProduce(res))
-        } else {
-        fetch(`${process.env.REACT_APP_API_URL}/produce`)
-        .then(res => res.json())
-        .then(res => setProduce(res))
-        } return 
-    }, [])
-
-    console.log(produce)
 
     const filterProduce = produce.filter(food => {
         if (filterFood === '') return true;
 
         return food.kind === filterFood
     })
-
-
-    // useEffect(() => {
-    //     fetch(`${process.env.REACT_APP_API_URL}/produce/${filterFood}`)
-    //     .then(res => res.json())
-    //     .then(res => console.log(res))
-    // })
-
     
     const search = filterProduce.filter(food => {
         return food.produce.toUpperCase().includes(searchFood.toUpperCase())
     })
-    
 
     function toggleBtn() {
         setToggleDisplay(!toggleDisplay)
@@ -53,16 +28,25 @@ function Produce( { setUserCart, userCart } ) {
         setUserCart([...userCart, item])
     }
 
-    function onHandleChange(item) {
-        const reviseInventory = produce.map(food => {
-            if (food.id === item.id) {
+    function handleUpdateCart(item) {
+        const updateCart = userCart.map(food => {
+            if (food.produce === item.produce) {
                 return item
             } else {
                 return food
             }
         })
-        setProduce(reviseInventory)
+        setUserCart(updateCart)
     }
+
+    // const [yAxis, setyAxis] = useState(0)
+    // const addToAxis = 200
+
+    // console.log(yAxis)
+
+    // function animateAddCart() {
+    //     setyAxis(yAxis + (yAxis + addToAxis))
+    // }
 
     return(
         <div className='produce'>
@@ -79,13 +63,15 @@ function Produce( { setUserCart, userCart } ) {
 
                 {toggleDisplay ?
                 <div className='produce-items'>
-                    {search.map(sear =>
-                    <ProduceCard 
-                        sear={sear} 
-                        key={sear.id} 
+                    {search.map(item =>
+                    <ProduceCard
+                        // animateAddCart={animateAddCart}
+                        item={item} 
+                        key={item.id} 
                         userCart={userCart} 
                         handleAddtoCart={handleAddtoCart}
                         onHandleChange={onHandleChange}
+                        handleUpdateCart={handleUpdateCart}
                         />
                     )}
                  </div>
@@ -107,6 +93,7 @@ function Produce( { setUserCart, userCart } ) {
                     setUserCart={setUserCart}
                     produce={produce}
                     setProduce={setProduce}
+                    // yAxis={yAxis}
                     />
                 </div>
                 </div>

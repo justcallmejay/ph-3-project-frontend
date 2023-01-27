@@ -1,0 +1,157 @@
+.myaccount {
+    width: 80%;
+    left: 45%;
+    top: 145px; 
+    position: relative;
+}
+
+.myacc-container {
+    height: 1000px;
+    width: 1000px;
+    border: inset rgb(0, 0, 0) 1px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.acc-info-container {
+    height: 200px;
+    width: 800px;
+    border: inset rgb(0, 0, 0) 1px;
+    margin: 100px 0 0 0;
+}
+
+
+.input-container {
+    height: 170px;
+    width: 800px;
+    /* border: inset rgb(0, 0, 0) 1px; */
+    display: flex;
+}
+
+.acc-info-label {
+    height: 50px;
+    width: 800px;
+    margin: 0 0 10px 40px; 
+    /* border: inset rgb(0, 0, 0) 1px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.acc-input-label {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin: 0 40px 0 10px;
+    /* border: inset rgb(0, 0, 0) 1px; */
+}
+
+.acc-input-container {
+    width: 100px;
+    margin: 0px 10px 0 0;
+}
+
+.empty-cart {
+    right: 1px;
+    position: relative;
+    /* border: inset rgb(0, 0, 0) 1px; */
+    height: 300px;
+    width: 800px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    /* top: 500px;
+    position: relative; */
+}
+
+.acc-cart-container {
+    height: 300px;
+    width: 800px;
+    border: inset rgb(0, 0, 0) 1px;
+    display: flex;
+    flex-direction: column;
+}
+
+.acc-cart-label {
+    height: 80px;
+    width: 800px;
+    /* border: inset rgb(0, 0, 0) 1px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    margin: 0 0 10px 40px; 
+}
+
+.myacc-card {
+    height: 170px;
+    width: 130px;
+    /* border: inset rgb(0, 0, 0) 1px; */
+    margin: 0 10px 0 20px;
+    transition: transform 800ms;
+}
+
+.myacc-img {
+    height: 120px;
+    width: 120px
+}
+
+.acc-toggle-container {
+    height: 300px;
+    width: 800px;
+    /* border: inset rgb(0, 0, 0) 1px; */
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+}
+
+.acc-cart-display-container {
+    height: 170px;
+    width: 600px;
+    border: inset rgb(0, 0, 0) 1px;
+    overflow: hidden;
+    display: flex;
+}
+
+.toggle-btns {
+    height: 170px;
+    width: 50px;
+}
+
+.purchase-history-container {
+    border: inset rgb(0, 0, 0) 1px;
+    height: 400px;
+    width: 800px;
+}
+
+.mycart-label {
+    height: 10px;
+    width: 800px;
+}
+
+.purchase-label {
+    height: 50px;
+    width: 800px;
+    /* border: inset rgb(0, 0, 0) 1px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    margin: 0 0 10px 40px; 
+}
+
+.empty-purchase {
+    top: 7px;
+    position: relative;
+    /* border: inset rgb(0, 0, 0) 1px; */
+    height: 330px;
+    width: 800px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+

@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import '../css/Cart.css'
 
-function CartList( { cart, onHandleDelete, onHandleUpdate, produce } ) {
+function CartList( { yAxis, cart, onHandleDelete, onHandleUpdate, produce } ) {
 
     const [hover, setHover] = useState(false)
-
-    const [editQuantity, setEditQuantity] = useState(false)
-    const [produceQuantity, setProduceQuantity] = useState(cart.quantity)
-    const [submitEdit, setSubmitEdit] = useState(null)
-
-    console.log(produce)
+    const itemTotal = cart.price * cart.quantity
 
     function handleMouseEnter() {
         setHover(true)
@@ -22,7 +17,7 @@ function CartList( { cart, onHandleDelete, onHandleUpdate, produce } ) {
     function handleDelete(item) {
         produce.filter(food => { 
             if (food.produce === item.produce) {
-                console.log('yes')
+                // console.log('item matches')
                     const updateQuantity = food.quantity + cart.quantity
                 fetch(`${process.env.REACT_APP_API_URL}/delete/${item.id}`, {
                     method: "DELETE"
@@ -42,14 +37,9 @@ function CartList( { cart, onHandleDelete, onHandleUpdate, produce } ) {
             })
     }
 
-    function handleEditQuantity() {
-        setEditQuantity(!editQuantity)
-        console.log(produceQuantity)
-        setSubmitEdit(null)
-    }
-
     return(
-        <div className='cart-list-container'
+        <div className='cart-list-container' 
+        // style={{ transform: `translateY(${yAxis}px)`, transition: `.5s` }}
         onMouseEnter={handleMouseEnter} 
         onMouseLeave={handleMouseLeave}
         >
@@ -59,26 +49,12 @@ function CartList( { cart, onHandleDelete, onHandleUpdate, produce } ) {
                 />
             <div className='cart-data'>
                 <h6>{cart.produce}</h6>
-
-                <a>Quantity: 
-                {editQuantity ?
-                <>
-                    <input 
-                        className="edit-num" 
-                        type="number" 
-                        value={produceQuantity} 
-                        onChange={(e) => setProduceQuantity(e.target.value)}
-                    />
-                <button onClick={setSubmitEdit}>OK</button>
-                </> 
-                    :    
-                <div>{cart.quantity}</div>}
-                </a>
-                <a>Total: {cart.total}</a>
+                <a>Quantity: {cart.quantity}</a>
+                <a>Price: {cart.price}</a>
+                <a>Total: {itemTotal.toFixed(2)}</a>
             </div>
                 {hover ? 
                 <>
-                <button className='checkout-edit' onClick={handleEditQuantity}>Edit</button>
                 <button className='checkout-delete' onClick={() => handleDelete(cart)}>Delete</button>
                 </>
                 : ""}
