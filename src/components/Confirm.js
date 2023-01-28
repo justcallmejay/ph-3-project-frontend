@@ -5,6 +5,13 @@ import '../css/Confirm.css'
 function Confirm( { formData, userCart } ) {
 
     const [toggleDeleteDisplay, setToggleDeleteDisplay] = useState(false)
+    const [hideNum, setHideNum] = useState('')
+
+    
+    // function maskCard(num) {
+    //     return `${'*'.repeat(num.length - 4)}${cardNumber.substr(num.length - 4)}`;
+    //   }
+
 
     function toggleAlert() {
         setToggleDeleteDisplay(!toggleDeleteDisplay)

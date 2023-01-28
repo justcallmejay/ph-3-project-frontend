@@ -32,7 +32,7 @@ function MyAccount( { userCart, userPurchase } ) {
                             <h6>Exp: </h6>
                         </div>
                         <div className='acc-input-container'>
-                            <h3>Dick Hed</h3>
+                            <h3>John Smith</h3>
                             <h3>2020202202</h3>
                             <h3>23432423423423</h3>
                             <h6>23/22</h6>

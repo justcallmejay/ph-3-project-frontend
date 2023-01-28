@@ -2,23 +2,23 @@
     top: 100px;
     left: 14%;
     position: relative;
-    width: 1700px
+    width: 1700px;
 }
 
 .search-container {
     min-width: 400px;
-    height: 200px;
+    height: 150px;
     border: inset gray 1px;
     display:flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .searchbar {
     top: 70px;
     position: relative;
     height: 40px;
-    margin: 20px 10px 10px 10px;
+    margin: 20px 10px 10px 100px;
 }
 
 .search-btn {
@@ -34,9 +34,10 @@
     position: relative;
     background: white;
     border: inset gray 1px;
+    border-radius: 30px;
     /* float: left;     */
     font-size: 14px;
-    height: 1300px;
+    height: 1200px;
     margin: 5px;
     min-width: 800px;
     overflow: hidden;
@@ -50,7 +51,7 @@ input[placeholder='Type Here'] {
 }
 
 .toggle {
-    margin: 0 40px 0 40px;
+    margin: 0 20px 0 40px;
     height: 40px;
     width: 100px;
 }
@@ -67,15 +68,13 @@ input[type='radio'] {
     /* margin: 10px; */
     width: 400px;
     height: 600px;
-    border: inset gray 1px;
+    /* border: inset gray 1px; */
 }
-
-
 
 .shopper-container {
     height: 100%;
     width: 100%;
-    border: inset gray 1px;
+    /* border: inset gray 1px; */
     display: flex;
 }
 

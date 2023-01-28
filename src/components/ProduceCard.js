@@ -4,6 +4,8 @@ import '../css/ProduceCard.css'
 function ProduceCard( { item, userCart, handleAddtoCart, onHandleChange, handleUpdateCart, animateAddCart } ) {
 
     const [quantityCount, setQuantityCount] = useState(0)
+    const [quantityDiscountCount, setQuantityDiscountCount] = useState(0)
+    const [check, setCheck] = useState(false)
 
     // console.log(userCart)
     
@@ -34,6 +36,21 @@ function ProduceCard( { item, userCart, handleAddtoCart, onHandleChange, handleU
             <>
             <div>Discount Price: {item.discount_price}</div>
             <div>Discount Quantity: {item.discount_quantity}</div>
+            <div className='discount-container'>
+            <h4>Buy Discount</h4>
+            <input type='checkbox' onChange={() => setCheck(!check)}/>
+            {check ? <>
+            <input 
+                type="number" 
+                value={quantityDiscountCount}
+                keypress="false"
+                min="0"
+                max={item.discount_quantity}
+                maxLength="2"
+                onChange={(e) => setQuantityDiscountCount(e.target.value)}
+                />
+                </> : "" }
+                </div>
             </>
             : <h4>Sold Out</h4>}
             <div className='order-card'>
