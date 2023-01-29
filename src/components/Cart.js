@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import CartList from './CartList'
 import '../css/Cart.css'
 
-function Cart( { yAxis, produce, setProduce, userCart, setUserCart } ) {
+function Cart( { yAxis, produce, setProduce, userCart, setUserCart, onHandleDelete } ) {
 
     // const [sum, setSum] = useState(0)
 
@@ -16,11 +16,6 @@ function Cart( { yAxis, produce, setProduce, userCart, setUserCart } ) {
     const cost = sumItem.reduce((a, b) => a + b, 0)
 
     // console.log(cost)
-
-    function onHandleDelete(item) {
-        const deleteItem = userCart.filter(cart => item.id !== cart.id)
-        setUserCart(deleteItem)
-    }
 
     function onHandleUpdate(item) {
         const updateInventory = produce.map(food => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../css/Cart.css'
 
-function CheckoutList( { cart, produce, onHandleChange } ) {
+function CheckoutList( { cart, onHandleDelete, produce, onHandleChange } ) {
 
 
     const [hover, setHover] = useState(false)
@@ -55,6 +55,14 @@ function CheckoutList( { cart, produce, onHandleChange } ) {
     // )}
 }
 
+    function handleDelete(item) {
+        fetch(`${process.env.REACT_APP_API_URL}/delete/${item.id}`, {
+            method: "DELETE"
+        })
+        .then(res => res.json())
+        .then(item => onHandleDelete(item))
+    }
+
     return(
         <div className="checkout-list" 
             onMouseEnter={handleMouseEnter} 
@@ -91,7 +99,7 @@ function CheckoutList( { cart, produce, onHandleChange } ) {
             {hover ? 
             <div className='hover-btn'>
                 <button className='checkout-edit' onClick={handleEditQuantity}>Edit</button>
-                <button className='checkout-delete'>Delete</button> 
+                <button className='checkout-delete' onClick={() => handleDelete(cart)}>Delete</button> 
             </div>
                : "" }
             </div>

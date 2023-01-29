@@ -15,31 +15,31 @@ function CartList( { yAxis, cart, onHandleDelete, onHandleUpdate, produce } ) {
     }
 
     function handleDelete(item) {
-        produce.filter(food => { 
-            if (food.produce === item.produce) {
+        // produce.filter(food => { 
+        //     if (food.produce === item.produce) {
                 // console.log('item matches')
-                    const updateQuantity = food.quantity + cart.quantity
+                    // const updateQuantity = food.quantity + cart.quantity
                 fetch(`${process.env.REACT_APP_API_URL}/delete/${item.id}`, {
                     method: "DELETE"
                 })
                 .then(res => res.json())
                 .then(item => onHandleDelete(item))
-                fetch(`${process.env.REACT_APP_API_URL}/update/${food.id}`, {
-                        method: "PATCH",
-                        headers: {"Content-Type" : "application/json"},
-                        body: JSON.stringify({
-                            quantity: updateQuantity
-                        })
-                            })
-                            .then(res => res.json())
-                            .then(res => onHandleUpdate(res))
-                }
-            })
-    }
+                // fetch(`${process.env.REACT_APP_API_URL}/update/${food.id}`, {
+                //         method: "PATCH",
+                //         headers: {"Content-Type" : "application/json"},
+                //         body: JSON.stringify({
+                //             quantity: updateQuantity
+                //         })
+                //             })
+                //             .then(res => res.json())
+                //             .then(res => onHandleUpdate(res))
+                // }
+            }
+            // )}
 
     return(
         <div className='cart-list-container' 
-        // style={{ transform: `translateY(${yAxis}px)`, transition: `.5s` }}
+        style={{ transform: `translateY(${yAxis}px)`}}
         onMouseEnter={handleMouseEnter} 
         onMouseLeave={handleMouseLeave}
         >

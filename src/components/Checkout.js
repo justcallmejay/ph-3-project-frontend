@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import CheckoutList from './CheckoutList'
 import '../css/Checkout.css'
 
-function Checkout( { userCart, produce, onHandleChange } ) {
+function Checkout( { userCart, produce, onHandleChange, onHandleDelete } ) {
 
     const totalArray = userCart.map(cart => {
         return cart.total
@@ -29,6 +29,7 @@ function Checkout( { userCart, produce, onHandleChange } ) {
                         key={cart.id} 
                         produce={produce}
                         onHandleChange={onHandleChange}
+                        onHandleDelete={onHandleDelete}
                         /> : "" )}
             </div> 
                 <h1 className="checkout-total">Total: {total.toFixed(2)}</h1>

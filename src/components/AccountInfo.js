@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/AccountInfo.css'
 
-function AccountInfo( { formData, setFormData, initialStateForm } ) {
+function AccountInfo( { formData, setFormData } ) {
+
+    const [enableBtn, setEnableBtn] = useState(false)
 
     function handleChange(e) {
         const {name, value} = e.target;
@@ -17,7 +19,9 @@ function AccountInfo( { formData, setFormData, initialStateForm } ) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        fetch(`${process.env.REACT_APP_API_URL}/account`, {
+        if (formData.name && formData.areacode && formData.threedigits && formData.fourdigits && formData.fstdigits && formData.snddigits && formData.thddigits && formData.fthdigits && formData.expmon && formData.expyr != '') {
+            setEnableBtn(!enableBtn)
+        fetch(`${process.env.REACT_APP_API_URL}/order`, {
             method: "PATCH",
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({
@@ -26,10 +30,11 @@ function AccountInfo( { formData, setFormData, initialStateForm } ) {
                 card: `${formData.fstdigits, formData.snddigits, formData.thddigits, formData.fthdigits}`,
                 card_exp: `${formData.expmon, formData.expyr}`,
                 code: `${formData.code}`
-            })
+                })
             .then(res => res.json())
             .then(res => console.log(res))
-        })
+            })
+        }
     }
 
     return (
@@ -93,11 +98,16 @@ function AccountInfo( { formData, setFormData, initialStateForm } ) {
                         <div className='toa'>
                             <input type="checkbox"/>
                             <h6>By clicking on checkbox you agree with terms and conditions with Fresh Food Market Place</h6>
-                            {/* <h6>What's this?</h6> */}
+                            <h6>What's this?</h6>
                         </div>
-                        <Link to="/confirm"><button className="acc-btn" id="confirm-next">Next</button></Link>
+                        <Link to="/confirm"><button className="acc-btn" id="confirm-next" style={{ disabled: enableBtn ? "none" : "block"}}>Next</button></Link>
                 </div>
                         <Link to="/checkout"><button className="acc-btn" id="confirm-back">Back</button></Link>
+            </div>
+            <div className="whats-this-container">
+                <div class="whats-this">
+                    <p>This checkbox states that all the information submitted is accurate and that the user entering the information is authentic.</p>
+                </div>
             </div>
         </div>
     )

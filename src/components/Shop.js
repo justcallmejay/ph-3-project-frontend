@@ -31,24 +31,23 @@ function Shop() {
     const [userPurchase, setUserPurchase] = useState([])
     
     useEffect(() => {
-        // userCart.map(cart => {
-        // if (cart.purchase === false) {
         fetch(`${process.env.REACT_APP_API_URL}/cart`)
         .then(res => res.json())
-        .then(res => setUserCart(res))
-        // } else
-        // fetch(`${process.env.REACT_APP_API_URL}/purchase`)
-        // .then(res => res.json())
-        // .then(res => setUserPurchase(res))
-    // })
+        .then(cart => setUserCart(cart))
+    }, [])
+
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API_URL}/purchase`)
+        .then(res => res.json())
+        .then(res => setUserPurchase(res))
     }, [])
 
     console.log(userPurchase)
     
     
     const [produce, setProduce] = useState([])
-    console.log(produce)
-    console.log(userCart)
+    // console.log(produce)
+    // console.log(userCart)
     
     useEffect(() => {
         if (filterFood !== '') {
@@ -73,6 +72,11 @@ function Shop() {
         setProduce(reviseInventory)
     }
 
+    function onHandleDelete(item) {
+        const deleteItem = userCart.filter(cart => item.id !== cart.id)
+        setUserCart(deleteItem)
+    }
+
     return(
         <div className='shop'>
             <BrowserRouter>
@@ -87,6 +91,7 @@ function Shop() {
                             onHandleChange={onHandleChange}
                             filterFood={filterFood}
                             setFilterFood={setFilterFood}
+                            onHandleDelete={onHandleDelete}
                         />
                     </Route>
                     <Route path='/my-account'>
@@ -100,6 +105,7 @@ function Shop() {
                             userCart={userCart} 
                             produce={produce}
                             onHandleChange={onHandleChange}
+                            onHandleDelete={onHandleDelete}
                         />
                     </Route>
                     <Route path="/account-information">

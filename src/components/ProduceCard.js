@@ -9,15 +9,15 @@ function ProduceCard( { item, userCart, handleAddtoCart, onHandleChange, handleU
 
     // console.log(userCart)
     
-    function addToCart(item) {
-        const updateFood = userCart.filter(food => {
-            if (food.produce !== item.produce) {
-            console.log(item)
+    function addToCart(yummy) {
+        const updateFood = userCart.map(food => {
+            if (food.id !== yummy.id) {
+            return yummy
             } else {
-                console.log(food)
+                return food
             }
-            handleAddtoCart(updateFood)
         })
+        handleAddtoCart(updateFood)
 
     }
 
@@ -66,7 +66,7 @@ function ProduceCard( { item, userCart, handleAddtoCart, onHandleChange, handleU
                 onChange={(e) => setQuantityCount(e.target.value)}
             />
             {/* <input type="checkbox"/>Order Discounted Produce */}
-            <button className="add-cart-btn" onClick={() => addToCart(item)}>Add to Cart</button>
+            <button className="add-cart-btn" onClick={() => {addToCart(item); animateAddCart()}}>Add to Cart</button>
             </div>
         </div>
     ) 

@@ -3,18 +3,22 @@ import '../css/MyAccount.css'
 
 function MyAccount( { userCart, userPurchase } ) {
 
-    console.log(userPurchase)
+    // console.log(userPurchase)
 
     const [display, setDisplay] = useState(0)
     const displayItems = 600
 
+    
     function displayMore() {
         if (display !== 0 )
         setDisplay((display + displayItems))
     }
-
+    console.log((userCart.length / 5) * displayItems)
+    
     function displayLess() {
-        setDisplay((display - displayItems))
+        if (Math.abs(display) < (userCart.length / 8) * displayItems) {
+            return setDisplay((display - displayItems));
+        }
     }
 
     return (
@@ -72,6 +76,8 @@ function MyAccount( { userCart, userPurchase } ) {
                 <div className='purchase-label'>
                     <h3>Your purchase:</h3>
                 </div>
+                <div className="purchase-list-container">
+
                             {userPurchase.length > 0 ?
                         <>
                     {userPurchase.map(paid => 
@@ -80,11 +86,11 @@ function MyAccount( { userCart, userPurchase } ) {
                             <h3>{paid.produce}</h3>
                         </div>
                         <div className="purchase-quantity">
-                            <div>{paid.quantity}</div>
+                            <div>Amount: {paid.quantity}</div>
 
                         </div>
                         <div className='purchased-total'>
-                            <div>{paid.total}</div>
+                            <div>Total: {paid.total}</div>
                         </div>
                     </div>
                         )}
@@ -93,7 +99,8 @@ function MyAccount( { userCart, userPurchase } ) {
                         <div className="empty-purchase">
                             <h3>You haven't made a purchase</h3>
                         </div>
-}
+                }
+                    </div>
                 </div>
             </div>
         </div>

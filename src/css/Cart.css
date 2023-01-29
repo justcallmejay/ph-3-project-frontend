@@ -7,17 +7,19 @@
     width: 100%;
     border: inset rgb(0, 0, 0) 1px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 .cart-list-container {
     width: 95%;
-    height: 100px;
+    height: 120px;
     border: inset rgb(0, 0, 0) 1px;
     border-radius: 10px;
     display: flex;
-    overflow: hidden;
+    /* overflow: hidden; */
     margin: 10px 10px 0 8px;
-    /* transition: 1s; */
+    transition: transform 1000ms;
     /* transform: translateY(-200px); */
     /* animation-name: myanimation; */
 }

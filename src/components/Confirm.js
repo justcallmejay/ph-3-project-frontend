@@ -6,11 +6,14 @@ function Confirm( { formData, userCart } ) {
 
     const [toggleDeleteDisplay, setToggleDeleteDisplay] = useState(false)
     const [hideNum, setHideNum] = useState('')
-
+    const ccInfo = [formData.fstdigits, formData.snddigits, formData.thddigits]
     
-    // function maskCard(num) {
-    //     return `${'*'.repeat(num.length - 4)}${cardNumber.substr(num.length - 4)}`;
-    //   }
+    const maskCreditCard = ccInfo.map(card => {
+        return card.replace(/[0-9]/g, "*").match(/.{1,4}/g).join("");
+});
+
+      console.log(ccInfo)
+      console.log(maskCreditCard[0])
 
 
     function toggleAlert() {
@@ -49,7 +52,7 @@ function Confirm( { formData, userCart } ) {
                 <div className='confirm-info'>
                     <h3>Name: {formData.name}</h3>
                     <h3>Phone: ({formData.areacode}) {formData.threedigits}-{formData.fourdigits}</h3>
-                    <h3>Card Info: {formData.fstdigits} {formData.snddigits} {formData.thddigits} {formData.fthdigits}</h3>
+                    <h3>Card Info: {maskCreditCard[0]} {maskCreditCard[1]} {maskCreditCard[2]} {formData.fthdigits}</h3>
                     <h3>Expires: {formData.expmon} / {formData.expyr}</h3>
                 </div>
                 <div className='receipt-container'>

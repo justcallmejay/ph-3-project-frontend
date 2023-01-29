@@ -5,7 +5,7 @@ import ProduceCard from './ProduceCard';
 import ProduceList from './ProduceList';
 import '../css/Produce.css'
 
-function Produce( { produce, setProduce, filterFood, setFilterFood, setUserCart, userCart, onHandleChange } ) {
+function Produce( { onHandleDelete, produce, setProduce, filterFood, setFilterFood, setUserCart, userCart, onHandleChange } ) {
 
     const [searchFood, setSearchFood] = useState("")
     const [toggleDisplay, setToggleDisplay] = useState(true)
@@ -39,14 +39,14 @@ function Produce( { produce, setProduce, filterFood, setFilterFood, setUserCart,
         setUserCart(updateCart)
     }
 
-    // const [yAxis, setyAxis] = useState(0)
-    // const addToAxis = 200
-
-    // console.log(yAxis)
-
-    // function animateAddCart() {
-    //     setyAxis(yAxis + (yAxis + addToAxis))
-    // }
+    const [yAxis, setyAxis] = useState(0)
+    const addToAxis = 120
+    
+    console.log(yAxis)
+    
+    function animateAddCart() {
+        setyAxis((yAxis + addToAxis))
+    }
 
     return(
         <div className='produce'>
@@ -65,7 +65,7 @@ function Produce( { produce, setProduce, filterFood, setFilterFood, setUserCart,
                 <div className='produce-items'>
                     {search.map(item =>
                     <ProduceCard
-                        // animateAddCart={animateAddCart}
+                        animateAddCart={animateAddCart}
                         item={item} 
                         key={item.id} 
                         userCart={userCart} 
@@ -93,7 +93,8 @@ function Produce( { produce, setProduce, filterFood, setFilterFood, setUserCart,
                     setUserCart={setUserCart}
                     produce={produce}
                     setProduce={setProduce}
-                    // yAxis={yAxis}
+                    onHandleDelete={onHandleDelete}
+                    yAxis={yAxis}
                     />
                 </div>
                 </div>
