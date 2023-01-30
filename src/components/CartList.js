@@ -3,8 +3,9 @@ import '../css/Cart.css'
 
 function CartList( { yAxis, cart, onHandleDelete, onHandleUpdate, produce } ) {
 
+    console.log(cart)
     const [hover, setHover] = useState(false)
-    const itemTotal = cart.price * cart.quantity
+    const itemTotal = cart.produce.price * cart.quantity
 
     function handleMouseEnter() {
         setHover(true)
@@ -44,13 +45,13 @@ function CartList( { yAxis, cart, onHandleDelete, onHandleUpdate, produce } ) {
         onMouseLeave={handleMouseLeave}
         >
                 <img className='cart-image' 
-                    src={cart.image} 
-                    alt={cart.produce} 
+                    src={cart.produce.image} 
+                    alt={cart.produce.produce} 
                 />
             <div className='cart-data'>
-                <h6>{cart.produce}</h6>
-                <a>Quantity: {cart.quantity}</a>
-                <a>Price: {cart.price}</a>
+                <h6>{cart.produce.produce}</h6>
+                <a>Quantity: {cart.produce.quantity}</a>
+                <a>Price: {cart.produce.price}</a>
                 <a>Total: {itemTotal.toFixed(2)}</a>
             </div>
                 {hover ? 

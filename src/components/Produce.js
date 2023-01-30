@@ -42,7 +42,7 @@ function Produce( { onHandleDelete, produce, setProduce, filterFood, setFilterFo
     const [yAxis, setyAxis] = useState(0)
     const addToAxis = 120
     
-    console.log(yAxis)
+    // console.log(yAxis)
     
     function animateAddCart() {
         setyAxis((yAxis + addToAxis))

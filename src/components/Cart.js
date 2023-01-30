@@ -7,6 +7,8 @@ function Cart( { yAxis, produce, setProduce, userCart, setUserCart, onHandleDele
 
     // const [sum, setSum] = useState(0)
 
+    console.log(userCart)
+
     const sumItem = userCart.map(item => {
         return item.total
     })
@@ -34,7 +36,6 @@ function Cart( { yAxis, produce, setProduce, userCart, setUserCart, onHandleDele
                 <div className='cart-container-thing'>
 
                 {userCart.map(cart => 
-                cart.purchase === false ? 
                 <CartList 
                     cart={cart}
                     produce={produce}
@@ -42,8 +43,7 @@ function Cart( { yAxis, produce, setProduce, userCart, setUserCart, onHandleDele
                     onHandleDelete={onHandleDelete}
                     onHandleUpdate={onHandleUpdate}
                     yAxis={yAxis}
-                /> : ""
-                
+                />
                 )}
             </div>
             <div className="total">

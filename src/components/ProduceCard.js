@@ -9,17 +9,23 @@ function ProduceCard( { item, userCart, handleAddtoCart, onHandleChange, handleU
 
     // console.log(userCart)
     
-    function addToCart(yummy) {
-        const updateFood = userCart.map(food => {
-            if (food.id !== yummy.id) {
-            return yummy
-            } else {
-                return food
-            }
+    function addToCart(food) {
+        console.log(food.id)
+        const itemTotal = (food.price * quantityCount).toFixed(2)
+        fetch(`${process.env.REACT_APP_API_URL}/carts`, {
+            method: "POST",
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({
+                produce_id: food.id,
+                order_id: "",
+                quantity: quantityCount,
+                total: itemTotal
+            })
         })
-        handleAddtoCart(updateFood)
-
-    }
+        .then(res => res.json())
+        .then(addFood => console.log(addFood));
+        setQuantityCount(0)
+}
 
     return(
         <div className='card'>

@@ -9,17 +9,18 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column-reverse;
+    justify-content: start;
 }
 
 .cart-list-container {
     width: 95%;
-    height: 120px;
+    height: 110px;
     border: inset rgb(0, 0, 0) 1px;
     border-radius: 10px;
     display: flex;
     /* overflow: hidden; */
     margin: 10px 10px 0 8px;
-    transition: transform 1000ms;
+    transition: transform 1000ms ease-in-out 100ms;
     /* transform: translateY(-200px); */
     /* animation-name: myanimation; */
 }

@@ -21,6 +21,12 @@ function MyAccount( { userCart, userPurchase } ) {
         }
     }
 
+    const consoleArray = userCart.map(cart => {
+        return cart.produce.produce
+    })
+
+    console.log(consoleArray)
+
     return (
         <div className="myaccount">
             <div className='myacc-container'>
@@ -53,10 +59,10 @@ function MyAccount( { userCart, userPurchase } ) {
                                 <button className="toggle-btns" onClick={displayMore}>Left</button>
                                     <div className='acc-cart-display-container'>
                                         {userCart.map(cart =>
-                                        <div className='myacc-card' style={{ transform : `translateX(${display}px)`}}>
-                                            <img className="myacc-img" src={cart.image}/>
-                                            <h3>{cart.produce}</h3>
-                                            <a>{cart.price}</a>
+                                        <div className='myacc-card' key={cart.id} style={{ transform : `translateX(${display}px)`}}>
+                                            <img className="myacc-img" src={cart.produce.image}/>
+                                            <h3>{cart.produce.produce}</h3>
+                                            <a>{cart.produce.price}</a>
                                         </div>
                                     )}
                                     </div>

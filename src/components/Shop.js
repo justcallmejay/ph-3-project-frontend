@@ -36,13 +36,15 @@ function Shop() {
         .then(cart => setUserCart(cart))
     }, [])
 
-    useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/purchase`)
-        .then(res => res.json())
-        .then(res => setUserPurchase(res))
-    }, [])
+    console.log(userCart)
 
-    console.log(userPurchase)
+    // useEffect(() => {
+    //     fetch(`${process.env.REACT_APP_API_URL}/purchase`)
+    //     .then(res => res.json())
+    //     .then(res => setUserPurchase(res))
+    // }, [])
+
+    // console.log(userPurchase)
     
     
     const [produce, setProduce] = useState([])
