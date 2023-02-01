@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom'
+;import { Link } from 'react-router-dom';
 import '../css/AccountInfo.css'
 
-function AccountInfo( { account, formData, setFormData } ) {
+function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
+
+    let history = useHistory();
 
     const [toggle, setToggle] = useState(false)
     const [existingAcc, setExistingAcc] = useState(true)
@@ -41,6 +44,7 @@ function AccountInfo( { account, formData, setFormData } ) {
 
     function handleSubmit(e) {
         e.preventDefault();
+        console.log('click')
         if (formData.name && formData.areacode && formData.threedigits && formData.fourdigits && formData.fstdigits && formData.snddigits && formData.thddigits && formData.fthdigits && formData.expmon && formData.expyr && formData.code != '') {
         fetch(`${process.env.REACT_APP_API_URL}/order`, {
             method: "POST",
@@ -50,19 +54,20 @@ function AccountInfo( { account, formData, setFormData } ) {
                 phone: `${formData.areacode}${formData.threedigits}${formData.fourdigits}`,
                 credit_card: `${formData.fstdigits}${formData.snddigits}${formData.thddigits}${formData.fthdigits}`,
                 exp_mon: formData.expmon,
-                exp_yr: formData.exp_yr,
+                exp_yr: formData.expyr,
                 code: formData.code
                 })
             })
             .then(res => res.json())
-            .then(res => console.log(res))
+            .then(res => handleAddAccount(res))
+            history.push('/confirm')
         }
     }
 
     return (
         <div className='info-container'>
             <div className='info-box'>
-                <form action='/confirm' onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <div className="name-container">
                         <label>Full Name:</label>
                         <input 
@@ -129,7 +134,7 @@ function AccountInfo( { account, formData, setFormData } ) {
                         </div>
                          : ""}
                         </div>
-                        <Link to="/confirm"><button className="acc-btn" id="confirm-next">Next</button></Link>
+                        <button className="acc-btn" id="confirm-next">Next</button>
                 </form>
                         <Link to="/checkout"><button className="acc-btn" id="confirm-back">Back</button></Link>
             </div>

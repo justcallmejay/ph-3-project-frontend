@@ -42,6 +42,10 @@ function Shop() {
         .then(res => setAccount(res))
     }, [])
 
+    function handleAddAccount(newAccount) {
+        setAccount([...account, newAccount])
+    }
+
     console.log(account)
     
     const [produce, setProduce] = useState([])
@@ -73,6 +77,25 @@ function Shop() {
         const deleteItem = userCart.filter(cart => cart.id !== item.id)
         setUserCart(deleteItem)
     }
+
+    function handleUpdateCart(item) {
+        const updateCart = userCart.map(food => {
+            if (food.id === item.id) {
+                return item
+            } else {
+                return food
+            }
+        })
+        setUserCart(updateCart)
+    }
+
+    const timeElapsed = Date.now();
+    const date = new Date(timeElapsed);
+    const localeString = date.toLocaleDateString();
+    console.log(date)
+    console.log(localeString)
+    console.log(timeElapsed)
+
 
     return(
         <div className='shop'>
@@ -109,10 +132,16 @@ function Shop() {
                             formData={formData} 
                             setFormData={setFormData}
                             account={account}
+                            handleAddAccount={handleAddAccount}
                             />
                     </Route>
                     <Route path="/confirm">
-                        <Confirm formData={formData} userCart={userCart}/>
+                        <Confirm 
+                            formData={formData} 
+                            userCart={userCart} 
+                            account={account}
+                            handleUpdateCart={handleUpdateCart}
+                            />
                     </Route>
                 </Switch>
             </BrowserRouter>

@@ -10,7 +10,9 @@ function Cart( { yAxis, produce, setProduce, userCart, setUserCart, onHandleDele
     })
 
     const cost = sumItem.reduce((a, b) => a + b, 0)
+    console.log(sumItem)
 
+    console.log(userCart)
 
     function onHandleUpdate(item) {
         const updateInventory = produce.map(food => {

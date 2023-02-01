@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import '../css/Confirm.css'
 
-function Confirm( { formData, userCart } ) {
+function Confirm( { formData, userCart, account, handleUpdateCart } ) {
+
 
     const [toggleDeleteDisplay, setToggleDeleteDisplay] = useState(false)
     const [hideNum, setHideNum] = useState('')
@@ -12,8 +13,31 @@ function Confirm( { formData, userCart } ) {
         return card.replace(/[0-9]/g, "*").match(/.{1,4}/g).join("");
 });
 
-      console.log(ccInfo)
-      console.log(maskCreditCard[0])
+// console.log(account)
+
+    const orderID = account.filter(acc => {
+        if (formData.name === acc.name) {
+            return acc.id
+        }
+    })
+    // console.log(orderID)
+    //   console.log(ccInfo)
+    //   console.log(maskCreditCard[0])
+
+    function addIdToCart() {
+        userCart.map(cart => {
+            if(cart.order_id === null)
+            fetch(`${process.env.REACT_APP_API_URL}/update/${cart.id}`, {
+                method: "PATCH",
+                headers: {"Content-Type" : "application/json"},
+                body: JSON.stringify({
+                    order_id: orderID
+                })
+            })
+            .then(res => res.json())
+            .then(add => handleUpdateCart(add))
+        })
+    }
 
 
     function toggleAlert() {
@@ -74,7 +98,7 @@ function Confirm( { formData, userCart } ) {
                         >
                     Back</button>
                     {/* </Link> */}
-                <Link to="/shop"><button className="acc-btn" id="onfirm-next">Submit</button></Link>
+                <Link to="/shop"><button className="acc-btn" id="onfirm-next" onClick={addIdToCart}>Submit</button></Link>
                 </div>
             </div>
             {toggleDeleteDisplay ?
