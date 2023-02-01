@@ -1,32 +1,58 @@
 import React, { useState } from 'react';
 import '../css/ProduceCard.css'
 
-function ProduceCard( { item, userCart, handleAddtoCart, onHandleChange, handleUpdateCart, animateAddCart } ) {
+function ProduceCard( { item, userCart, handleAddtoCart, handleUpdateCart, animateAddCart } ) {
 
+    const [check, setCheck] = useState(false)
     const [quantityCount, setQuantityCount] = useState(0)
     const [quantityDiscountCount, setQuantityDiscountCount] = useState(0)
-    const [check, setCheck] = useState(false)
 
-    // console.log(userCart)
+    // const find = userCart.map(cart => {
+    //     return cart.produce.produce
+    // })
+    // console.log(find)
     
     function addToCart(food) {
-        console.log(food.id)
-        const itemTotal = (food.price * quantityCount).toFixed(2)
-        fetch(`${process.env.REACT_APP_API_URL}/carts`, {
-            method: "POST",
-            headers: {"Content-Type" : "application/json"},
-            body: JSON.stringify({
-                produce_id: food.id,
-                order_id: "",
-                quantity: quantityCount,
-                total: itemTotal
+        const existingItem = userCart.map(cart => {return cart.produce_id})
+        const currentItem = (inventory) => inventory === food.id
+        if (existingItem.some(currentItem) === true) {  
+            userCart.map(cart => {
+            if (cart.produce.produce === item.produce) {
+                const updataQuantity = (cart.quantity + parseInt(quantityCount, 10))
+                console.log(updataQuantity)
+                const updateTotal = cart.produce.price * updataQuantity
+                fetch(`${process.env.REACT_APP_API_URL}/cart/${cart.id}`, {
+                    method: "PATCH",
+                    headers: {"Content-Type" : "application/json"},
+                    body: JSON.stringify({
+                        quantity: updataQuantity,
+                        total: updateTotal,
+                        //discount: discountUpdate
+                    })
+                })
+                .then(res => res.json())
+                .then(addFood => handleUpdateCart(addFood));
+                setQuantityCount(0)
+            }
             })
-        })
-        .then(res => res.json())
-        .then(addFood => console.log(addFood));
-        setQuantityCount(0)
+            } else {
+                console.log(food.id)
+                const itemTotal = (food.price * quantityCount).toFixed(2)
+                fetch(`${process.env.REACT_APP_API_URL}/carts`, {
+                method: "POST",
+                headers: {"Content-Type" : "application/json"},
+                body: JSON.stringify({
+                    produce_id: food.id,
+                    order_id: "",
+                    quantity: quantityCount,
+                    total: itemTotal
+                })
+            })
+            .then(res => res.json())
+            .then(addFood => handleAddtoCart(addFood));
+            setQuantityCount(0)
+        }
 }
-
     return(
         <div className='card'>
             <img src={item.image} alt={item.produce}/>

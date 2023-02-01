@@ -17,7 +17,7 @@ function CheckoutList( { cart, onHandleDelete, produce, onHandleChange } ) {
     //Edit inventory quantity
     const [editQuantity, setEditQuantity] = useState(false)
     const [submitEdit, setSubmitEdit] = useState(null)
-    const [produceQuantity, setProduceQuantity] = useState(cart.quantity)
+    const [produceQuantity, setProduceQuantity] = useState(cart.produce.quantity)
 
 
     function handleEditQuantity() {
@@ -70,8 +70,8 @@ function CheckoutList( { cart, onHandleDelete, produce, onHandleChange } ) {
             // style={{ backgroundColor: cart.id % 2 == 0 ? "red" : "yellow" }}
             >
             <div className='checkout-main-info'>
-                <img className="checkout-img" src={cart.image} alt={cart.name}/>
-                <h3>{cart.produce}</h3>
+                <img className="checkout-img" src={cart.produce.image} alt={cart.produce.name}/>
+                <h3>{cart.produce.produce}</h3>
             </div>
             <div className="produce-info">
                 <a>Quantity: 
@@ -89,8 +89,8 @@ function CheckoutList( { cart, onHandleDelete, produce, onHandleChange } ) {
                     :    
                 <div>{cart.quantity}</div>}
                 </a>
-                <a>Price: {cart.price}</a>
-                <a>Total: {cart.total}</a>
+                <a>Price: {cart.produce.price}</a>
+                {/* <a>Total: {cart.total.toFixed(2)}</a> */}
             </div>
 
             <div className='produce-total'>

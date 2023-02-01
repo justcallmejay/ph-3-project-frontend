@@ -30,7 +30,7 @@ function Produce( { onHandleDelete, produce, setProduce, filterFood, setFilterFo
 
     function handleUpdateCart(item) {
         const updateCart = userCart.map(food => {
-            if (food.produce === item.produce) {
+            if (food.id === item.id) {
                 return item
             } else {
                 return food
@@ -40,7 +40,7 @@ function Produce( { onHandleDelete, produce, setProduce, filterFood, setFilterFo
     }
 
     const [yAxis, setyAxis] = useState(0)
-    const addToAxis = 120
+    const addToAxis = 0
     
     // console.log(yAxis)
     

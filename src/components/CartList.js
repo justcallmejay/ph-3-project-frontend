@@ -3,7 +3,6 @@ import '../css/Cart.css'
 
 function CartList( { yAxis, cart, onHandleDelete, onHandleUpdate, produce } ) {
 
-    console.log(cart)
     const [hover, setHover] = useState(false)
     const itemTotal = cart.produce.price * cart.quantity
 
@@ -20,7 +19,7 @@ function CartList( { yAxis, cart, onHandleDelete, onHandleUpdate, produce } ) {
         //     if (food.produce === item.produce) {
                 // console.log('item matches')
                     // const updateQuantity = food.quantity + cart.quantity
-                fetch(`${process.env.REACT_APP_API_URL}/delete/${item.id}`, {
+                fetch(`${process.env.REACT_APP_API_URL}/cart/${item.id}`, {
                     method: "DELETE"
                 })
                 .then(res => res.json())
@@ -50,9 +49,11 @@ function CartList( { yAxis, cart, onHandleDelete, onHandleUpdate, produce } ) {
                 />
             <div className='cart-data'>
                 <h6>{cart.produce.produce}</h6>
-                <a>Quantity: {cart.produce.quantity}</a>
+                <a>Quantity: {cart.quantity}</a>
                 <a>Price: {cart.produce.price}</a>
-                <a>Total: {itemTotal.toFixed(2)}</a>
+                <a>Total: 
+                    {itemTotal.toFixed(2)}
+                    </a>
             </div>
                 {hover ? 
                 <>

@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/AccountInfo.css'
 
-function AccountInfo( { formData, setFormData } ) {
+function AccountInfo( { account, formData, setFormData } ) {
 
-    const [enableBtn, setEnableBtn] = useState(false)
+    const [toggle, setToggle] = useState(false)
+    const [existingAcc, setExistingAcc] = useState(true)
+    const number = [formData.areacode, formData.threedigits, formData.fourdigits].join('')
+    console.log(number)
 
     function handleChange(e) {
         const {name, value} = e.target;
@@ -17,39 +20,57 @@ function AccountInfo( { formData, setFormData } ) {
         })
     }
 
+    function toggleDisplay() {
+        setToggle(!toggle)
+    }
+
+    console.log(account)
+
+    function findAcc() {
+        setExistingAcc(existingAcc => !existingAcc)
+        if (existingAcc) {
+        account.map(acc => {
+            if (number === acc.phone) {
+                console.log('match')
+            } else {
+                console.log('no match')
+                }
+            })
+        }
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
-        if (formData.name && formData.areacode && formData.threedigits && formData.fourdigits && formData.fstdigits && formData.snddigits && formData.thddigits && formData.fthdigits && formData.expmon && formData.expyr != '') {
-            setEnableBtn(!enableBtn)
+        if (formData.name && formData.areacode && formData.threedigits && formData.fourdigits && formData.fstdigits && formData.snddigits && formData.thddigits && formData.fthdigits && formData.expmon && formData.expyr && formData.code != '') {
         fetch(`${process.env.REACT_APP_API_URL}/order`, {
-            method: "PATCH",
+            method: "POST",
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({
                 name: formData.name,
-                phone: `${formData.areacode, formData.threedigits, formData.fourdigits}`,
-                card: `${formData.fstdigits, formData.snddigits, formData.thddigits, formData.fthdigits}`,
-                card_exp: `${formData.expmon, formData.expyr}`,
-                code: `${formData.code}`
+                phone: `${formData.areacode}${formData.threedigits}${formData.fourdigits}`,
+                credit_card: `${formData.fstdigits}${formData.snddigits}${formData.thddigits}${formData.fthdigits}`,
+                exp_mon: formData.expmon,
+                exp_yr: formData.exp_yr,
+                code: formData.code
                 })
+            })
             .then(res => res.json())
             .then(res => console.log(res))
-            })
         }
     }
 
     return (
         <div className='info-container'>
             <div className='info-box'>
-                <div onClick={handleSubmit}>
+                <form action='/confirm' onSubmit={handleSubmit}>
                     <div className="name-container">
                         <label>Full Name:</label>
                         <input 
                             className="placeholder" name='name' type="text"
                             placeholder='Full Name' value={formData.name} onChange={handleChange}
                         />
-                        <input type="checkbox"/> I have shopped here
                     </div>
-                    <div className="phone">
+                    <div className="phone" >
                         <label>Phone Number:</label>
                         <input className="number" name='areacode' type="text"
                         maxLength="3" placeholder='000' 
@@ -64,6 +85,7 @@ function AccountInfo( { formData, setFormData } ) {
                         maxLength="4" placeholder='4567' 
                         value={formData.fourdigits} onChange={handleChange}
                         />
+                        <input type="checkbox" onChange={findAcc}/> I have shopped here
                     </div>
                     <div className="credit-card">
                         <label>Credit Card:</label>
@@ -98,16 +120,18 @@ function AccountInfo( { formData, setFormData } ) {
                         <div className='toa'>
                             <input type="checkbox"/>
                             <h6>By clicking on checkbox you agree with terms and conditions with Fresh Food Market Place</h6>
-                            <h6>What's this?</h6>
+                            <h6 className="whats-this-link" onClick={toggleDisplay}>What's this?</h6>
+                            {toggle ? 
+                        <div className="whats-this-container">
+                            <div className="whats-this">
+                            <p>This checkbox states that all the information submitted is accurate and that the user entering the information is authentic.</p>
                         </div>
-                        <Link to="/confirm"><button className="acc-btn" id="confirm-next" style={{ disabled: enableBtn ? "none" : "block"}}>Next</button></Link>
-                </div>
+                        </div>
+                         : ""}
+                        </div>
+                        <Link to="/confirm"><button className="acc-btn" id="confirm-next">Next</button></Link>
+                </form>
                         <Link to="/checkout"><button className="acc-btn" id="confirm-back">Back</button></Link>
-            </div>
-            <div className="whats-this-container">
-                <div class="whats-this">
-                    <p>This checkbox states that all the information submitted is accurate and that the user entering the information is authentic.</p>
-                </div>
             </div>
         </div>
     )

@@ -62,7 +62,7 @@ function MyAccount( { userCart, userPurchase } ) {
                                         <div className='myacc-card' key={cart.id} style={{ transform : `translateX(${display}px)`}}>
                                             <img className="myacc-img" src={cart.produce.image}/>
                                             <h3>{cart.produce.produce}</h3>
-                                            <a>{cart.produce.price}</a>
+                                            <a>AMT: {cart.quantity}</a>  | <a>{cart.produce.price}</a>
                                         </div>
                                     )}
                                     </div>
@@ -84,7 +84,7 @@ function MyAccount( { userCart, userPurchase } ) {
                 </div>
                 <div className="purchase-list-container">
 
-                            {userPurchase.length > 0 ?
+                            {/* {userPurchase.length > 0 ?
                         <>
                     {userPurchase.map(paid => 
                     <div className='purchase-container'>
@@ -100,12 +100,12 @@ function MyAccount( { userCart, userPurchase } ) {
                         </div>
                     </div>
                         )}
-                        </>
-                        : 
+                        </> */}
+                        {/* :  */}
                         <div className="empty-purchase">
                             <h3>You haven't made a purchase</h3>
                         </div>
-                }
+                {/* } */}
                     </div>
                 </div>
             </div>

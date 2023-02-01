@@ -8,27 +8,25 @@ import Navbar from './Navbar';
 import Produce from './Produce';
 import '../index.css'
 
-// const initialStateForm = {
-//     name : "",
-//     areacode: "",
-//     threedigits: "",
-//     fourdigits: "",
-//     fstdigits: "",
-//     snddigits: "",
-//     thddigits: "",
-//     fthdigits: "",
-//     expmon: "",
-//     expyr: "",
-//     code: ""
-// }
-
 function Shop() {
 
-    const [formData, setFormData] = useState([])
+    const [formData, setFormData] = useState({
+        name: "",
+        areacode: "",
+        threedigits: "",
+        fourdigits: "",
+        fstdigits: "",
+        snddigits: "",
+        thddigits: "",
+        fthdigits: "",
+        expmon: "",
+        expyr: "",
+        code: ""
+    })
     const [filterFood, setFilterFood] = useState('')
     
     const [userCart, setUserCart] = useState([])
-    const [userPurchase, setUserPurchase] = useState([])
+    const [account, setAccount] = useState([])
     
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/cart`)
@@ -38,18 +36,15 @@ function Shop() {
 
     console.log(userCart)
 
-    // useEffect(() => {
-    //     fetch(`${process.env.REACT_APP_API_URL}/purchase`)
-    //     .then(res => res.json())
-    //     .then(res => setUserPurchase(res))
-    // }, [])
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API_URL}/order`)
+        .then(res => res.json())
+        .then(res => setAccount(res))
+    }, [])
 
-    // console.log(userPurchase)
-    
+    console.log(account)
     
     const [produce, setProduce] = useState([])
-    // console.log(produce)
-    // console.log(userCart)
     
     useEffect(() => {
         if (filterFood !== '') {
@@ -75,7 +70,7 @@ function Shop() {
     }
 
     function onHandleDelete(item) {
-        const deleteItem = userCart.filter(cart => item.id !== cart.id)
+        const deleteItem = userCart.filter(cart => cart.id !== item.id)
         setUserCart(deleteItem)
     }
 
@@ -99,7 +94,6 @@ function Shop() {
                     <Route path='/my-account'>
                         <MyAccount 
                             userCart={userCart}
-                            userPurchase={userPurchase}
                             />
                     </Route>
                     <Route path="/checkout">
@@ -113,8 +107,8 @@ function Shop() {
                     <Route path="/account-information">
                         <AccountInfo 
                             formData={formData} 
-                            setFormData={setFormData} 
-                            // initialStateForm={initialStateForm}
+                            setFormData={setFormData}
+                            account={account}
                             />
                     </Route>
                     <Route path="/confirm">

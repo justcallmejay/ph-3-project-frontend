@@ -5,14 +5,16 @@
     border-radius: 20px;
 }
 
-.checkout-list {
-    height: 100px;
-    width: 900px;
+.checkout-cart {
+    height: 600px;
+    width: 100%;
     border: inset rgb(0, 0, 0) 1px;
-    border-radius: 10px;
+    overflow-y: auto;
     display: flex;
-    margin: 20px 10px 0 30px;
+    flex-direction: column;
+    align-items: center;
 }
+
 
 .checkout-label {
     width: 1000px;
@@ -51,21 +53,22 @@
 
 /*Checkoutlist.js*/
 
-
-.checkout-cart {
-    height: 600px;
-    width: 100%;
+.checkout-list {
+    height: 100px;
+    width: 800px;
     border: inset rgb(0, 0, 0) 1px;
-    overflow-y: auto;
+    border-radius: 10px;
+    display: flex;
+    margin: 20px 10px 0 0px;
 }
 
 .produce-info {
-    width: 500px;
+    width: 300px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border: inset rgb(0, 0, 0) 1px;
+    /* border: inset rgb(0, 0, 0) 1px; */
 }
 
 .checkout-delete, .checkout-edit {
@@ -111,7 +114,8 @@
 }
 
 .hover-btn {
-    width: 115px;
+    width: 220px;
+    /* border: inset rgb(0, 0, 0) 1px; */
     display: flex;
     flex-direction: column;
     align-items: end;

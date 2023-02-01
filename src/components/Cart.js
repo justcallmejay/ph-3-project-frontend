@@ -5,19 +5,12 @@ import '../css/Cart.css'
 
 function Cart( { yAxis, produce, setProduce, userCart, setUserCart, onHandleDelete } ) {
 
-    // const [sum, setSum] = useState(0)
-
-    console.log(userCart)
-
     const sumItem = userCart.map(item => {
-        return item.total
+        return item.produce.price
     })
-
-    // console.log(sumItem)
 
     const cost = sumItem.reduce((a, b) => a + b, 0)
 
-    // console.log(cost)
 
     function onHandleUpdate(item) {
         const updateInventory = produce.map(food => {

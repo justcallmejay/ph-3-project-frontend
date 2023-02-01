@@ -42,7 +42,7 @@ function Confirm( { formData, userCart } ) {
         .then(res => console.log(res))
     }
 
-    const arrayTotal = userCart.map(cart => cart.total)
+    const arrayTotal = userCart.map(cart => cart.produce.total)
     const sumTotal = arrayTotal.reduce((a, b) => a + b, 0)
 
     return(
@@ -58,11 +58,11 @@ function Confirm( { formData, userCart } ) {
                 <div className='receipt-container'>
                     <h3>Receipt:</h3>
                     {userCart.map(item => 
-                    <div className='receipt'>
-                        <a>{item.produce}</a>
+                    <div className='receipt' key={item.id}>
+                        <a>{item.produce.produce}</a>
                         <a>Amt: {item.quantity}</a>
-                        <a>Price: {item.price}</a>
-                        <a>Total: {item.total}</a>
+                        <a>Price: {item.produce.price}</a>
+                        <a>Total: {item.produce.total}</a>
                     </div>
                         )}
                 </div>
