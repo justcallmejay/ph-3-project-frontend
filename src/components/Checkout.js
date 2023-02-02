@@ -1,17 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom'
 import CheckoutList from './CheckoutList'
 import '../css/Checkout.css'
 
-function Checkout( { userCart, produce, onHandleChange, onHandleDelete } ) {
-
-    const totalArray = userCart.map(cart => {
-        return cart.produce.price
-    })
-
-    const total = totalArray.reduce((a, b) => a + b, 0)
-
-    console.log(total)
+function Checkout( { cost, onHandleChange, onHandleDelete, userCart, produce } ) {
 
     return (
         <div className='checkout'>
@@ -23,15 +15,16 @@ function Checkout( { userCart, produce, onHandleChange, onHandleDelete } ) {
                 <>
                 <div className='checkout-cart'>
                     {userCart.map(cart => 
+                    cart.order_id === null ? 
                     <CheckoutList 
                         cart={cart} 
                         key={cart.id} 
                         produce={produce}
                         onHandleChange={onHandleChange}
                         onHandleDelete={onHandleDelete}
-                        /> )}
+                        /> : "")}
             </div> 
-                <h1 className="checkout-total">Total: {total.toFixed(2)}</h1>
+                <h1 className="checkout-total">Total: {cost.toFixed(2)}</h1>
                     <Link to="account-information">
                     <button className="proceed-btn">
                         Proceed to Checkout</button>

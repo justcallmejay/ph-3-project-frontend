@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Search from './Search';
 import Cart from './Cart';
 import ProduceCard from './ProduceCard';
 import ProduceList from './ProduceList';
 import '../css/Produce.css'
 
-function Produce( { onHandleDelete, produce, setProduce, filterFood, setFilterFood, setUserCart, userCart, onHandleChange } ) {
+function Produce( { cost, onHandleDelete, produce, setProduce, filterFood, setFilterFood, setUserCart, userCart, onHandleChange } ) {
 
     const [searchFood, setSearchFood] = useState("")
     const [toggleDisplay, setToggleDisplay] = useState(true)
@@ -89,6 +89,7 @@ function Produce( { onHandleDelete, produce, setProduce, filterFood, setFilterFo
                 }
                 <div className='cart-container'>
                 <Cart 
+                    cost={cost}
                     userCart={userCart}
                     setUserCart={setUserCart}
                     produce={produce}

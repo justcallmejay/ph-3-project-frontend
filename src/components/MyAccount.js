@@ -60,9 +60,9 @@ function MyAccount( { userCart, userPurchase } ) {
                                     <div className='acc-cart-display-container'>
                                         {userCart.map(cart =>
                                         <div className='myacc-card' key={cart.id} style={{ transform : `translateX(${display}px)`}}>
-                                            <img className="myacc-img" src={cart.produce.image}/>
+                                            <img className="myacc-img" src={cart.produce.image} alt={cart.produce.produce}/>
                                             <h3>{cart.produce.produce}</h3>
-                                            <a>AMT: {cart.quantity}</a>  | <a>{cart.produce.price}</a>
+                                            <a>AMT: {cart.quantity}</a> 
                                         </div>
                                     )}
                                     </div>

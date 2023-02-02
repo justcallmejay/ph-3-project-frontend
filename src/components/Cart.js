@@ -3,16 +3,7 @@ import { Link } from 'react-router-dom'
 import CartList from './CartList'
 import '../css/Cart.css'
 
-function Cart( { yAxis, produce, setProduce, userCart, setUserCart, onHandleDelete } ) {
-
-    const sumItem = userCart.map(item => {
-        return item.produce.price
-    })
-
-    const cost = sumItem.reduce((a, b) => a + b, 0)
-    console.log(sumItem)
-
-    console.log(userCart)
+function Cart( { yAxis, produce, setProduce, userCart, onHandleDelete, cost } ) {
 
     function onHandleUpdate(item) {
         const updateInventory = produce.map(food => {
@@ -31,6 +22,7 @@ function Cart( { yAxis, produce, setProduce, userCart, setUserCart, onHandleDele
                 <div className='cart-container-thing'>
 
                 {userCart.map(cart => 
+                cart.order_id === null ?
                 <CartList 
                     cart={cart}
                     produce={produce}
@@ -39,10 +31,12 @@ function Cart( { yAxis, produce, setProduce, userCart, setUserCart, onHandleDele
                     onHandleUpdate={onHandleUpdate}
                     yAxis={yAxis}
                 />
+                : "" 
                 )}
             </div>
             <div className="total">
-                <h1>Total: {cost.toFixed(2)}</h1>
+                <h1>Total: 
+                    {cost.toFixed(2)}</h1>
                 <Link to='/checkout'>
                     <button className="checkout-btn">Checkout</button>
                 </Link>

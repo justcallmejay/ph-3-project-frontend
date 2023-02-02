@@ -15,28 +15,31 @@ function Confirm( { formData, userCart, account, handleUpdateCart } ) {
 
 // console.log(account)
 
-    const orderID = account.filter(acc => {
-        if (formData.name === acc.name) {
-            return acc.id
-        }
-    })
+    // const orderID = account.filter(acc => {
+    //     if (formData.name === acc.name) {
+    //         return acc.id
+    //     }
+    // })
     // console.log(orderID)
     //   console.log(ccInfo)
     //   console.log(maskCreditCard[0])
 
     function addIdToCart() {
-        userCart.map(cart => {
-            if(cart.order_id === null)
+        account.filter(acc => {
+            if (formData.name === acc.name)
+            userCart.map(cart => {
+                if(cart.order_id === null)
             fetch(`${process.env.REACT_APP_API_URL}/update/${cart.id}`, {
                 method: "PATCH",
                 headers: {"Content-Type" : "application/json"},
                 body: JSON.stringify({
-                    order_id: orderID
+                    order_id: acc.id
                 })
             })
             .then(res => res.json())
             .then(add => handleUpdateCart(add))
         })
+    })
     }
 
 

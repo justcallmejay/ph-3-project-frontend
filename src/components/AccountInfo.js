@@ -45,7 +45,7 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
     function handleSubmit(e) {
         e.preventDefault();
         console.log('click')
-        if (formData.name && formData.areacode && formData.threedigits && formData.fourdigits && formData.fstdigits && formData.snddigits && formData.thddigits && formData.fthdigits && formData.expmon && formData.expyr && formData.code != '') {
+        if (formData.name && formData.areacode && formData.threedigits && formData.fourdigits && formData.fstdigits && formData.snddigits && formData.thddigits && formData.fthdigits && formData.expmon && formData.expyr && formData.code !== '') {
         fetch(`${process.env.REACT_APP_API_URL}/order`, {
             method: "POST",
             headers: {"Content-Type" : "application/json"},

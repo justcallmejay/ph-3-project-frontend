@@ -5,17 +5,6 @@
     border-radius: 20px;
 }
 
-.checkout-cart {
-    height: 600px;
-    width: 100%;
-    border: inset rgb(0, 0, 0) 1px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
 .checkout-label {
     width: 1000px;
     height: 100px;
@@ -27,22 +16,6 @@
     justify-content: center;
 }
 
-.checkout-main-info {
-    margin: 0 0 0 20px;
-    overflow-y: hidden;
-    width: 250px;
-    display: flex;
-    /* border: inset rgb(0, 0, 0) 1px; */
-    flex-direction: row;
-    align-items: center;
-}
-
-.checkout-img {
-    height: 50px;
-    width: 50px;
-    margin: 0 20px 0 0;
-}
-
 .checkout-container {
     height: 800px;
     width: 1000px;
@@ -51,32 +24,20 @@
     border: inset rgb(0, 0, 0) 1px;
 }
 
-/*Checkoutlist.js*/
-
-.checkout-list {
-    height: 100px;
-    width: 800px;
+.checkout-cart {
+    height: 600px;
+    width: 100%;
     border: inset rgb(0, 0, 0) 1px;
-    border-radius: 10px;
+    overflow-y: auto;
     display: flex;
-    margin: 20px 10px 0 0px;
-}
-
-.produce-info {
-    width: 300px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    /* border: inset rgb(0, 0, 0) 1px; */
 }
 
-.checkout-delete, .checkout-edit {
-    background-color: #fff;
-    border-color: #fff;
-    height: 100px;
-    width: 45px;
-    cursor: pointer;
+.checkout-img {
+    height: 50px;
+    width: 50px;
+    margin: 0 20px 0 0;
 }
 
 .checkout-total {
@@ -107,6 +68,45 @@
     justify-content: center;
 }
 
+/*Checkoutlist.js*/
+
+.checkout-list {
+    height: 100px;
+    width: 800px;
+    border: inset rgb(0, 0, 0) 1px;
+    border-radius: 10px;
+    display: flex;
+    margin: 10px 10px 0 0px;
+}
+
+.checkout-main-info {
+    margin: 0 10px 0 -20px;
+    overflow-y: hidden;
+    width: 180px;
+    display: flex;
+    /* border: inset rgb(0, 0, 0) 1px; */
+    flex-direction: column;
+    align-items: center;
+}
+
+.produce-info {
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* border: inset rgb(0, 0, 0) 1px; */
+}
+
+.checkout-delete, .checkout-edit {
+    background-color: #fff;
+    border-color: #fff;
+    height: 100px;
+    width: 45px;
+    cursor: pointer;
+}
+
+
 .co-edit-num {
     height: 25px;
     margin: 0 10px 0 10px;
@@ -114,7 +114,7 @@
 }
 
 .hover-btn {
-    width: 220px;
+    width: 100px;
     /* border: inset rgb(0, 0, 0) 1px; */
     display: flex;
     flex-direction: column;

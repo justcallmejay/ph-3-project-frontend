@@ -6,6 +6,8 @@ function ProduceCard( { item, userCart, handleAddtoCart, handleUpdateCart, anima
     const [check, setCheck] = useState(false)
     const [quantityCount, setQuantityCount] = useState(0)
     const [quantityDiscountCount, setQuantityDiscountCount] = useState(0)
+    // console.log(quantityDiscountCount)
+    // console.log(check)
 
     // const find = userCart.map(cart => {
     //     return cart.produce.produce
@@ -15,9 +17,21 @@ function ProduceCard( { item, userCart, handleAddtoCart, handleUpdateCart, anima
     function addToCart(food) {
         const existingItem = userCart.map(cart => {return cart.produce_id})
         const currentItem = (inventory) => inventory === food.id
+        let dscQuantity = ""
+        let dscTotal = ""
+        
         if (existingItem.some(currentItem) === true) {  
             userCart.map(cart => {
-            if (cart.produce.produce === item.produce) {
+                if (cart.produce.produce === item.produce) {
+                    if (check === true) {
+                        console.log('check')
+                        dscQuantity = quantityDiscountCount;
+                        dscTotal = cart.produce.price * parseInt(quantityDiscountCount, 10)
+                    } else {
+                        console.log('unchecked')
+                        dscQuantity = cart.dsc_quantity
+                        dscTotal = cart.produce.price * parseInt(cart.dsc_quantity, 10)
+                    }
                 const updataQuantity = (cart.quantity + parseInt(quantityCount, 10))
                 console.log(updataQuantity)
                 const updateTotal = cart.produce.price * updataQuantity
@@ -27,15 +41,24 @@ function ProduceCard( { item, userCart, handleAddtoCart, handleUpdateCart, anima
                     body: JSON.stringify({
                         quantity: updataQuantity,
                         total: updateTotal,
-                        //discount: discountUpdate
+                        dsc_quantity: dscQuantity,
+                        dsc_total: dscTotal
                     })
                 })
                 .then(res => res.json())
                 .then(addFood => handleUpdateCart(addFood));
                 setQuantityCount(0)
-            }
+                }
             })
+
             } else {
+                if (check === true ) {
+                    dscQuantity = quantityDiscountCount;
+                    dscTotal = (item.price * parseInt(quantityDiscountCount, 10))
+                } else {
+                    dscQuantity = 0
+                    dscTotal = 0
+                }
                 console.log(food.id)
                 const itemTotal = (food.price * quantityCount).toFixed(2)
                 fetch(`${process.env.REACT_APP_API_URL}/carts`, {
@@ -45,14 +68,21 @@ function ProduceCard( { item, userCart, handleAddtoCart, handleUpdateCart, anima
                     produce_id: food.id,
                     order_id: "",
                     quantity: quantityCount,
-                    total: itemTotal
+                    total: itemTotal,
+                    dsc_quantity: dscQuantity,
+                    dsc_total: dscTotal
                 })
             })
             .then(res => res.json())
             .then(addFood => handleAddtoCart(addFood));
             setQuantityCount(0)
+            }
         }
-}
+    
+    // function addDscToCart() {
+    //     let nu
+    // }
+
     return(
         <div className='card'>
             <img src={item.image} alt={item.produce}/>

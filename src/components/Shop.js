@@ -24,7 +24,6 @@ function Shop() {
         code: ""
     })
     const [filterFood, setFilterFood] = useState('')
-    
     const [userCart, setUserCart] = useState([])
     const [account, setAccount] = useState([])
     
@@ -35,6 +34,16 @@ function Shop() {
     }, [])
 
     console.log(userCart)
+    //PREVENT DRY
+    const sumItem = userCart.map(item => {
+        if (item.order_id === null) {
+        return (item.produce.price * item.quantity)
+        } else {
+            return 0
+        }
+    })
+
+    const cost = sumItem.reduce((a, b) => a + b, 0)    
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/order`)
@@ -46,7 +55,7 @@ function Shop() {
         setAccount([...account, newAccount])
     }
 
-    console.log(account)
+    // console.log(account)
     
     const [produce, setProduce] = useState([])
     
@@ -92,9 +101,9 @@ function Shop() {
     const timeElapsed = Date.now();
     const date = new Date(timeElapsed);
     const localeString = date.toLocaleDateString();
-    console.log(date)
-    console.log(localeString)
-    console.log(timeElapsed)
+    // console.log(date)
+    // console.log(localeString)
+    // console.log(timeElapsed)
 
 
     return(
@@ -103,7 +112,8 @@ function Shop() {
             <Navbar />
                 <Switch>
                     <Route path="/shop">
-                        <Produce 
+                        <Produce
+                            cost={cost}
                             produce={produce}
                             setProduce={setProduce}
                             userCart={userCart} 
@@ -120,7 +130,8 @@ function Shop() {
                             />
                     </Route>
                     <Route path="/checkout">
-                        <Checkout 
+                        <Checkout
+                            cost={cost}
                             userCart={userCart} 
                             produce={produce}
                             onHandleChange={onHandleChange}

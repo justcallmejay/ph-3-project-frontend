@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import '../css/Cart.css'
 
-function CartList( { yAxis, cart, onHandleDelete, onHandleUpdate, produce } ) {
+function CartList( { yAxis, cart, onHandleDelete, onHandleUpdate } ) {
 
     const [hover, setHover] = useState(false)
-    const itemTotal = cart.produce.price * cart.quantity
+    const itemTotal = (cart.produce.price * cart.quantity)
 
     function handleMouseEnter() {
         setHover(true)
@@ -49,11 +49,13 @@ function CartList( { yAxis, cart, onHandleDelete, onHandleUpdate, produce } ) {
                 />
             <div className='cart-data'>
                 <h6>{cart.produce.produce}</h6>
-                <a>Quantity: {cart.quantity}</a>
-                <a>Price: {cart.produce.price}</a>
-                <a>Total: 
+                <p>Quantity: {cart.quantity}</p>
+                <p>Price: {cart.produce.price}</p>
+                <p>From discount: {cart.dsc_quantity}</p>
+
+                <p>Total: 
                     {itemTotal.toFixed(2)}
-                    </a>
+                    </p>
             </div>
                 {hover ? 
                 <>

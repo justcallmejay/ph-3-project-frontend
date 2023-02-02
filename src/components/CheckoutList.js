@@ -17,8 +17,8 @@ function CheckoutList( { cart, onHandleDelete, produce, onHandleChange } ) {
     //Edit inventory quantity
     const [editQuantity, setEditQuantity] = useState(false)
     const [submitEdit, setSubmitEdit] = useState(null)
-    const [produceQuantity, setProduceQuantity] = useState(cart.produce.quantity)
-
+    const [produceQuantity, setProduceQuantity] = useState(cart.quantity)
+    const [dscQuantity, setDscQuantity] = useState(cart.dsc_quantity)
 
     function handleEditQuantity() {
         setEditQuantity(!editQuantity)
@@ -27,32 +27,31 @@ function CheckoutList( { cart, onHandleDelete, produce, onHandleChange } ) {
     
     function handleEdit(food) {
         setEditQuantity(null)
-
-    //     fetch(`${process.env.REACT_APP_API_URL}/cart/${food.id}`, {
-    //         method: "PATCH",
-    //         headers: {"Content-Type" : "application/json"},
-    //         body: JSON.stringify({
-    //             quantity: produceQuantity
-    //         })
-    //     })
-    //     .then(res => res.json())
-    //     .then(res => console.log(res))
-    //     setSubmitEdit(null);
-    //     {produce.map(item => {
-    //         if (item.id === food.id) {
-    //         const updateInventory = item.quantity - produceQuantity
-    //     fetch(`${process.env.REACT_APP_API_URL}/produce/${item.id}`, {
-    //         method: "PATCH",
-    //         headers: {"Content-Type" : "application/json"},
-    //         body: JSON.stringify({
-    //             quantity: updateInventory
-    //         })
-    //     })
-    //         .then(res => res.json())
-    //         .then(res => onHandleChange(res))
-    //     }
-    //  }
-    // )}
+        fetch(`${process.env.REACT_APP_API_URL}/cart/${food.id}`, {
+            method: "PATCH",
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({
+                quantity: produceQuantity
+            })
+        })
+        .then(res => res.json())
+        .then(res => console.log(res))
+        setSubmitEdit(null);
+        {produce.map(item => {
+            if (item.id === food.id) {
+            const updateInventory = item.quantity - produceQuantity
+        fetch(`${process.env.REACT_APP_API_URL}/produce/${item.id}`, {
+            method: "PATCH",
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({
+                quantity: updateInventory
+            })
+        })
+            .then(res => res.json())
+            .then(res => onHandleChange(res))
+        }
+     }
+    )}
 }
 
     function handleDelete(item) {
@@ -72,6 +71,7 @@ function CheckoutList( { cart, onHandleDelete, produce, onHandleChange } ) {
             <div className='checkout-main-info'>
                 <img className="checkout-img" src={cart.produce.image} alt={cart.produce.name}/>
                 <h3>{cart.produce.produce}</h3>
+                <a>Price: {cart.produce.price}</a>
             </div>
             <div className="produce-info">
                 <a>Quantity: 
@@ -82,14 +82,29 @@ function CheckoutList( { cart, onHandleDelete, produce, onHandleChange } ) {
                         type="number"
                         min="0"
                         value={produceQuantity} 
-                        onChange={(e) => setProduceQuantity(e.target.value)}
+                        onChange={(e) => setDscQuantity(e.target.value)}
                     />
                 <button onClick={() => handleEdit(cart)}>OK</button>
                 </> 
                     :    
                 <div>{cart.quantity}</div>}
                 </a>
-                <a>Price: {cart.produce.price}</a>
+                <a>Discounted Quantity:
+                {editQuantity ?
+                <>
+                    <input 
+                        className="co-edit-num" 
+                        type="number"
+                        min="0"
+                        value={dscQuantity} 
+                        onChange={(e) => setProduceQuantity(e.target.value)}
+                    />
+                <button onClick={() => handleEdit(cart)}>OK</button>
+                </> 
+                    :    
+                <div>{cart.dsc_quantity}</div>}
+                </a>
+                <a>Discount Total: {cart.dsc_total}</a>
                 {/* <a>Total: {cart.total.toFixed(2)}</a> */}
             </div>
 
