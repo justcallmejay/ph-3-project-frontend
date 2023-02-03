@@ -6,15 +6,17 @@ import '../css/AccountInfo.css'
 function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
 
     let history = useHistory();
-
+    
     const [toggle, setToggle] = useState(false)
     const [existingAcc, setExistingAcc] = useState(true)
+    const [errorDisplay, setErrorDisplay] = useState(false)
+    const [error, setError] = useState("")
     const number = [formData.areacode, formData.threedigits, formData.fourdigits].join('')
-    console.log(number)
 
+    
     function handleChange(e) {
         const {name, value} = e.target;
-
+        
         setFormData(info => {
             return {
                 ...info, 
@@ -22,30 +24,41 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
             }
         })
     }
-
+    
     function toggleDisplay() {
         setToggle(!toggle)
     }
-
-    console.log(account)
-
+    
+    function toggleError() {
+        setErrorDisplay(!errorDisplay)
+    }
+    
     function findAcc() {
         setExistingAcc(existingAcc => !existingAcc)
         if (existingAcc) {
-        account.map(acc => {
-            if (number === acc.phone) {
-                console.log('match')
-            } else {
-                console.log('no match')
+            account.map(acc => {
+                if (number === acc.phone) {
+                    console.log('match')
+                } else {
+                    console.log('no match')
                 }
             })
         }
     }
-
+    
     function handleSubmit(e) {
         e.preventDefault();
-        console.log('click')
-        if (formData.name && formData.areacode && formData.threedigits && formData.fourdigits && formData.fstdigits && formData.snddigits && formData.thddigits && formData.fthdigits && formData.expmon && formData.expyr && formData.code !== '') {
+        if (!formData.name) {
+            setError("Fill out name")
+            setErrorDisplay(!errorDisplay)
+        } else if (!formData.areacode || !formData.threedigits || !formData.fourdigits) {
+            setError("Complete number")
+            setErrorDisplay(!errorDisplay)
+        } else if (!formData.fstdigits || !formData.snddigits || !formData.thddigits || !formData.fthdigits || !formData.expmon || !formData.expyr || !formData.code) {
+            setError("Please fill out credit card")
+            setErrorDisplay(!errorDisplay)
+        } else {
+        history.push('/confirm')
         fetch(`${process.env.REACT_APP_API_URL}/order`, {
             method: "POST",
             headers: {"Content-Type" : "application/json"},
@@ -56,12 +69,12 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
                 exp_mon: formData.expmon,
                 exp_yr: formData.expyr,
                 code: formData.code
-                })
             })
-            .then(res => res.json())
-            .then(res => handleAddAccount(res))
-            history.push('/confirm')
+        })
+        .then(res => res.json())
+        .then(res => handleAddAccount(res))
         }
+        console.log(error)
     }
 
     return (
@@ -138,6 +151,15 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
                 </form>
                         <Link to="/checkout"><button className="acc-btn" id="confirm-back">Back</button></Link>
             </div>
+                {errorDisplay ? 
+            <div className="error-msg-container">
+                <div className="error">
+                    <div>Error: {error}</div>
+                    
+                    <button onClick={toggleError}>Ok</button>
+                </div>
+            </div>
+                : ""}
         </div>
     )
 }

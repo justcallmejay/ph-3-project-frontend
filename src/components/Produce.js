@@ -5,7 +5,7 @@ import ProduceCard from './ProduceCard';
 import ProduceList from './ProduceList';
 import '../css/Produce.css'
 
-function Produce( { cost, onHandleDelete, produce, setProduce, filterFood, setFilterFood, setUserCart, userCart, onHandleChange } ) {
+function Produce( { sum, onHandleDelete, produce, setProduce, filterFood, setFilterFood, setUserCart, userCart, onHandleChange } ) {
 
     const [searchFood, setSearchFood] = useState("")
     const [toggleDisplay, setToggleDisplay] = useState(true)
@@ -89,7 +89,7 @@ function Produce( { cost, onHandleDelete, produce, setProduce, filterFood, setFi
                 }
                 <div className='cart-container'>
                 <Cart 
-                    cost={cost}
+                    sum={sum}
                     userCart={userCart}
                     setUserCart={setUserCart}
                     produce={produce}

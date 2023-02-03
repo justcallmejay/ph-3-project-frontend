@@ -34,6 +34,7 @@ function Shop() {
     }, [])
 
     console.log(userCart)
+
     //PREVENT DRY
     const sumItem = userCart.map(item => {
         if (item.order_id === null) {
@@ -43,7 +44,23 @@ function Shop() {
         }
     })
 
-    const cost = sumItem.reduce((a, b) => a + b, 0)    
+
+    const cost = sumItem.reduce((a, b) => a + b, 0)
+
+
+    const discountArray = userCart.map(item => {
+        if (item.order_id === null) {
+            console.log(item)
+            return (item.produce.discount_price * item.dsc_quantity)
+        } 
+        else {
+            return 0
+        }
+    })
+
+    const discountTotal = discountArray.reduce((a, b) => a + b, 0)
+
+    const sum = discountTotal + cost
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/order`)
@@ -113,7 +130,7 @@ function Shop() {
                 <Switch>
                     <Route path="/shop">
                         <Produce
-                            cost={cost}
+                            sum={sum}
                             produce={produce}
                             setProduce={setProduce}
                             userCart={userCart} 
@@ -131,7 +148,7 @@ function Shop() {
                     </Route>
                     <Route path="/checkout">
                         <Checkout
-                            cost={cost}
+                            sum={sum}
                             userCart={userCart} 
                             produce={produce}
                             onHandleChange={onHandleChange}
@@ -161,3 +178,5 @@ function Shop() {
 }
 
 export default Shop;
+
+// git commit -am "Add discount quantity and total to Cart List component; 

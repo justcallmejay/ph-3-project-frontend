@@ -25,12 +25,12 @@ function ProduceCard( { item, userCart, handleAddtoCart, handleUpdateCart, anima
                 if (cart.produce.produce === item.produce) {
                     if (check === true) {
                         console.log('check')
-                        dscQuantity = quantityDiscountCount;
-                        dscTotal = cart.produce.price * parseInt(quantityDiscountCount, 10)
+                        dscQuantity = parseInt(quantityDiscountCount) + cart.dsc_quantity;
+                        dscTotal = cart.produce.discount_price * parseInt(quantityDiscountCount, 10)
                     } else {
                         console.log('unchecked')
                         dscQuantity = cart.dsc_quantity
-                        dscTotal = cart.produce.price * parseInt(cart.dsc_quantity, 10)
+                        dscTotal = cart.produce.discount_price * parseInt(cart.dsc_quantity, 10)
                     }
                 const updataQuantity = (cart.quantity + parseInt(quantityCount, 10))
                 console.log(updataQuantity)
@@ -48,6 +48,7 @@ function ProduceCard( { item, userCart, handleAddtoCart, handleUpdateCart, anima
                 .then(res => res.json())
                 .then(addFood => handleUpdateCart(addFood));
                 setQuantityCount(0)
+                setQuantityDiscountCount(0)
                 }
             })
 
@@ -76,6 +77,7 @@ function ProduceCard( { item, userCart, handleAddtoCart, handleUpdateCart, anima
             .then(res => res.json())
             .then(addFood => handleAddtoCart(addFood));
             setQuantityCount(0)
+            setQuantityDiscountCount(0)
             }
         }
     

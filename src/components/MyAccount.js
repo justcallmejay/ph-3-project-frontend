@@ -62,7 +62,7 @@ function MyAccount( { userCart, userPurchase } ) {
                                         <div className='myacc-card' key={cart.id} style={{ transform : `translateX(${display}px)`}}>
                                             <img className="myacc-img" src={cart.produce.image} alt={cart.produce.produce}/>
                                             <h3>{cart.produce.produce}</h3>
-                                            <a>AMT: {cart.quantity}</a> 
+                                            <a>AMT: {cart.quantity} DISC: {cart.dsc_quantity}</a> 
                                         </div>
                                     )}
                                     </div>

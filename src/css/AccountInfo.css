@@ -1,7 +1,7 @@
 .info-container {
     height: 800px;
     width: 1000px;
-    top: 145px;
+    top: 140px;
     left: 45%;
     border: inset rgb(0, 0, 0) 1px;
     position: relative;
@@ -117,4 +117,21 @@
     border: inset rgb(0, 0, 0) 1px;
     font-size: 10px;
     z-index: 3;
+}
+
+.error-taskbar {
+    width: 100%;
+    height: 300px;
+    background-color: aqua;
+    position: absolute;
+}
+
+.error-msg-container {
+    top: 100px;
+    height: 100px;
+    width: 200px;
+    border: inset rgb(0, 0, 0) 1px;
+    border-radius: 10px;
+    background-color: rgb(236, 236, 236);
+    display: flex;
 }

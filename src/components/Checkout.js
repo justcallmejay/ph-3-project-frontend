@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import CheckoutList from './CheckoutList'
 import '../css/Checkout.css'
 
-function Checkout( { cost, onHandleChange, onHandleDelete, userCart, produce } ) {
+function Checkout( { sum, onHandleChange, onHandleDelete, userCart, produce } ) {
 
     return (
         <div className='checkout'>
@@ -24,7 +24,7 @@ function Checkout( { cost, onHandleChange, onHandleDelete, userCart, produce } )
                         onHandleDelete={onHandleDelete}
                         /> : "")}
             </div> 
-                <h1 className="checkout-total">Total: {cost.toFixed(2)}</h1>
+                <h1 className="checkout-total">Total: {sum.toFixed(2)}</h1>
                     <Link to="account-information">
                     <button className="proceed-btn">
                         Proceed to Checkout</button>
