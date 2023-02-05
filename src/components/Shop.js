@@ -26,15 +26,75 @@ function Shop() {
     const [filterFood, setFilterFood] = useState('')
     const [userCart, setUserCart] = useState([])
     const [account, setAccount] = useState([])
+    const [purchase, setPurchase] = useState([])
+    console.log(userCart)
+    console.log(purchase)
     
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API_URL}/purchase`)
+        .then(res => res.json())
+        .then(res => setPurchase(res))
+    }, [])
+
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/cart`)
         .then(res => res.json())
         .then(cart => setUserCart(cart))
     }, [])
-
-    console.log(userCart)
-
+    
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API_URL}/order`)
+        .then(res => res.json())
+        .then(res => setAccount(res))
+    }, [])
+    
+    function handleAddAccount(newAccount) {
+        setAccount([...account, newAccount])
+    }
+    
+    // console.log(account)
+    
+    const [produce, setProduce] = useState([])
+    
+    useEffect(() => {
+        if (filterFood !== '') {
+            fetch(`${process.env.REACT_APP_API_URL}/produce/*`)
+            .then(res => res.json())
+            .then(res => setProduce(res))
+        } else {
+            fetch(`${process.env.REACT_APP_API_URL}/produce`)
+            .then(res => res.json())
+            .then(res => setProduce(res))
+        }
+    }, [])
+    
+    function onHandleChange(item) {
+        const reviseInventory = produce.map(food => {
+            if (food.id === item.id) {
+                return item
+            } else {
+                return food
+            }
+        })
+        setProduce(reviseInventory)
+    }
+    
+    function onHandleDelete(item) {
+        const deleteItem = userCart.filter(cart => cart.id !== item.id)
+        setUserCart(deleteItem)
+    }
+    
+    function handleUpdateCart(item) {
+        const updateCart = userCart.map(food => {
+            if (food.id === item.id) {
+                return item
+            } else {
+                return food
+            }
+        })
+        setUserCart(updateCart)
+    }
+    
     //PREVENT DRY
     const sumItem = userCart.map(item => {
         if (item.order_id === null) {
@@ -44,9 +104,7 @@ function Shop() {
         }
     })
 
-
     const cost = sumItem.reduce((a, b) => a + b, 0)
-
 
     const discountArray = userCart.map(item => {
         if (item.order_id === null) {
@@ -61,60 +119,7 @@ function Shop() {
     const discountTotal = discountArray.reduce((a, b) => a + b, 0)
 
     const sum = discountTotal + cost
-
-    useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/order`)
-        .then(res => res.json())
-        .then(res => setAccount(res))
-    }, [])
-
-    function handleAddAccount(newAccount) {
-        setAccount([...account, newAccount])
-    }
-
-    // console.log(account)
     
-    const [produce, setProduce] = useState([])
-    
-    useEffect(() => {
-        if (filterFood !== '') {
-        fetch(`${process.env.REACT_APP_API_URL}/produce/*`)
-        .then(res => res.json())
-        .then(res => setProduce(res))
-        } else {
-        fetch(`${process.env.REACT_APP_API_URL}/produce`)
-        .then(res => res.json())
-        .then(res => setProduce(res))
-        }
-    }, [])
-
-    function onHandleChange(item) {
-        const reviseInventory = produce.map(food => {
-            if (food.id === item.id) {
-                return item
-            } else {
-                return food
-            }
-        })
-        setProduce(reviseInventory)
-    }
-
-    function onHandleDelete(item) {
-        const deleteItem = userCart.filter(cart => cart.id !== item.id)
-        setUserCart(deleteItem)
-    }
-
-    function handleUpdateCart(item) {
-        const updateCart = userCart.map(food => {
-            if (food.id === item.id) {
-                return item
-            } else {
-                return food
-            }
-        })
-        setUserCart(updateCart)
-    }
-
     const timeElapsed = Date.now();
     const date = new Date(timeElapsed);
     const localeString = date.toLocaleDateString();
@@ -142,14 +147,15 @@ function Shop() {
                         />
                     </Route>
                     <Route path='/my-account'>
-                        <MyAccount 
-                            userCart={userCart}
+                        <MyAccount
+                            userCart={userCart} 
+                            purchase={purchase}
                             />
                     </Route>
                     <Route path="/checkout">
                         <Checkout
                             sum={sum}
-                            userCart={userCart} 
+                            purchase={purchase} 
                             produce={produce}
                             onHandleChange={onHandleChange}
                             onHandleDelete={onHandleDelete}
@@ -166,7 +172,7 @@ function Shop() {
                     <Route path="/confirm">
                         <Confirm 
                             formData={formData} 
-                            userCart={userCart} 
+                            purchase={purchase} 
                             account={account}
                             handleUpdateCart={handleUpdateCart}
                             />
@@ -178,5 +184,3 @@ function Shop() {
 }
 
 export default Shop;
-
-// git commit -am "Add discount quantity and total to Cart List component; 

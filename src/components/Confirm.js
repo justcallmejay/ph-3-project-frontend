@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import '../css/Confirm.css'
 
-function Confirm( { formData, userCart, account, handleUpdateCart } ) {
+function Confirm( { formData, userCart, account, handleUpdateCart, purchase } ) {
 
 
     const [toggleDeleteDisplay, setToggleDeleteDisplay] = useState(false)
@@ -27,9 +27,7 @@ function Confirm( { formData, userCart, account, handleUpdateCart } ) {
     function addIdToCart() {
         account.filter(acc => {
             if (formData.name === acc.name)
-            userCart.map(cart => {
-                if(cart.order_id === null)
-            fetch(`${process.env.REACT_APP_API_URL}/update/${cart.id}`, {
+            fetch(`${process.env.REACT_APP_API_URL}/update`, {
                 method: "PATCH",
                 headers: {"Content-Type" : "application/json"},
                 body: JSON.stringify({
@@ -37,9 +35,8 @@ function Confirm( { formData, userCart, account, handleUpdateCart } ) {
                 })
             })
             .then(res => res.json())
-            .then(add => handleUpdateCart(add))
+            .then(add => handleUpdateCart(add));
         })
-    })
     }
 
 
@@ -69,7 +66,7 @@ function Confirm( { formData, userCart, account, handleUpdateCart } ) {
         .then(res => console.log(res))
     }
 
-    const arrayTotal = userCart.map(cart => cart.produce.total)
+    const arrayTotal = purchase.map(cart => cart.produce.total)
     const sumTotal = arrayTotal.reduce((a, b) => a + b, 0)
 
     return(
@@ -84,7 +81,7 @@ function Confirm( { formData, userCart, account, handleUpdateCart } ) {
                 </div>
                 <div className='receipt-container'>
                     <h3>Receipt:</h3>
-                    {userCart.map(item => 
+                    {purchase.map(item => 
                     <div className='receipt' key={item.id}>
                         <a>{item.produce.produce}</a>
                         <a>Amt: {item.quantity}</a>

@@ -8,7 +8,7 @@
 .search-container {
     min-width: 400px;
     height: 150px;
-    border: inset gray 1px;
+    /* border: inset gray 1px; */
     display:flex;
     flex-direction: column;
     /* align-items: center; */
@@ -33,7 +33,7 @@
     left: 2%;
     position: relative;
     background: white;
-    border: inset gray 1px;
+    /* border: inset gray 1px; */
     border-radius: 30px;
     /* float: left;     */
     font-size: 14px;

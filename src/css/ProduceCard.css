@@ -13,8 +13,8 @@
 .card img {
     width: 160px;
     height: 150px; 
-    border: inset rgb(0, 0, 0) 1px;
-    border-radius: 15px;
+    /* border: inset rgb(0, 0, 0) 1px; */
+    /* border-radius: 15px; */
 }
 
 .quantity-num-card {

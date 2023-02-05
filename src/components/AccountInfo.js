@@ -12,6 +12,7 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
     const [errorDisplay, setErrorDisplay] = useState(false)
     const [error, setError] = useState("")
     const number = [formData.areacode, formData.threedigits, formData.fourdigits].join('')
+    const ccNumber = [formData.fstdigits, formData.snddigits, formData.thddigits, formData.fthdigits].join('')
 
     
     function handleChange(e) {
@@ -24,6 +25,10 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
             }
         })
     }
+
+    function toggleSearchExistingInfo() {
+        setExistingAcc(!existingAcc)
+    }
     
     function toggleDisplay() {
         setToggle(!toggle)
@@ -33,18 +38,18 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
         setErrorDisplay(!errorDisplay)
     }
     
-    function findAcc() {
-        setExistingAcc(existingAcc => !existingAcc)
-        if (existingAcc) {
-            account.map(acc => {
-                if (number === acc.phone) {
-                    console.log('match')
-                } else {
-                    console.log('no match')
-                }
-            })
-        }
-    }
+    // function findAcc() {
+    //     setExistingAcc(existingAcc => !existingAcc)
+    //     if (existingAcc) {
+    //         account.map(acc => {
+    //             if (number === acc.phone && acc.name.toUpperCase() === formData.name.toUpperCase()) {
+    //                 console.log('match')
+    //             } else {
+    //                 console.log('no match')
+    //             }
+    //         })
+    //     }
+    // }
     
     function handleSubmit(e) {
         e.preventDefault();
@@ -57,6 +62,16 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
         } else if (!formData.fstdigits || !formData.snddigits || !formData.thddigits || !formData.fthdigits || !formData.expmon || !formData.expyr || !formData.code) {
             setError("Please fill out credit card")
             setErrorDisplay(!errorDisplay)
+        // } else if (existingAcc) {
+        //     const searchName = account.map(acc => {return acc.name})
+        //     const searchPhone = account.map(acc => {return acc.phone})
+        //     const searchCC = account.map(acc => {return acc.credit_card})
+        //     const inputName = (user) => user === formData.name
+        //     const inputPhone = (phone) => phone === number
+        //     const inputCC = (cc) => cc === ccNumber
+        //     if (searchName.some(inputName) === true && searchPhone.some(inputPhone) === true && searchCC.some(inputCC) === true) {
+        //         console.log('user exist')
+        //     }            
         } else {
         history.push('/confirm')
         fetch(`${process.env.REACT_APP_API_URL}/order`, {
@@ -80,12 +95,17 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
     return (
         <div className='info-container'>
             <div className='info-box'>
+                <div className='existing-container'>
+                    <input type="checkbox" onChange={toggleSearchExistingInfo}/> 
+                    <p>I have shopped here.  (Type your name and credit card.)</p>
+                </div>
                 <form onSubmit={handleSubmit}>
                     <div className="name-container">
                         <label>Full Name:</label>
                         <input 
                             className="placeholder" name='name' type="text"
                             placeholder='Full Name' value={formData.name} onChange={handleChange}
+                            style={{ borderStyle: "solid", borderColor :  existingAcc ? "" : "green" }}
                         />
                     </div>
                     <div className="phone" >
@@ -93,65 +113,78 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
                         <input className="number" name='areacode' type="text"
                         maxLength="3" placeholder='000' 
                         value={formData.areacode} onChange={handleChange}
+                        disabled={ existingAcc ? "" : true}
                         />
                         <input 
                         className="number" name='threedigits' type="text" 
                         maxLength="3" placeholder='123' 
                         value={formData.threedigits} onChange={handleChange}
+                        disabled={ existingAcc ? "" : true}
                         />
                         <input className="number" name='fourdigits' type="text"
                         maxLength="4" placeholder='4567' 
                         value={formData.fourdigits} onChange={handleChange}
+                        disabled={ existingAcc ? "" : true}
                         />
-                        <input type="checkbox" onChange={findAcc}/> I have shopped here
                     </div>
                     <div className="credit-card">
                         <label>Credit Card:</label>
                         <input className="credit-no" name='fstdigits' type="text"
                         maxLength="4" placeholder='1234' 
                         value={formData.fstdigits} onChange={handleChange}
+                        style={{ borderStyle: "solid", borderColor :  existingAcc ? "" : "green" }}
                         />
                         <input className="credit-no" name='snddigits' type="text" 
                         maxLength="4" placeholder='4567' 
                         value={formData.snddigits} onChange={handleChange}
+                        style={{ borderStyle: "solid", borderColor :  existingAcc ? "" : "green" }}
                         />
                         <input className="credit-no" name='thddigits' 
                         type="text" maxLength="4" placeholder='8901' 
                         value={formData.thddigits} onChange={handleChange}
+                        style={{ borderStyle: "solid", borderColor :  existingAcc ? "" : "green" }}
                         />
                         <input className="credit-no" name='fthdigits' type="text"
                         maxLength="4" placeholder='2345' 
                         value={formData.fthdigits} onChange={handleChange}
+                        style={{ borderStyle: "solid", borderColor :  existingAcc ? "" : "green" }}
                         />
                     </div>
+                    <div className="exp-date">
                         <label>Expiration Date:</label>
                         <input className="exp-no" name='expmon' type="text" maxLength="2"
-                        placeholder='00' value={formData.expmon} onChange={handleChange} 
-                        /> /
+                        placeholder='00' value={formData.expmon} onChange={handleChange}
+                        style={{ borderStyle: "solid", borderColor :  existingAcc ? "" : "green" }}
+                        />/
                         <input className="exp-no" name='expyr' type="text" maxLength="2"
-                        placeholder='00' value={formData.expyr} onChange={handleChange} 
+                        placeholder='00' value={formData.expyr} onChange={handleChange}
+                        style={{ borderStyle: "solid", borderColor :  existingAcc ? "" : "green" }} 
                         />
                         <label>Code:</label>
                         <input className="code-no" name='code' type="text" maxLength="3"
                         placeholder='' value={formData.code} onChange={handleChange}
+                        style={{ borderStyle: "solid", borderColor :  existingAcc ? "" : "green" }}
                         />
+                    </div>
                         <div className='toa'>
-                            <input type="checkbox"/>
+                            <input type="checkbox" disabled={ existingAcc ? "" : true}/>
                             <h6>By clicking on checkbox you agree with terms and conditions with Fresh Food Market Place</h6>
+                        </div>
                             <h6 className="whats-this-link" onClick={toggleDisplay}>What's this?</h6>
                             {toggle ? 
                         <div className="whats-this-container">
                             <div className="whats-this">
                             <p>This checkbox states that all the information submitted is accurate and that the user entering the information is authentic.</p>
                         </div>
-                        </div>
+                         </div>
                          : ""}
-                        </div>
                         <button className="acc-btn" id="confirm-next">Next</button>
                 </form>
                         <Link to="/checkout"><button className="acc-btn" id="confirm-back">Back</button></Link>
             </div>
                 {errorDisplay ? 
+                <div className="error-msg">
+
             <div className="error-msg-container">
                 <div className="error">
                     <div>Error: {error}</div>
@@ -159,8 +192,9 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
                     <button onClick={toggleError}>Ok</button>
                 </div>
             </div>
+            </div>
                 : ""}
-        </div>
+                </div>
     )
 }
 

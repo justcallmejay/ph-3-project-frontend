@@ -77,13 +77,14 @@ function Produce( { sum, onHandleDelete, produce, setProduce, filterFood, setFil
                  </div>
                  : 
                  <div className='produce-column'>
-                    {search.map(sear => 
+                    {search.map(item => 
                     <ProduceList 
-                        sear={sear} 
-                        key={sear.id} 
+                        item={item} 
+                        key={item.id} 
                         userCart={userCart}
                         handleAddtoCart={handleAddtoCart}
                         onHandleChange={onHandleChange}
+                        handleUpdateCart={handleUpdateCart}
                     />)}
                 </div>
                 }

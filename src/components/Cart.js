@@ -22,7 +22,7 @@ function Cart( { yAxis, produce, setProduce, userCart, onHandleDelete, sum } ) {
                 <div className='cart-container-thing'>
 
                 {userCart.map(cart => 
-                cart.order_id !== null ?
+                cart.order_id === null ?
                 <CartList 
                     cart={cart}
                     produce={produce}

@@ -104,7 +104,8 @@ function ProduceCard( { item, userCart, handleAddtoCart, handleUpdateCart, anima
             <h4>Buy Discount</h4>
             <input type='checkbox' onChange={() => setCheck(!check)}/>
             {check ? <>
-            <input 
+            <input
+                className="quantity-num-card"
                 type="number" 
                 value={quantityDiscountCount}
                 keypress="false"
