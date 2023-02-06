@@ -1,5 +1,5 @@
 .produce {
-    top: 100px;
+    top: 40px;
     left: 14%;
     position: relative;
     width: 1700px;
@@ -18,7 +18,7 @@
     top: 70px;
     position: relative;
     height: 40px;
-    margin: 20px 10px 10px 100px;
+    margin: 20px 10px 10px 120px;
 }
 
 .search-btn {
@@ -34,7 +34,7 @@
     position: relative;
     background: white;
     /* border: inset gray 1px; */
-    border-radius: 30px;
+    /* border-radius: 30px; */
     /* float: left;     */
     font-size: 14px;
     height: 1200px;
@@ -83,7 +83,7 @@ input[type='radio'] {
     position: relative;
     height: 1000px;
     width: 1125px;
-    border: inset gray 1px;
+    /* border: inset gray 1px; */
     margin: 10px;
     display: flex;
     flex-wrap: wrap;
@@ -97,7 +97,7 @@ input[type='radio'] {
     width: 1125px;
     margin: 10px;
     position: relative;
-    border: inset rgb(0, 0, 0) 1px;
+    /* border: inset rgb(0, 0, 0) 1px; */
     display: flex;
     flex-direction: column;
     overflow-y: auto;

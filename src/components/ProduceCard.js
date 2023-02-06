@@ -102,20 +102,18 @@ function ProduceCard( { item, handleAddtoCart, handleUpdateCart, animateAddCart,
             <div>Discount Price: {item.discount_price}</div>
             <div>Discount Quantity: {item.discount_quantity}</div>
             <div className='discount-container'>
-            <h4>Buy Discount</h4>
-            <input type='checkbox' onChange={() => setCheck(!check)}/>
-            {check ? <>
-            <input
-                className="quantity-num-card"
-                type="number" 
-                value={quantityDiscountCount}
-                keypress="false"
-                min="0"
-                max={item.discount_quantity}
-                maxLength="2"
-                onChange={(e) => setQuantityDiscountCount(e.target.value)}
-                />
-                </> : "" }
+                <div className='discount-label-card'>
+                    <h4>Buy Discount</h4>
+                </div>
+                <div className='discount-checkbox-card'>
+                    <input className='produce-card-checkbox' type='checkbox' onChange={() => setCheck(!check)}/>
+                        {check ? <>
+                            <input
+                                className="quantity-num-card" type="number" 
+                                keypress="false" max={item.discount_quantity} min="0" maxLength="2"
+                                value={quantityDiscountCount} onChange={(e) => setQuantityDiscountCount(e.target.value)}
+                            /> </> : "" }
+                    </div>
                 </div>
             </>
             : <h4>Sold Out</h4>}

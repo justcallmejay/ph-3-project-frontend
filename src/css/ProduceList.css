@@ -2,7 +2,7 @@
     height: 110px;
     width: 100%;
     margin: 20px 0 5px 0;
-    border: inset rgb(0, 0, 0) 1px;
+    /* border: inset rgb(0, 0, 0) 1px; */
     display: flex;
     flex-direction:row;
     justify-content: space-between;

@@ -18,7 +18,7 @@ function Cart( { yAxis, produce, setProduce, userCart, onHandleDelete, sum, inve
     return(
         <>
             <div className='cart'>
-                <h3 className="cart-title">Your cart:</h3>
+                <h2 className="cart-title">Your cart:</h2>
                 <div className='cart-container-thing'>
 
                 {inventory.map(cart => 

@@ -2,12 +2,12 @@
     height: 400px;
     width: 250px;
     margin: 10px;
-    border: inset rgb(0, 0, 0) 1px;
+    /* border: inset rgb(c0, 0, 0) 1px; */
     border-radius: 20px;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    display: flex;
 }
 
 .card img {
@@ -35,4 +35,13 @@
 
 .discount-container {
     display: flex;
+    /* flex-direction: column;
+    width: 100px;
+    height: 30px; */
 }
+
+/* .discount-checkbox-card {
+    height: 60px;
+    border: inset rgb(0, 0, 0) 1px;
+    margin: 10px
+} */

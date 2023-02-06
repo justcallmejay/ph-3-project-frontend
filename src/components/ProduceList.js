@@ -95,22 +95,26 @@ function ProduceList( { item, inventory, handleAddtoCart, onHandleChange, handle
             <>
             <div>Discount Price: {item.discount_price}</div>
             <div>Discount Quantity: {item.discount_quantity}</div>
-            <div className='discount-container'>
-            <h4>Buy Discount</h4>
-            <input type='checkbox' onChange={() => setCheck(!check)}/>
-            {check ? <>
-            <input
-                className="quantity-num-card"
-                type="number" 
-                value={quantityDiscountCount}
-                keypress="false"
-                min="0"
-                max={item.discount_quantity}
-                maxLength="2"
-                onChange={(e) => setQuantityDiscountCount(e.target.value)}
-                />
-                </> : "" }
+            <div className='discount-container-list'>
+                <div className='discount-label'>
+                    <h4>Buy Discount</h4>
                 </div>
+                <div className='discount-action'>
+                    <input type='checkbox' onChange={() => setCheck(!check)}/>
+                        {check ? <>
+                            <input
+                                className="quantity-num-card"
+                                type="number" 
+                                value={quantityDiscountCount}
+                                keypress="false"
+                                min="0"
+                                max={item.discount_quantity}
+                                maxLength="2"
+                                onChange={(e) => setQuantityDiscountCount(e.target.value)}
+                            />
+                        </> : "" }
+                </div>
+            </div>
             </>
             : <h4>Sold Out</h4>}
             <input 
