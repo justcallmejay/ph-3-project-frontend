@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import '../css/ProduceList.css'
 
-function ProduceList( { item, userCart, handleAddtoCart, onHandleChange, handleUpdateCart } ) {
+function ProduceList( { item, inventory, handleAddtoCart, onHandleChange, handleUpdateCart } ) {
 
     const [quantityCount, setQuantityCount] = useState(0)
     const [check, setCheck] = useState(false)
     const [quantityDiscountCount, setQuantityDiscountCount] = useState(0)
 
     function addToCart(food) {
-        const existingItem = userCart.map(cart => {return cart.produce_id})
+        if (quantityCount !== 0 || quantityDiscountCount !== 0) {
+                //.some is used to ensure that if the usercart array does contain item it will run PATCH; 
+        //using map will trigger else statement because it will iterate everything in cart
+        //SOLUTION: replace userCart with inventory
+        const existingItem = inventory.map(cart => {return cart.produce_id})
         const currentItem = (inventory) => inventory === food.id
         let dscQuantity = ""
         let dscTotal = ""
         
-        if (existingItem.some(currentItem) === true) {  
-            userCart.map(cart => {
-                if (cart.produce.produce === item.produce) {
+        if (existingItem.some(currentItem) === true) {
+            inventory.map(cart => {
                     if (check === true) {
                         console.log('check')
                         dscQuantity = parseInt(quantityDiscountCount) + cart.dsc_quantity;
@@ -42,7 +45,6 @@ function ProduceList( { item, userCart, handleAddtoCart, onHandleChange, handleU
                 .then(addFood => handleUpdateCart(addFood));
                 setQuantityCount(0)
                 setQuantityDiscountCount(0)
-                }
             })
 
             } else {
@@ -73,20 +75,9 @@ function ProduceList( { item, userCart, handleAddtoCart, onHandleChange, handleU
             setQuantityDiscountCount(0)
             }
         }
-    // else {
-    //     console.log(food.id)
-    //     fetch(`${process.env.REACT_APP_API_URL}/cart/${food.id}`, {
-    //         method: "PATCH",
-    //         headers: {"Content-Type" : "application/json"},
-    //         body: JSON.stringify({
-    //             quantity: item.quantity + quantityCount
-    //         })
-    //     })
-    //         .then(res => res.json())
-    //         .then(res => onHandleChange(res))
-    // }
-// })
-// }
+        else 
+        alert('select the amount')
+    }
 
 
     return(

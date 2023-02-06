@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../css/MyAccount.css'
 
-function MyAccount( { userCart, purchase } ) {
+function MyAccount( { userCart, inventory } ) {
 
     // console.log(userPurchase)
 
@@ -44,7 +44,10 @@ function MyAccount( { userCart, purchase } ) {
 
     function gatherInfo() {
         userCart.map(cart => {
-            if (cart.order.name === user.name && cart.order.credid_card === user.credit_card && cart.order_id !== null) {
+            // console.log(cart.order.credit_card)
+            if (cart.order.credit_card === undefined) {
+                alert('cannot find shopper')
+            } else if (cart.order.name === user.name && cart.order.credit_card === Number(user.credit_card)) {
             // setToggleInfo(toggleInfo => !toggleInfo);
             fetch(`${process.env.REACT_APP_API_URL}/cart/${cart.order_id}`)
             .then(res => res.json())
@@ -53,7 +56,7 @@ function MyAccount( { userCart, purchase } ) {
             .then(res => res.json())
             .then(res => setMyInfo(res))
             } else {
-                console.log('no match')
+                alert('no match')
                 }
             })
         }
@@ -104,8 +107,8 @@ function MyAccount( { userCart, purchase } ) {
                                 <label>CC#:</label>
                                     <input 
                                     className="enter-info-field" 
-                                    name="phone" 
-                                    value={user.phone} 
+                                    name="credit_card" 
+                                    value={user.credit_card} 
                                     onChange={handleChange} 
                                     type="text" placeholder="Phone"/>
                             </div>
@@ -116,7 +119,7 @@ function MyAccount( { userCart, purchase } ) {
                     }
                     </div>
                         <div className='acc-cart-container'>
-                            {userCart.length > 0 ? 
+                            {inventory.length > 0 ? 
                             <>
                             <div className="acc-cart-label">
                                 <h3>Your Cart:</h3>
@@ -124,7 +127,7 @@ function MyAccount( { userCart, purchase } ) {
                             <div className="acc-toggle-container">
                                 <button className="toggle-btns" onClick={displayMore}>Left</button>
                                     <div className='acc-cart-display-container'>
-                                        {purchase.map(cart => 
+                                        {inventory.map(cart => 
                                         <div className='myacc-card' key={cart.id} style={{ transform : `translateX(${display}px)`}}>
                                             <img className="myacc-img" src={cart.produce.image} alt={cart.produce.produce}/>
                                             <h3>{cart.produce.produce}</h3>

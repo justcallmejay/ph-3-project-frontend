@@ -5,7 +5,7 @@ import ProduceCard from './ProduceCard';
 import ProduceList from './ProduceList';
 import '../css/Produce.css'
 
-function Produce( { sum, onHandleDelete, produce, setProduce, filterFood, setFilterFood, setUserCart, userCart, onHandleChange } ) {
+function Produce( { sum, onHandleDelete, produce, setProduce, filterFood, setFilterFood, setUserCart, userCart, onHandleChange, inventory, setInventory } ) {
 
     const [searchFood, setSearchFood] = useState("")
     const [toggleDisplay, setToggleDisplay] = useState(true)
@@ -25,18 +25,18 @@ function Produce( { sum, onHandleDelete, produce, setProduce, filterFood, setFil
     }
 
     function handleAddtoCart(item) {
-        setUserCart([...userCart, item])
+        setInventory([...inventory, item])
     }
 
     function handleUpdateCart(item) {
-        const updateCart = userCart.map(food => {
+        const updateCart = inventory.map(food => {
             if (food.id === item.id) {
                 return item
             } else {
                 return food
             }
         })
-        setUserCart(updateCart)
+        setInventory(updateCart)
     }
 
     const [yAxis, setyAxis] = useState(0)
@@ -68,7 +68,7 @@ function Produce( { sum, onHandleDelete, produce, setProduce, filterFood, setFil
                         animateAddCart={animateAddCart}
                         item={item} 
                         key={item.id} 
-                        userCart={userCart} 
+                        inventory={inventory} 
                         handleAddtoCart={handleAddtoCart}
                         onHandleChange={onHandleChange}
                         handleUpdateCart={handleUpdateCart}
@@ -81,7 +81,7 @@ function Produce( { sum, onHandleDelete, produce, setProduce, filterFood, setFil
                     <ProduceList 
                         item={item} 
                         key={item.id} 
-                        userCart={userCart}
+                        inventory={inventory}
                         handleAddtoCart={handleAddtoCart}
                         onHandleChange={onHandleChange}
                         handleUpdateCart={handleUpdateCart}
@@ -91,8 +91,8 @@ function Produce( { sum, onHandleDelete, produce, setProduce, filterFood, setFil
                 <div className='cart-container'>
                 <Cart 
                     sum={sum}
-                    userCart={userCart}
-                    setUserCart={setUserCart}
+                    inventory={inventory}
+                    setInventory={setInventory}
                     produce={produce}
                     setProduce={setProduce}
                     onHandleDelete={onHandleDelete}

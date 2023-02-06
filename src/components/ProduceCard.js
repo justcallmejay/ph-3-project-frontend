@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../css/ProduceCard.css'
 
-function ProduceCard( { item, userCart, handleAddtoCart, handleUpdateCart, animateAddCart } ) {
+function ProduceCard( { item, handleAddtoCart, handleUpdateCart, animateAddCart, inventory } ) {
 
     const [check, setCheck] = useState(false)
     const [quantityCount, setQuantityCount] = useState(0)
@@ -15,14 +15,17 @@ function ProduceCard( { item, userCart, handleAddtoCart, handleUpdateCart, anima
     // console.log(find)
     
     function addToCart(food) {
-        const existingItem = userCart.map(cart => {return cart.produce_id})
+        if (quantityCount !== 0 || quantityDiscountCount !== 0) {
+                //.some is used to ensure that if the usercart array does contain item it will run PATCH; 
+        //using map will trigger else statement because it will iterate everything in cart
+        //SOLUTION: replace userCart with inventory
+        const existingItem = inventory.map(cart => {return cart.produce_id})
         const currentItem = (inventory) => inventory === food.id
         let dscQuantity = ""
         let dscTotal = ""
         
-        if (existingItem.some(currentItem) === true) {  
-            userCart.map(cart => {
-                if (cart.produce.produce === item.produce) {
+        if (existingItem.some(currentItem) === true) {
+            inventory.map(cart => {
                     if (check === true) {
                         console.log('check')
                         dscQuantity = parseInt(quantityDiscountCount) + cart.dsc_quantity;
@@ -49,7 +52,6 @@ function ProduceCard( { item, userCart, handleAddtoCart, handleUpdateCart, anima
                 .then(addFood => handleUpdateCart(addFood));
                 setQuantityCount(0)
                 setQuantityDiscountCount(0)
-                }
             })
 
             } else {
@@ -80,10 +82,9 @@ function ProduceCard( { item, userCart, handleAddtoCart, handleUpdateCart, anima
             setQuantityDiscountCount(0)
             }
         }
-    
-    // function addDscToCart() {
-    //     let nu
-    // }
+        else 
+        alert('select the amount')
+    }
 
     return(
         <div className='card'>

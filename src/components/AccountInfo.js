@@ -14,6 +14,8 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
     const number = [formData.areacode, formData.threedigits, formData.fourdigits].join('')
     const ccNumber = [formData.fstdigits, formData.snddigits, formData.thddigits, formData.fthdigits].join('')
 
+    // console.log(ccNumber)
+    // console.log(existingAcc)
     
     function handleChange(e) {
         const {name, value} = e.target;
@@ -53,16 +55,39 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
     
     function handleSubmit(e) {
         e.preventDefault();
+        if (existingAcc === false) {
+            const existingName = account.map(person => {return person.name})
+            const existingCard = account.map(card => {return String(card.credit_card)})
+            const inputExistingName = (name) => name === formData.name
+            const inputExistingCard = (card) => card === ccNumber
+            if (existingName.some(inputExistingName) === true && existingCard.some(inputExistingCard) === true) {
+            account.map(acc => {
+                if (acc.name === formData.name) {
+                    let newone = String(acc.phone).slice(0,3)
+                    let newtwo = String(acc.phone).slice(3,6)
+                    let newthree = String(acc.phone).slice(6,10)
+                    formData.areacode = Number(newone)
+                    formData.threedigits = Number(newtwo)
+                    formData.fourdigits = Number(newthree)
+                    history.push('/confirm')
+                        }
+                    })
+                } else (setError("Information not found"))
+                setErrorDisplay(!errorDisplay)
+            } else {
         if (!formData.name) {
-            setError("Fill out name")
+            setError("Complete name")
             setErrorDisplay(!errorDisplay)
         } else if (!formData.areacode || !formData.threedigits || !formData.fourdigits) {
-            setError("Complete number")
+            setError("Complete phone number")
             setErrorDisplay(!errorDisplay)
         } else if (!formData.fstdigits || !formData.snddigits || !formData.thddigits || !formData.fthdigits || !formData.expmon || !formData.expyr || !formData.code) {
-            setError("Please fill out credit card")
-            setErrorDisplay(!errorDisplay)
-        // } else if (existingAcc) {
+            setError("Fill out credit card information")
+            setErrorDisplay(!errorDisplay) 
+        } else if (formData.fstdigits.length < 4 || formData.snddigits.length < 4 || formData.thddigits.length < 4 || formData.fthdigits.length < 4 || formData.expmon.length < 2 || formData.expyr.length < 2 || formData.code.length < 3) {
+            setError("Complete credit card information")
+            setErrorDisplay(!errorDisplay) 
+        // } else if {
         //     const searchName = account.map(acc => {return acc.name})
         //     const searchPhone = account.map(acc => {return acc.phone})
         //     const searchCC = account.map(acc => {return acc.credit_card})
@@ -90,6 +115,7 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
         .then(res => handleAddAccount(res))
         }
         console.log(error)
+        }
     }
 
     return (

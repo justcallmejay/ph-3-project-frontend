@@ -111,6 +111,9 @@ input[type="checkbox"] {
 }
 
 .whats-this-container {
+    top: 490px;
+    left: 5px;
+    position: absolute;
     height: 100px;
     width: 400px;
     border: inset rgb(0, 0, 0) 1px;
