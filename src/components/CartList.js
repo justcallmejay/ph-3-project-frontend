@@ -7,7 +7,7 @@ function CartList( { yAxis, cart, onHandleDelete, onHandleUpdate } ) {
     const itemTotal = (cart.produce.price * cart.quantity)
     const discountTotal = (cart.produce.discount_price * cart.dsc_quantity)
 
-    console.log(cart.produce.discount_price)
+    // console.log(cart.produce.discount_price)
     function handleMouseEnter() {
         setHover(true)
     }

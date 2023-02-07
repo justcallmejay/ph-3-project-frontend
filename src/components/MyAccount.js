@@ -25,11 +25,14 @@ function MyAccount( { userCart, inventory } ) {
     }
     console.log((userCart.length / 5) * displayItems)
     
+    let sum = 0
     function displayLess() {
-        if (Math.abs(display) < (userCart.length / 8) * displayItems) {
+        sum = sum + 1
+        if (sum < (inventory.length / 4)) {
             return setDisplay((display - displayItems));
         }
     }
+    console.log(sum)
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -81,10 +84,8 @@ function MyAccount( { userCart, inventory } ) {
                                 <h3>Phone:</h3>
                             </div>
                             <div className='acc-input-container'>
-                                <>
                                 <h3>{myInfo.name}</h3>
                                 <h3>{myInfo.phone}</h3>
-                                </>
                             </div>
                         </div>
                         :
@@ -92,29 +93,21 @@ function MyAccount( { userCart, inventory } ) {
                             <div className="input-acc-label">
                                 <h4>Shopped here before?  Enter info below</h4>
                             </div>
-                    <div className='input-basic-field-container'>
-                        <div className="input-basic-field">
-                            <div className="input-name">
-                                <label>Name:</label>
-                                    <input 
-                                    className="enter-info-field" 
-                                    name="name"
-                                    value={user.name} 
-                                    onChange={handleChange} 
-                                    type="text" placeholder="Name"/>
+                            <div className='input-basic-field-container'>
+                                <div className="input-basic-field">
+                                    <div className="input-labels">
+                                        <label>Name:</label>
+                                        <label>CC#:</label>
+                                    </div>
+                                <div className="input-placeholders">
+                                    <input className="enter-info-field" type="text" placeholder="Name"
+                                    name="name" value={user.name} onChange={handleChange} />
+                                    <input className="enter-info-field" type="text" placeholder="Phone"
+                                    name="credit_card" value={user.credit_card} onChange={handleChange} />
+                                </div>
+                                    <button className="find-acc-btn" onClick={gatherInfo}>Find</button> 
+                                </div>
                             </div>
-                            <div className="input-phone">
-                                <label>CC#:</label>
-                                    <input 
-                                    className="enter-info-field" 
-                                    name="credit_card" 
-                                    value={user.credit_card} 
-                                    onChange={handleChange} 
-                                    type="text" placeholder="Phone"/>
-                            </div>
-                        </div>
-                        <button className="find-acc-btn" onClick={gatherInfo}>Find</button> 
-                    </div>
                         </div>
                     }
                     </div>
@@ -152,10 +145,8 @@ function MyAccount( { userCart, inventory } ) {
                     <h3>Your purchase:</h3>
                 </div>
                 <div className="purchase-list-container">
-
-                            {myAccount.length !== 0 ?
+                        {myAccount.length !== 0 ?
                         <>
-                        {/*NEED TO MAP TO GET MULTIPLE FIELDS*/}
                         {myAccount.map(acc => 
                     <div className='purchase-container' key={acc.id}>
                         <>
@@ -164,7 +155,6 @@ function MyAccount( { userCart, inventory } ) {
                         </div>
                         <div className="purchase-quantity">
                             <div>Amount: {acc.quantity}</div>
-
                         </div>
                         <div className='purchased-total'>
                             <div>Total: {null}</div>

@@ -13,19 +13,24 @@ function ProduceCard( { item, handleAddtoCart, handleUpdateCart, animateAddCart,
     //     return cart.produce.produce
     // })
     // console.log(find)
+
+    console.log(item)
+    console.log(inventory)
     
     function addToCart(food) {
         if (quantityCount !== 0 || quantityDiscountCount !== 0) {
-                //.some is used to ensure that if the usercart array does contain item it will run PATCH; 
+        //.some is used to ensure that if the usercart array does contain item it will run PATCH; 
         //using map will trigger else statement because it will iterate everything in cart
         //SOLUTION: replace userCart with inventory
         const existingItem = inventory.map(cart => {return cart.produce_id})
-        const currentItem = (inventory) => inventory === food.id
+        const currentItem = (card) => card === food.id
         let dscQuantity = ""
         let dscTotal = ""
         
         if (existingItem.some(currentItem) === true) {
             inventory.map(cart => {
+                if (cart.produce.produce === item.produce) {
+                        console.log('match')
                     if (check === true) {
                         console.log('check')
                         dscQuantity = parseInt(quantityDiscountCount) + cart.dsc_quantity;
@@ -35,14 +40,14 @@ function ProduceCard( { item, handleAddtoCart, handleUpdateCart, animateAddCart,
                         dscQuantity = cart.dsc_quantity
                         dscTotal = cart.produce.discount_price * parseInt(cart.dsc_quantity, 10)
                     }
-                const updataQuantity = (cart.quantity + parseInt(quantityCount, 10))
-                console.log(updataQuantity)
-                const updateTotal = cart.produce.price * updataQuantity
+                const updateQuantity = (cart.quantity + parseInt(quantityCount, 10))
+                // console.log(updataQuantity)
+                const updateTotal = cart.produce.price * updateQuantity
                 fetch(`${process.env.REACT_APP_API_URL}/cart/${cart.id}`, {
                     method: "PATCH",
                     headers: {"Content-Type" : "application/json"},
                     body: JSON.stringify({
-                        quantity: updataQuantity,
+                        quantity: updateQuantity,
                         total: updateTotal,
                         dsc_quantity: dscQuantity,
                         dsc_total: dscTotal
@@ -52,6 +57,7 @@ function ProduceCard( { item, handleAddtoCart, handleUpdateCart, animateAddCart,
                 .then(addFood => handleUpdateCart(addFood));
                 setQuantityCount(0)
                 setQuantityDiscountCount(0)
+                }
             })
 
             } else {

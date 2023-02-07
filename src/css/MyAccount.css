@@ -1,14 +1,14 @@
 .myaccount {
     width: 80%;
     left: 45%;
-    top: 145px; 
+    top: 50px; 
     position: relative;
 }
 
 .myacc-container {
     height: 1000px;
     width: 1000px;
-    border: inset rgb(0, 0, 0) 1px;
+    /* border: inset rgb(0, 0, 0) 1px; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,15 +38,6 @@
     justify-content: end;
 }
 
-.input-acc-label, .input-basic-field-container {
-    margin: 10px 0 0 50px;
-}
-
-.enter-info-field {
-    width: 400px;
-    margin: 10px 0 0 0;
-}
-
 .acc-input-label {
     width: 100px;
     display: flex;
@@ -59,16 +50,44 @@
 .acc-input-container {
     width: 100px;
     margin: 0px 10px 0 0;
+}    
+
+.input-acc-label, .input-basic-field-container {
+    margin: 10px 0 0 50px;
 }
 
 .input-basic-field-container {
+    width: 700px;
     display: flex;
+}
+
+.input-basic-field {
+    display: flex;
+    align-content:space-between;
+}
+
+.input-labels {
+    width: 60px;
+    height: 75px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.enter-info-field {
+    width: 500px;
+}
+
+.input-placeholders {
+    width: 500px;
+    margin: 0 10px 0 10px;
 }
 
 .find-acc-btn {
     height: 40px;
     width: 50px;
-    margin: 13px 0 0 10px;
+    margin: 4px 0 0 0;
+    cursor: pointer;
 }
 
 
@@ -130,7 +149,7 @@
 .acc-cart-display-container {
     height: 170px;
     width: 600px;
-    border: inset rgb(0, 0, 0) 1px;
+    /* border: inset rgb(0, 0, 0) 1px; */
     overflow: hidden;
     display: flex;
 }
@@ -138,6 +157,7 @@
 .toggle-btns {
     height: 170px;
     width: 50px;
+    cursor: pointer;
 }
 
 .purchase-history-container {

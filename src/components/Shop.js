@@ -52,10 +52,10 @@ function Shop() {
         setAccount([...account, newAccount])
     }
     
-    console.log(userCart)
-    console.log(inventory)
-    console.log(account)
-    console.log(produce)
+    // console.log(userCart)
+    // console.log(inventory)
+    // console.log(account)
+    // console.log(produce)
     // console.log(account)
     
     
@@ -128,7 +128,7 @@ function Shop() {
 
     const discountArray = inventory.map(item => {
         if (item.order_id === null) {
-            console.log(item)
+            // console.log(item)
             return (item.produce.discount_price * item.dsc_quantity)
         } 
         else {

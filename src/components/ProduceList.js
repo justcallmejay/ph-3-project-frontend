@@ -19,6 +19,7 @@ function ProduceList( { item, inventory, handleAddtoCart, onHandleChange, handle
         
         if (existingItem.some(currentItem) === true) {
             inventory.map(cart => {
+                if (cart.produce.produce === item.produce) {
                     if (check === true) {
                         console.log('check')
                         dscQuantity = parseInt(quantityDiscountCount) + cart.dsc_quantity;
@@ -45,6 +46,7 @@ function ProduceList( { item, inventory, handleAddtoCart, onHandleChange, handle
                 .then(addFood => handleUpdateCart(addFood));
                 setQuantityCount(0)
                 setQuantityDiscountCount(0)
+                }   
             })
 
             } else {
