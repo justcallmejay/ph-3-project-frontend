@@ -52,12 +52,6 @@ function Shop() {
         setAccount([...account, newAccount])
     }
     
-    // console.log(userCart)
-    console.log(inventory)
-    // console.log(account)
-    // console.log(produce)
-    console.log(account)
-    
     useEffect(() => {
         if (filterFood !== '') {
             fetch(`${process.env.REACT_APP_API_URL}/produce/*`)
@@ -88,15 +82,12 @@ function Shop() {
     
     function handleUpdateInventory(food) {
         setUserCart([...userCart, food])
+        console.log(userCart)
     }
 
-    //this does not work at confirm page; returns no match for all
-    //edit: change
-    // function handleUpdateUserCart(item) {
-    //     setUserCart([...userCart, item])
-    // }
-
+    //This does not pass both items in cart
     function handleUpdateProduce(food) {
+        console.log(food)
         const updateProduce = produce.map(item => {
             if (item.id === food.id) {
                 return food

@@ -8,12 +8,13 @@
 .checkout-label {
     width: 1000px;
     height: 100px;
-    border: inset rgb(0, 0, 0) 1px;
+    /* border: inset rgb(0, 0, 0) 1px; */
     top: 20px;
     position: relative;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    /* justify-content: center; */
+    align-items: end;
 }
 
 .checkout-container {

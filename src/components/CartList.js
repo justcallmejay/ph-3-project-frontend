@@ -43,11 +43,13 @@ function CartList( { yAxis, cart, onHandleDelete, onHandleUpdate } ) {
                 <p>Disc. Qty: {cart.dsc_quantity}</p>
                 <p>Disc. Total:{discountTotal.toFixed(2)}</p>
             </div>
-                {hover ? 
-                <>
-                <button className='checkout-delete' onClick={() => handleDelete(cart)}>Delete</button>
-                </>
-                : ""}
+                <div className="delete-btn-container">
+                    {hover ? 
+                    <>
+                    <button className='cart-delete-btn' onClick={() => handleDelete(cart)}>Delete</button>
+                    </>
+                    : ""}
+                </div>
         </div>
     )
 }

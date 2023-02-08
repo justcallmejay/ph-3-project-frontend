@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import '../css/Confirm.css'
 
-function Confirm( { formData, sum, userCart, account, handleUpdateInventory, inventory, setInventory, handleUpdateProduce } ) {
-
-    const history = useHistory()
+function Confirm( { formData, sum, account, handleUpdateInventory, inventory, setInventory, handleUpdateProduce } ) {
 
     const [transactionComplete, setTransactionComplete] = useState(true)
     const ccInfo = [formData.fstdigits, formData.snddigits, formData.thddigits]
@@ -43,7 +40,7 @@ function Confirm( { formData, sum, userCart, account, handleUpdateInventory, inv
                 .then(res => res.json())
                 .then(res => handleUpdateInventory(res));
             const subtractQuantity = acc.produce.quantity - acc.quantity
-            const subtractDscQuantity = acc.produce.discount_quantity - acc.discount_quantity
+            const subtractDscQuantity = acc.produce.discount_quantity - acc.dsc_quantity
                 fetch(`${process.env.REACT_APP_API_URL}/produce/${acc.produce_id}`, {
                     method: "PATCH",
                     headers: {"Content-Type" : "application/json"},
@@ -58,8 +55,6 @@ function Confirm( { formData, sum, userCart, account, handleUpdateInventory, inv
         }
         setInventory([])
         toggleTransaction()
-        // history.push('/shop')
-    // })
     }
 
     return(
@@ -87,21 +82,14 @@ function Confirm( { formData, sum, userCart, account, handleUpdateInventory, inv
                 <div className='submit-sum'><h3>Total: {sum.toFixed(2)}</h3></div>
                 <div className='confirm-btns'>
                 <Link to="/account-information">
-                    <button className="acc-btn" id="onfirm-back"
-                        // onClick={toggleAlert}
-                        >
-                    Back</button>
+                    <button className="acc-btn" id="confirm-back">Back</button>
                     </Link>
                 <button className="acc-btn" id="onfirm-next" onClick={addIdToCart}>Submit</button>
                 </div>
-                {/* <div className="submit">
-                    <h2>Your cart has been updated.  You may go back here:</h2>
-                    <Link to='/shop'><button>Shop</button></Link>
-                </div> */}
             </div>
         : <div className='success-container'>
             <div className='success'>
-            <h3>Transaction Complete! You may now return <Link to='/shop'><a href='http://localhost:9292/shop'>here</a></Link></h3>
+            <h3>Transaction Complete! You may now return </h3><Link to='/shop'><a href='http://localhost:9292/shop'>here</a></Link>
             </div>
             </div>}
         </div> 

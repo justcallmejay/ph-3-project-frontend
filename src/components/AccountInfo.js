@@ -40,19 +40,6 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
         setErrorDisplay(!errorDisplay)
     }
     
-    // function findAcc() {
-    //     setExistingAcc(existingAcc => !existingAcc)
-    //     if (existingAcc) {
-    //         account.map(acc => {
-    //             if (number === acc.phone && acc.name.toUpperCase() === formData.name.toUpperCase()) {
-    //                 console.log('match')
-    //             } else {
-    //                 console.log('no match')
-    //             }
-    //         })
-    //     }
-    // }
-    
     function handleSubmit(e) {
         e.preventDefault();
         const existingName = account.map(person => {return person.name})
@@ -181,7 +168,7 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
                     </div>
                     <div className="exp-date">
                         <label>Expiration Date:</label>
-                        <input className="exp-no" name='expmon' type="text" maxLength="2"
+                        <input className="exp-no" name='expmon' type="text" maxLength="2" 
                         placeholder='00' value={formData.expmon} onChange={handleChange}
                         style={{ borderStyle: "solid", borderColor :  existingAcc ? "" : "green" }}
                         />/

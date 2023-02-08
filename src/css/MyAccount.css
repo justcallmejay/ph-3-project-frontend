@@ -170,7 +170,7 @@
 }
 
 .purchase-list-container {
-    border: inset rgb(0, 0, 0) 1px;
+    /* border: inset rgb(0, 0, 0) 1px; */
     height: 300px;
     width: 700px;
     overflow-y: scroll;

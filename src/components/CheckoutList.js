@@ -13,12 +13,18 @@ function CheckoutList( { cart, onHandleDelete, handleUpdateCart } ) {
         setHover(false)
     }
 
-    let sumItem = cart.total + cart.dsc_total
+    const itemTotal = (cart.produce.price * cart.quantity)
+    const discountTotal = (cart.produce.discount_price * cart.dsc_quantity)
+
+    let sumItem = itemTotal + discountTotal
 
     //Edit inventory quantity
     const [submitEdit, setSubmitEdit] = useState(null)
     const [produceQuantity, setProduceQuantity] = useState(cart.quantity)
     const [dscQuantity, setDscQuantity] = useState(cart.dsc_quantity)
+
+    console.log(cart.total)
+    console.log(cart.dsc_total)
     
     function handleEdit(food) {
         setSubmitEdit(null)
@@ -70,7 +76,7 @@ function CheckoutList( { cart, onHandleDelete, handleUpdateCart } ) {
                             <p>{cart.quantity}</p>}
                     </div>
                     <div className='co-produce-total'>
-                        <div>Total: {cart.total}</div>
+                        <div>Total: {itemTotal.toFixed(2)}</div>
                     </div>
                 </div>
                 <div className="co-produce-discount-section">
@@ -88,7 +94,7 @@ function CheckoutList( { cart, onHandleDelete, handleUpdateCart } ) {
                             <div>{cart.dsc_quantity}</div>}
                     </div>
                     <div className='co-produce-discount-total'>
-                        <a>Disc. Total: {cart.dsc_total}</a>
+                        <a>Disc. Total: {discountTotal.toFixed(2)}</a>
                     </div>
                 </div>
                 <div className='produce-total'>

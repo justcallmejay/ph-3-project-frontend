@@ -46,16 +46,23 @@ function MyAccount( { userCart, inventory } ) {
 
     function gatherInfo() {
         const existingUser = userCart.map(cart => { return cart.order.name})
-        const existingCard = userCart.map(cart => { return cart.order.credit_card})
+        const existingCard = userCart.map(cart => { return String(cart.order.credit_card)})
         const typedName = (name) => name === user.name
         const typedCard = (card) => card === user.credit_card
-        if (existingUser.some(typedName) && existingCard.some(typedCard)) {
+        if (existingUser.some(typedName) === true && existingCard.some(typedCard) === true) {
+
+            //Do something like code below instead of .map
+            //const searchAcc = userCart.find(person => (cart.order.name === formData.name &&))
+            console.log('click')
         userCart.map(cart => {
             // console.log(cart.order.credit_card)
-            if (cart.order.credit_card === undefined) {
-                alert('cannot find shopper')
-            } else if (cart.order.name === user.name && cart.order.credit_card === Number(user.credit_card)) {
+            // if (cart.order.credit_card === undefined) {
+            //     alert('cannot find shopper')
+            // } else 
+            if (cart.order.name === user.name && cart.order.credit_card === Number(user.credit_card)) {
             // setToggleInfo(toggleInfo => !toggleInfo);
+            
+            //Change cart.order_id to searchAcc.order_id
             fetch(`${process.env.REACT_APP_API_URL}/cart/${cart.order_id}`)
             .then(res => res.json())
             .then(res => setMyAccount(res));
@@ -101,7 +108,7 @@ function MyAccount( { userCart, inventory } ) {
                                 <div className="input-placeholders">
                                     <input className="enter-info-field" type="text" placeholder="Name"
                                     name="name" value={user.name} onChange={handleChange} />
-                                    <input className="enter-info-field" type="text" placeholder="Phone"
+                                    <input className="enter-info-field" type="text" placeholder="CC#"
                                     name="credit_card" value={user.credit_card} onChange={handleChange} />
                                 </div>
                                     <button className="find-acc-btn" onClick={gatherInfo}>Find</button> 
