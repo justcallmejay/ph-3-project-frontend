@@ -5,7 +5,7 @@ import ProduceCard from './ProduceCard';
 import ProduceList from './ProduceList';
 import '../css/Produce.css'
 
-function Produce( { sum, onHandleDelete, produce, setProduce, filterFood, setFilterFood, setUserCart, userCart, onHandleChange, inventory, setInventory } ) {
+function Produce( { sum, onHandleDelete, handleUpdateCart, produce, setProduce, filterFood, setFilterFood, inventory, setInventory } ) {
 
     const [searchFood, setSearchFood] = useState("")
     const [toggleDisplay, setToggleDisplay] = useState(true)
@@ -26,17 +26,6 @@ function Produce( { sum, onHandleDelete, produce, setProduce, filterFood, setFil
 
     function handleAddtoCart(item) {
         setInventory([...inventory, item])
-    }
-
-    function handleUpdateCart(item) {
-        const updateCart = inventory.map(food => {
-            if (food.id === item.id) {
-                return item
-            } else {
-                return food
-            }
-        })
-        setInventory(updateCart)
     }
 
     const [yAxis, setyAxis] = useState(0)
@@ -70,7 +59,6 @@ function Produce( { sum, onHandleDelete, produce, setProduce, filterFood, setFil
                         key={item.id} 
                         inventory={inventory} 
                         handleAddtoCart={handleAddtoCart}
-                        onHandleChange={onHandleChange}
                         handleUpdateCart={handleUpdateCart}
                         />
                     )}
@@ -83,7 +71,6 @@ function Produce( { sum, onHandleDelete, produce, setProduce, filterFood, setFil
                         key={item.id} 
                         inventory={inventory}
                         handleAddtoCart={handleAddtoCart}
-                        onHandleChange={onHandleChange}
                         handleUpdateCart={handleUpdateCart}
                     />)}
                 </div>

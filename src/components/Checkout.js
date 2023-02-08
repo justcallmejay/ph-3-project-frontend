@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import CheckoutList from './CheckoutList'
 import '../css/Checkout.css'
 
-function Checkout( { sum, onHandleChange, onHandleDelete, inventory, produce } ) {
+function Checkout( { sum, handleUpdateCart, onHandleDelete, inventory, produce } ) {
 
     return (
         <div className='checkout'>
@@ -19,7 +19,7 @@ function Checkout( { sum, onHandleChange, onHandleDelete, inventory, produce } )
                         cart={cart} 
                         key={cart.id} 
                         produce={produce}
-                        onHandleChange={onHandleChange}
+                        handleUpdateCart={handleUpdateCart}
                         onHandleDelete={onHandleDelete}
                         />)}
             </div> 

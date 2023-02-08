@@ -55,11 +55,11 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
     
     function handleSubmit(e) {
         e.preventDefault();
+        const existingName = account.map(person => {return person.name})
+        const existingCard = account.map(card => {return String(card.credit_card)})
+        const inputExistingName = (name) => name === formData.name
+        const inputExistingCard = (card) => card === ccNumber
         if (existingAcc === false) {
-            const existingName = account.map(person => {return person.name})
-            const existingCard = account.map(card => {return String(card.credit_card)})
-            const inputExistingName = (name) => name === formData.name
-            const inputExistingCard = (card) => card === ccNumber
             if (existingName.some(inputExistingName) === true && existingCard.some(inputExistingCard) === true) {
             account.map(acc => {
                 if (acc.name === formData.name) {
@@ -86,7 +86,10 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
             setErrorDisplay(!errorDisplay) 
         } else if (formData.fstdigits.length < 4 || formData.snddigits.length < 4 || formData.thddigits.length < 4 || formData.fthdigits.length < 4 || formData.expmon.length < 2 || formData.expyr.length < 2 || formData.code.length < 3) {
             setError("Complete credit card information")
-            setErrorDisplay(!errorDisplay) 
+            setErrorDisplay(!errorDisplay)
+        } else if (existingName.some(inputExistingName) && existingCard.some(inputExistingCard)) {
+            setError("Account already exists")
+            setErrorDisplay(!errorDisplay)
         // } else if {
         //     const searchName = account.map(acc => {return acc.name})
         //     const searchPhone = account.map(acc => {return acc.phone})

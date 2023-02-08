@@ -36,7 +36,6 @@ function MyAccount( { userCart, inventory } ) {
 
     function handleChange(e) {
         const { name, value } = e.target;
-
         setUser(info => {
             return {
             ...info, 
@@ -46,6 +45,11 @@ function MyAccount( { userCart, inventory } ) {
     }
 
     function gatherInfo() {
+        const existingUser = userCart.map(cart => { return cart.order.name})
+        const existingCard = userCart.map(cart => { return cart.order.credit_card})
+        const typedName = (name) => name === user.name
+        const typedCard = (card) => card === user.credit_card
+        if (existingUser.some(typedName) && existingCard.some(typedCard)) {
         userCart.map(cart => {
             // console.log(cart.order.credit_card)
             if (cart.order.credit_card === undefined) {
@@ -63,12 +67,7 @@ function MyAccount( { userCart, inventory } ) {
                 }
             })
         }
-
-    // const consoleArray = userCart.map(cart => {
-    //     return cart.produce.produce
-    // })
-
-    console.log(myAccount)
+        }
 
     return (
         <div className="myaccount">

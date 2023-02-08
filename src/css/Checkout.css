@@ -93,9 +93,23 @@
     width: 500px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     /* border: inset rgb(0, 0, 0) 1px; */
+}
+
+.co-produce-section, .co-produce-discount-section, .produce-total {
+    height: 100px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 10px;
+    /* border: inset rgb(0, 0, 0) 1px; */
+}
+
+.co-produce-amt, .co-produce-discount-amt {
+    margin: 0 0 10px 0;
 }
 
 .checkout-delete, .checkout-edit {

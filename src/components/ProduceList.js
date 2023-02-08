@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../css/ProduceList.css'
 
-function ProduceList( { item, inventory, handleAddtoCart, onHandleChange, handleUpdateCart } ) {
+function ProduceList( { item, inventory, handleAddtoCart, handleUpdateCart } ) {
 
     const [quantityCount, setQuantityCount] = useState(0)
     const [check, setCheck] = useState(false)

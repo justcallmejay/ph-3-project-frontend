@@ -3,36 +3,47 @@ import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import '../css/Confirm.css'
 
-function Confirm( { formData, sum, userCart, account, handleUpdateUserCart, inventory, setInventory } ) {
+function Confirm( { formData, sum, userCart, account, handleUpdateInventory, inventory, setInventory, handleUpdateProduce } ) {
 
     const history = useHistory()
-    const [hideNum, setHideNum] = useState(false)
+
+    const [transactionComplete, setTransactionComplete] = useState(true)
     const ccInfo = [formData.fstdigits, formData.snddigits, formData.thddigits]
+    const ccNumber = [formData.fstdigits, formData.snddigits, formData.thddigits, formData.fthdigits].join('')
     
     const maskCreditCard = ccInfo.map(card => {
         return card.replace(/[0-9]/g, "*").match(/.{1,4}/g).join("");
 });
 
-    console.log(inventory)
+    // console.log(account)
+    function toggleTransaction(){
+        setTransactionComplete(action => !action)
+    }
 
     // console.log(findInventory)
 
     function addIdToCart() {
-        account.map(acc => {
-            if (formData.name === acc.name)
-                fetch(`${process.env.REACT_APP_API_URL}/update`, {
-                method: "PATCH",
-                headers: {"Content-Type" : "application/json"},
+        const existingName = account.map(person => {return person.name})
+        const existingCard = account.map(card => {return String(card.credit_card)})
+        const typedName = (name) => name === formData.name
+        const typedCard = (card) => card === ccNumber
+        if (existingName.some(typedName) && existingCard.some(typedCard)) {
+
+        const addId = account.find(person => (person.name === formData.name && String(person.credit_card) === ccNumber))
+                  
+        inventory.map(acc => {
+                // console.log(acc.id)
+                fetch(`${process.env.REACT_APP_API_URL}/account/${acc.id}`, {
+                    method: "PATCH",
+                    headers: {"Content-Type" : "application/json"},
                     body: JSON.stringify({
-                        order_id: acc.id
+                        order_id: addId.id
                     })
                 })
                 .then(res => res.json())
-                .then(res => handleUpdateUserCart(res));
-        });
-        inventory.map(acc => {
-            let subtractQuantity = acc.produce.quantity - acc.quantity
-            let subtractDscQuantity = acc.produce.discount_quantity - acc.discount_quantity
+                .then(res => handleUpdateInventory(res));
+            const subtractQuantity = acc.produce.quantity - acc.quantity
+            const subtractDscQuantity = acc.produce.discount_quantity - acc.discount_quantity
                 fetch(`${process.env.REACT_APP_API_URL}/produce/${acc.produce_id}`, {
                     method: "PATCH",
                     headers: {"Content-Type" : "application/json"},
@@ -42,16 +53,18 @@ function Confirm( { formData, sum, userCart, account, handleUpdateUserCart, inve
                     })
                 })
                 .then(res => res.json())
-                .then(res => console.log(res))
+                .then(res => handleUpdateProduce(res))
             })
+        }
         setInventory([])
+        toggleTransaction()
         // history.push('/shop')
+    // })
     }
 
     return(
-        <div className='confirm' 
-        // onClick={toggleBgAlert}
-        >
+        <div className='confirm'>
+            {transactionComplete ? 
             <div className='confirm-container'>
                 <h2>Information</h2>
                 <div className='confirm-info'>
@@ -73,20 +86,25 @@ function Confirm( { formData, sum, userCart, account, handleUpdateUserCart, inve
                 </div>
                 <div className='submit-sum'><h3>Total: {sum.toFixed(2)}</h3></div>
                 <div className='confirm-btns'>
-                {/* <Link to="/account-information"> */}
+                <Link to="/account-information">
                     <button className="acc-btn" id="onfirm-back"
                         // onClick={toggleAlert}
                         >
                     Back</button>
-                    {/* </Link> */}
+                    </Link>
                 <button className="acc-btn" id="onfirm-next" onClick={addIdToCart}>Submit</button>
                 </div>
-                <div className="submit">
+                {/* <div className="submit">
                     <h2>Your cart has been updated.  You may go back here:</h2>
                     <Link to='/shop'><button>Shop</button></Link>
-                </div>
+                </div> */}
             </div>
-        </div>
+        : <div className='success-container'>
+            <div className='success'>
+            <h3>Transaction Complete! You may now return <Link to='/shop'><a href='http://localhost:9292/shop'>here</a></Link></h3>
+            </div>
+            </div>}
+        </div> 
         )
     }
 

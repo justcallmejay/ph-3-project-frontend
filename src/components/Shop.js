@@ -29,7 +29,7 @@ function Shop() {
     const [inventory, setInventory] = useState([])
     const [produce, setProduce] = useState([])
     
-    
+    console.log(userCart)
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/purchase`)
         .then(res => res.json())
@@ -53,11 +53,10 @@ function Shop() {
     }
     
     // console.log(userCart)
-    // console.log(inventory)
+    console.log(inventory)
     // console.log(account)
     // console.log(produce)
-    // console.log(account)
-    
+    console.log(account)
     
     useEffect(() => {
         if (filterFood !== '') {
@@ -71,15 +70,15 @@ function Shop() {
         }
     }, [])
     
-    function onHandleChange(item) {
-        const reviseInventory = produce.map(food => {
+    function handleUpdateCart(item) {
+        const updateCart = inventory.map(food => {
             if (food.id === item.id) {
                 return item
             } else {
                 return food
             }
         })
-        setProduce(reviseInventory)
+        setInventory(updateCart)
     }
     
     function onHandleDelete(item) {
@@ -87,22 +86,15 @@ function Shop() {
         setInventory(deleteItem)
     }
     
-    // function handleUpdateCart(item) {
-    //     const updateCart = inventory.map(food => {
-    //         if (food.id === item.id) {
-    //             return item
-    //         } else {
-    //             return food
-    //         }
-    //     })
-    //     setUserCart(updateCart)
-    // }
+    function handleUpdateInventory(food) {
+        setUserCart([...userCart, food])
+    }
 
     //this does not work at confirm page; returns no match for all
-    //edit: change userCart.map to
-    function handleUpdateUserCart(item) {
-        setUserCart([...userCart, item])
-    }
+    //edit: change
+    // function handleUpdateUserCart(item) {
+    //     setUserCart([...userCart, item])
+    // }
 
     function handleUpdateProduce(food) {
         const updateProduce = produce.map(item => {
@@ -160,9 +152,7 @@ function Shop() {
                             setProduce={setProduce}
                             inventory={inventory}
                             setInventory={setInventory}
-                            // userCart={userCart} 
-                            // setUserCart={setUserCart}
-                            onHandleChange={onHandleChange}
+                            handleUpdateCart={handleUpdateCart}
                             filterFood={filterFood}
                             setFilterFood={setFilterFood}
                             onHandleDelete={onHandleDelete}
@@ -179,7 +169,7 @@ function Shop() {
                             sum={sum}
                             inventory={inventory} 
                             produce={produce}
-                            onHandleChange={onHandleChange}
+                            handleUpdateCart={handleUpdateCart}
                             onHandleDelete={onHandleDelete}
                         />
                     </Route>
@@ -198,7 +188,8 @@ function Shop() {
                             inventory={inventory} 
                             account={account}
                             sum={sum}
-                            handleUpdateUserCart={handleUpdateUserCart}
+                            handleUpdateInventory={handleUpdateInventory}
+                            handleUpdateProduce={handleUpdateProduce}
                             />
                     </Route>
                 </Switch>

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import '../css/Cart.css'
 
-function CheckoutList( { cart, onHandleDelete, produce, onHandleChange } ) {
-
+function CheckoutList( { cart, onHandleDelete, handleUpdateCart } ) {
 
     const [hover, setHover] = useState(false)
 
@@ -14,48 +13,31 @@ function CheckoutList( { cart, onHandleDelete, produce, onHandleChange } ) {
         setHover(false)
     }
 
+    let sumItem = cart.total + cart.dsc_total
+
     //Edit inventory quantity
-    const [editQuantity, setEditQuantity] = useState(false)
     const [submitEdit, setSubmitEdit] = useState(null)
     const [produceQuantity, setProduceQuantity] = useState(cart.quantity)
     const [dscQuantity, setDscQuantity] = useState(cart.dsc_quantity)
-
-    function handleEditQuantity() {
-        setEditQuantity(!editQuantity)
-        console.log(produceQuantity)
-    }
     
     function handleEdit(food) {
-        setEditQuantity(null)
+        setSubmitEdit(null)
         fetch(`${process.env.REACT_APP_API_URL}/cart/${food.id}`, {
             method: "PATCH",
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({
-                quantity: produceQuantity
+                quantity: produceQuantity,
+                dsc_quantity: dscQuantity
             })
         })
         .then(res => res.json())
-        .then(res => console.log(res))
+        .then(res => handleUpdateCart(res))
         setSubmitEdit(null);
-        {produce.map(item => {
-            if (item.id === food.id) {
-            const updateInventory = item.quantity - produceQuantity
-        fetch(`${process.env.REACT_APP_API_URL}/produce/${item.id}`, {
-            method: "PATCH",
-            headers: {"Content-Type" : "application/json"},
-            body: JSON.stringify({
-                quantity: updateInventory
-            })
-        })
-            .then(res => res.json())
-            .then(res => onHandleChange(res))
-        }
-     }
-    )}
 }
 
     function handleDelete(item) {
-        fetch(`${process.env.REACT_APP_API_URL}/delete/${item.id}`, {
+        console.log(item.id)
+        fetch(`${process.env.REACT_APP_API_URL}/cart/${item.id}`, {
             method: "DELETE"
         })
         .then(res => res.json())
@@ -71,53 +53,55 @@ function CheckoutList( { cart, onHandleDelete, produce, onHandleChange } ) {
             <div className='checkout-main-info'>
                 <img className="checkout-img" src={cart.produce.image} alt={cart.produce.name}/>
                 <h3>{cart.produce.produce}</h3>
-                <a>Price: {cart.produce.price}</a>
             </div>
             <div className="produce-info">
-                <a>Quantity: 
-                {editQuantity ?
-                <>
-                    <input 
-                        className="co-edit-num" 
-                        type="number"
-                        min="0"
-                        value={produceQuantity} 
-                        onChange={(e) => setDscQuantity(e.target.value)}
-                    />
-                <button onClick={() => handleEdit(cart)}>OK</button>
-                </> 
-                    :    
-                <div>{cart.quantity}</div>}
-                </a>
-                <a>Discounted Quantity:
-                {editQuantity ?
-                <>
-                    <input 
-                        className="co-edit-num" 
-                        type="number"
-                        min="0"
-                        value={dscQuantity} 
-                        onChange={(e) => setProduceQuantity(e.target.value)}
-                    />
-                <button onClick={() => handleEdit(cart)}>OK</button>
-                </> 
-                    :    
-                <div>{cart.dsc_quantity}</div>}
-                </a>
-                <a>Discount Total: {cart.dsc_total}</a>
-                {/* <a>Total: {cart.total.toFixed(2)}</a> */}
-            </div>
-
-            <div className='produce-total'>
-                <a></a>
+                <div className="co-produce-section">
+                    <div className="co-produce-amt">
+                    <a>Price: {cart.produce.price}</a>
+                        <p>Quantity:</p>
+                        {submitEdit === cart.id ?
+                        <>
+                            <input className="co-edit-num" type="number" min="0" max={cart.produce.quantity}
+                            value={produceQuantity} onChange={(e) => setProduceQuantity(e.target.value)}
+                            />
+                            <button onClick={() => handleEdit(cart)}>OK</button>
+                        </> 
+                            :    
+                            <p>{cart.quantity}</p>}
+                    </div>
+                    <div className='co-produce-total'>
+                        <div>Total: {cart.total}</div>
+                    </div>
                 </div>
+                <div className="co-produce-discount-section">
+                    <div className='co-produce-discount-amt'>
+                    <a>Price: {cart.produce.discount_price}</a>
+                        <p>Disc. Qty:</p>
+                        {submitEdit === cart.id ?
+                        <>
+                            <input className="co-edit-num" type="number" min="0" max={cart.produce.discount_quantity}
+                            value={dscQuantity} onChange={(e) => setDscQuantity(e.target.value)}
+                            />
+                            <button onClick={() => handleEdit(cart)}>OK</button>
+                        </> 
+                            :    
+                            <div>{cart.dsc_quantity}</div>}
+                    </div>
+                    <div className='co-produce-discount-total'>
+                        <a>Disc. Total: {cart.dsc_total}</a>
+                    </div>
+                </div>
+                <div className='produce-total'>
+                    <div>Total: {sumItem.toFixed(2)}</div>
+                </div>
+            </div>
             {hover ? 
             <div className='hover-btn'>
-                <button className='checkout-edit' onClick={handleEditQuantity}>Edit</button>
+                <button className='checkout-edit' onClick={() => setSubmitEdit(cart.id)}>Edit</button>
                 <button className='checkout-delete' onClick={() => handleDelete(cart)}>Delete</button> 
             </div>
                : "" }
-            </div>
+        </div>
     )
 }
 
