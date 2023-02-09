@@ -177,17 +177,26 @@
 }
 
 .purchase-container {
-    height: 35px;
-    width: 90%;
     display: flex;
-    justify-content: space-between
+    flex-direction: column;
+    border-bottom: inset rgb(0, 0, 0) 1px;
+}
+
+.date-container {
+    height: 35px;
+    /* border: inset rgb(0, 0, 0) 1px; */
+}
+
+.purchased-order-container {
+    display: flex;
+    justify-content: space-between;
+    /* border: inset rgb(0, 0, 0) 1px; */
 }
 
 .purchased-name, .purchase-quantity, .purchased-total {
-    width: 100px;
+    width: 80px;
     height: 40px;
     /* border: inset rgb(0, 0, 0) 1px; */
-
 }
 
 .mycart-label {

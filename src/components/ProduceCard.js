@@ -11,13 +11,14 @@ function ProduceCard( { item, handleAddtoCart, handleUpdateCart, animateAddCart,
 
     
     function addToCart(food) {
-        console.log(food.quantity)
-        const qtyNum = inventory.find(item => item.produce_id === food.id)
+        // console.log(food.quantity)
+        // const qtyNum = inventory.find(item => item.produce_id === food.id)
+        // console.log(qtyNum + ' is it')
 
         if (food.quantity === null || food.discount_quantity === null) {
             alert('there is no more in stock') 
-        }else if (qtyNum.quantity + parseInt(quantityCount) > item.quantity || qtyNum.dsc_quantity + parseInt(quantityDiscountCount) > item.discount_quantity) {
-            alert('there is an insufficient amount in stock')
+        // } else if (qtyNum.quantity + parseInt(quantityCount) > item.quantity || qtyNum.dsc_quantity + parseInt(quantityDiscountCount) > item.discount_quantity) {
+        //     alert('there is an insufficient amount in stock')
         } else {
         if (quantityCount !== 0 || quantityDiscountCount !== 0) {
         //.some is used to ensure that if the usercart array does contain item it will run PATCH; 
@@ -32,11 +33,11 @@ function ProduceCard( { item, handleAddtoCart, handleUpdateCart, animateAddCart,
             inventory.map(cart => {
                     if (cart.produce.produce === item.produce) {
                         if (check === true) {
-                            console.log('check')
+                            // console.log('check')
                             dscQuantity = parseInt(quantityDiscountCount) + cart.dsc_quantity;
                             dscTotal = cart.produce.discount_price * parseInt(quantityDiscountCount, 10)
                         } else {
-                            console.log('unchecked')
+                            // console.log('unchecked')
                             dscQuantity = cart.dsc_quantity
                             dscTotal = cart.produce.discount_price * parseInt(cart.dsc_quantity, 10)
                         }
@@ -67,7 +68,7 @@ function ProduceCard( { item, handleAddtoCart, handleUpdateCart, animateAddCart,
                     dscQuantity = 0
                     dscTotal = 0
                 }
-                console.log(food.id)
+                // console.log(food.id)
                 const itemTotal = (food.price * quantityCount).toFixed(2)
                 fetch(`${process.env.REACT_APP_API_URL}/carts`, {
                 method: "POST",
@@ -88,7 +89,7 @@ function ProduceCard( { item, handleAddtoCart, handleUpdateCart, animateAddCart,
             }
         }
         else 
-        alert('select the amount')
+            alert('select the amount')
             }
         }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import AboutUs from './AboutUs';
 import AccountInfo from './AccountInfo';
 import Checkout from './Checkout';
 import Confirm from './Confirm';
@@ -122,11 +123,9 @@ function Shop() {
     const discountTotal = discountArray.reduce((a, b) => a + b, 0)
 
     const sum = discountTotal + cost
+
     
-    // const timeElapsed = Date.now();
-    // const date = new Date(timeElapsed);
     // const localeString = date.toLocaleDateString();
-    // console.log(date)
     // console.log(localeString)
     // console.log(timeElapsed)
 
@@ -182,6 +181,9 @@ function Shop() {
                             handleUpdateInventory={handleUpdateInventory}
                             handleUpdateProduce={handleUpdateProduce}
                             />
+                    </Route>
+                    <Route path='/about'>
+                        <AboutUs/>
                     </Route>
                 </Switch>
             </BrowserRouter>

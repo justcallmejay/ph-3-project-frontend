@@ -9,11 +9,12 @@ function ProduceList( { item, inventory, handleAddtoCart, handleUpdateCart } ) {
 
     function addToCart(food) {
         const qtyNum = inventory.find(item => item.produce_id === food.id)
+        console.log(qtyNum + ' is qtyNum')
 
         if (food.quantity === null || food.discount_quantity === null) {
             alert('there is no more in stock') 
-        }else if (qtyNum.quantity + parseInt(quantityCount) > item.quantity || qtyNum.dsc_quantity + parseInt(quantityDiscountCount) > item.discount_quantity) {
-            alert('there is an insufficient amount in stock')
+        // }else if (qtyNum.quantity + parseInt(quantityCount) > item.quantity || qtyNum.dsc_quantity + parseInt(quantityDiscountCount) > item.discount_quantity) {
+        //     alert('there is an insufficient amount in stock')
         } else {
         if (quantityCount !== 0 || quantityDiscountCount !== 0) {
         const existingItem = inventory.map(cart => {return cart.produce_id})

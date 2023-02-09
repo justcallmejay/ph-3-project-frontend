@@ -1,0 +1,15 @@
+.about-us {
+    height: 1000px;
+    width: 1920px;
+    border: inset rgb(0, 0, 0) 1px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-container {
+    height: 700px;
+    width: 900px;
+    border-top: inset rgb(0, 0, 0) 1px;
+    border-bottom:inset rgb(0, 0, 0) 1px
+}

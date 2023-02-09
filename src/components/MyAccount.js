@@ -5,9 +5,10 @@ function MyAccount( { userCart, inventory } ) {
 
     // console.log(userPurchase)
 
+    
     const [display, setDisplay] = useState(0)
     const displayItems = 600
-
+    
     const [user, setUser] = useState({
         name: "",
         credit_card: ""
@@ -16,8 +17,14 @@ function MyAccount( { userCart, inventory } ) {
     // const [toggleInfo, setToggleInfo] = useState(false)
     const [myAccount, setMyAccount] = useState([])
     const [myInfo, setMyInfo] = useState([])
+    
+    const dateArray = myAccount.map(acc => {return acc.purchased_at})
+    const uniq = [...new Set(dateArray)]
+    console.log(uniq)
 
     console.log(myInfo)
+    console.log(dateArray)
+    console.log(myAccount)
     
     function displayMore() {
         if (display !== 0 )
@@ -153,21 +160,43 @@ function MyAccount( { userCart, inventory } ) {
                 <div className="purchase-list-container">
                         {myAccount.length !== 0 ?
                         <>
-                        {myAccount.map(acc => 
-                    <div className='purchase-container' key={acc.id}>
+                        {uniq.map((act) => 
                         <>
-                        <div className="purchased-name">
-                            <h3>{acc.produce.produce}</h3>
+                            <div className='purchase-container' key={act.id}>
+                                <div className='date-container'>
+                                    <div className="date">
+                                        <h5>{act.slice(0, 10)}</h5>
+                                    </div>      
+                                </div>
+                        {myAccount.filter((acc) => acc.purchased_at === act).map((acc) => {
+                            return (
+                                <div className='purchased-order-container'>
+                                <div className="purchased-name">
+                                    <h4>{acc.produce.produce}</h4>
+                                </div>
+                                <div className="purchase-quantity">
+                                    <div>Amount: {acc.quantity}</div>
+                                </div>
+
+                                <div className='purchased-total'>
+                                    <div>Total: {acc.total.toFixed(2)}</div>
+                                </div>
+                                {acc.dsc_quantity > 0 ? 
+                                <>
+                                    <div className='purchased-dsc-quantity'>
+                                        <div>Dsc Qty: {acc.dsc_quantity}</div>
+                                    </div>
+                                    <div className='purchased-dsc-quantity'>
+                                        <div>Dsc Total: {acc.dsc_total}</div>
+                                    </div>
+                                </>
+                                : ""}
+                            </div>
+                            )
+                        })}
                         </div>
-                        <div className="purchase-quantity">
-                            <div>Amount: {acc.quantity}</div>
-                        </div>
-                        <div className='purchased-total'>
-                            <div>Total: {null}</div>
-                        </div>
-                        </>
-                    </div>
-                        )}
+                    </>
+                    )}
                         </>
                         :
                         <div className="empty-purchase">

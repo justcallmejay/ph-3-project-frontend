@@ -8,6 +8,9 @@ function Confirm( { formData, sum, account, handleUpdateInventory, inventory, se
     const ccInfo = [formData.fstdigits, formData.snddigits, formData.thddigits]
     const ccNumber = [formData.fstdigits, formData.snddigits, formData.thddigits, formData.fthdigits].join('')
     
+    const date = new Date().toDateString();
+    console.log(date)
+
     const maskCreditCard = ccInfo.map(card => {
         return card.replace(/[0-9]/g, "*").match(/.{1,4}/g).join("");
 });
@@ -34,7 +37,8 @@ function Confirm( { formData, sum, account, handleUpdateInventory, inventory, se
                     method: "PATCH",
                     headers: {"Content-Type" : "application/json"},
                     body: JSON.stringify({
-                        order_id: addId.id
+                        order_id: addId.id,
+                        purchased_at: date
                     })
                 })
                 .then(res => res.json())
@@ -46,7 +50,7 @@ function Confirm( { formData, sum, account, handleUpdateInventory, inventory, se
                     headers: {"Content-Type" : "application/json"},
                     body: JSON.stringify({
                         quantity: subtractQuantity,
-                        discount_quantity: subtractDscQuantity
+                        discount_quantity: subtractDscQuantity,
                     })
                 })
                 .then(res => res.json())
@@ -72,10 +76,10 @@ function Confirm( { formData, sum, account, handleUpdateInventory, inventory, se
                     <h3>Receipt:</h3>
                     {inventory.map(item => 
                     <div className='receipt' key={item.id}>
-                        <a>{item.produce.produce}</a>
-                        <a>Amt: {item.quantity}</a>
-                        <a>Price: {item.produce.price}</a>
-                        <a>Total: {item.total}</a>
+                        <p>{item.produce.produce}</p>
+                        <p>Amt: {item.quantity}</p>
+                        <p>Price: {item.produce.price}</p>
+                        <p>Totpl: {item.total}</p>
                     </div>
                         )}
                 </div>
