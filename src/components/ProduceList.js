@@ -8,10 +8,14 @@ function ProduceList( { item, inventory, handleAddtoCart, handleUpdateCart } ) {
     const [quantityDiscountCount, setQuantityDiscountCount] = useState(0)
 
     function addToCart(food) {
+        const qtyNum = inventory.find(item => item.produce_id === food.id)
+
+        if (food.quantity === null || food.discount_quantity === null) {
+            alert('there is no more in stock') 
+        }else if (qtyNum.quantity + parseInt(quantityCount) > item.quantity || qtyNum.dsc_quantity + parseInt(quantityDiscountCount) > item.discount_quantity) {
+            alert('there is an insufficient amount in stock')
+        } else {
         if (quantityCount !== 0 || quantityDiscountCount !== 0) {
-                //.some is used to ensure that if the usercart array does contain item it will run PATCH; 
-        //using map will trigger else statement because it will iterate everything in cart
-        //SOLUTION: replace userCart with inventory
         const existingItem = inventory.map(cart => {return cart.produce_id})
         const currentItem = (inventory) => inventory === food.id
         let dscQuantity = ""
@@ -80,6 +84,7 @@ function ProduceList( { item, inventory, handleAddtoCart, handleUpdateCart } ) {
         else 
         alert('select the amount')
     }
+}
 
 
     return(

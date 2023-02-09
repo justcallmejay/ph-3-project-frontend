@@ -6,12 +6,18 @@ function ProduceCard( { item, handleAddtoCart, handleUpdateCart, animateAddCart,
     const [check, setCheck] = useState(false)
     const [quantityCount, setQuantityCount] = useState(0)
     const [quantityDiscountCount, setQuantityDiscountCount] = useState(0)
-    
+
+    // const addId = account.find(person => (person.name === formData.name && String(person.credit_card) === ccNumber))
+
     
     function addToCart(food) {
         console.log(food.quantity)
+        const qtyNum = inventory.find(item => item.produce_id === food.id)
+
         if (food.quantity === null || food.discount_quantity === null) {
             alert('there is no more in stock') 
+        }else if (qtyNum.quantity + parseInt(quantityCount) > item.quantity || qtyNum.dsc_quantity + parseInt(quantityDiscountCount) > item.discount_quantity) {
+            alert('there is an insufficient amount in stock')
         } else {
         if (quantityCount !== 0 || quantityDiscountCount !== 0) {
         //.some is used to ensure that if the usercart array does contain item it will run PATCH; 
