@@ -13,7 +13,10 @@
 .confirm-info {
     border: inset rgb(0, 0, 0) 1px;
     width: 50%;
-    margin: 100px 0 0 0
+    margin: 100px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .receipt-container {

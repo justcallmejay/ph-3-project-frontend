@@ -30,7 +30,7 @@ function Shop() {
     const [inventory, setInventory] = useState([])
     const [produce, setProduce] = useState([])
     
-    console.log(userCart)
+    // console.log(userCart)
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/purchase`)
         .then(res => res.json())

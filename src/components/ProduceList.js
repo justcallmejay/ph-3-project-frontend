@@ -8,52 +8,43 @@ function ProduceList( { item, inventory, handleAddtoCart, handleUpdateCart } ) {
     const [quantityDiscountCount, setQuantityDiscountCount] = useState(0)
 
     function addToCart(food) {
-        const qtyNum = inventory.find(item => item.produce_id === food.id)
-        console.log(qtyNum + ' is qtyNum')
+        let dscQuantity = ""
+        let dscTotal = ""     
 
         if (food.quantity === null || food.discount_quantity === null) {
             alert('there is no more in stock') 
-        // }else if (qtyNum.quantity + parseInt(quantityCount) > item.quantity || qtyNum.dsc_quantity + parseInt(quantityDiscountCount) > item.discount_quantity) {
-        //     alert('there is an insufficient amount in stock')
         } else {
-        if (quantityCount !== 0 || quantityDiscountCount !== 0) {
-        const existingItem = inventory.map(cart => {return cart.produce_id})
-        const currentItem = (inventory) => inventory === food.id
-        let dscQuantity = ""
-        let dscTotal = ""
-        
-        if (existingItem.some(currentItem) === true) {
-            inventory.map(cart => {
-                if (cart.produce.produce === item.produce) {
-                    if (check === true) {
-                        console.log('check')
-                        dscQuantity = parseInt(quantityDiscountCount) + cart.dsc_quantity;
-                        dscTotal = cart.produce.discount_price * parseInt(quantityDiscountCount, 10)
-                    } else {
-                        console.log('unchecked')
-                        dscQuantity = cart.dsc_quantity
-                        dscTotal = cart.produce.discount_price * parseInt(cart.dsc_quantity, 10)
-                    }
-                const updataQuantity = (cart.quantity + parseInt(quantityCount, 10))
-                console.log(updataQuantity)
-                const updateTotal = cart.produce.price * updataQuantity
-                fetch(`${process.env.REACT_APP_API_URL}/cart/${cart.id}`, {
-                    method: "PATCH",
-                    headers: {"Content-Type" : "application/json"},
-                    body: JSON.stringify({
-                        quantity: updataQuantity,
-                        total: updateTotal,
-                        dsc_quantity: dscQuantity,
-                        dsc_total: dscTotal
-                    })
-                })
+            if (quantityCount !== 0 || quantityDiscountCount !== 0) {
+                const existingItem = inventory.map(cart => {return cart.produce_id})
+                const currentItem = (card) => card === food.id
+            if (existingItem.some(currentItem) === true) {
+                const qtyNum = inventory.find(item => item.produce_id === food.id)
+                    if (qtyNum.quantity + parseInt(quantityCount) > item.quantity || qtyNum.dsc_quantity + parseInt(quantityDiscountCount) > item.discount_quantity) {
+                         alert('Not enough in stock');
+                         setQuantityCount(0);
+                         setQuantityDiscountCount(0);
+                     } else { 
+                        if (check === true) {
+                            dscQuantity = parseInt(quantityDiscountCount) + qtyNum.dsc_quantity;
+                            dscTotal = qtyNum.produce.discount_price * parseInt(quantityDiscountCount, 10)
+                        }
+                        const updateQuantity = (qtyNum.quantity + parseInt(quantityCount, 10))
+                        const updateTotal = qtyNum.produce.price * updateQuantity
+                        fetch(`${process.env.REACT_APP_API_URL}/cart/${qtyNum.id}`, {
+                            method: "PATCH",
+                            headers: {"Content-Type" : "application/json"},
+                            body: JSON.stringify({
+                                quantity: updateQuantity,
+                                total: updateTotal,
+                                dsc_quantity: dscQuantity,
+                                dsc_total: dscTotal
+                            })
+                        })
                 .then(res => res.json())
                 .then(addFood => handleUpdateCart(addFood));
                 setQuantityCount(0)
                 setQuantityDiscountCount(0)
-                }   
-            })
-
+                }
             } else {
                 if (check === true ) {
                     dscQuantity = quantityDiscountCount;
@@ -62,7 +53,6 @@ function ProduceList( { item, inventory, handleAddtoCart, handleUpdateCart } ) {
                     dscQuantity = 0
                     dscTotal = 0
                 }
-                console.log(food.id)
                 const itemTotal = (food.price * quantityCount).toFixed(2)
                 fetch(`${process.env.REACT_APP_API_URL}/carts`, {
                 method: "POST",
@@ -80,12 +70,12 @@ function ProduceList( { item, inventory, handleAddtoCart, handleUpdateCart } ) {
             .then(addFood => handleAddtoCart(addFood));
             setQuantityCount(0)
             setQuantityDiscountCount(0)
+                }
+            }
+        else 
+            alert('select the amount')
             }
         }
-        else 
-        alert('select the amount')
-    }
-}
 
 
     return(

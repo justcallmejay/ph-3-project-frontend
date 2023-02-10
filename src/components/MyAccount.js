@@ -2,35 +2,28 @@ import React, { useState } from 'react';
 import '../css/MyAccount.css'
 
 function MyAccount( { userCart, inventory } ) {
-
-    // console.log(userPurchase)
-
     
+    // console.log(userCart)
+
     const [display, setDisplay] = useState(0)
     const displayItems = 600
     
     const [user, setUser] = useState({
         name: "",
         credit_card: ""
-    })
-    
-    // const [toggleInfo, setToggleInfo] = useState(false)
+    })    
     const [myAccount, setMyAccount] = useState([])
     const [myInfo, setMyInfo] = useState([])
     
     const dateArray = myAccount.map(acc => {return acc.purchased_at})
     const uniq = [...new Set(dateArray)]
-    console.log(uniq)
+    // console.log(uniq)
 
-    console.log(myInfo)
-    console.log(dateArray)
-    console.log(myAccount)
-    
     function displayMore() {
         if (display !== 0 )
         setDisplay((display + displayItems))
     }
-    console.log((userCart.length / 5) * displayItems)
+    // console.log((userCart.length / 5) * displayItems)
     
     let sum = 0
     function displayLess() {
@@ -39,7 +32,7 @@ function MyAccount( { userCart, inventory } ) {
             return setDisplay((display - displayItems));
         }
     }
-    console.log(sum)
+    // console.log(sum)
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -52,36 +45,20 @@ function MyAccount( { userCart, inventory } ) {
     }
 
     function gatherInfo() {
-        const existingUser = userCart.map(cart => { return cart.order.name})
-        const existingCard = userCart.map(cart => { return String(cart.order.credit_card)})
+        const existingUser = userCart.map(cart => { return cart.order.name })
+        const existingCard = userCart.map(cart => { return String(cart.order.credit_card) })
         const typedName = (name) => name === user.name
         const typedCard = (card) => card === user.credit_card
         if (existingUser.some(typedName) === true && existingCard.some(typedCard) === true) {
-
-            //Do something like code below instead of .map
-            //const searchAcc = userCart.find(person => (cart.order.name === formData.name &&))
-            console.log('click')
-        userCart.map(cart => {
-            // console.log(cart.order.credit_card)
-            // if (cart.order.credit_card === undefined) {
-            //     alert('cannot find shopper')
-            // } else 
-            if (cart.order.name === user.name && cart.order.credit_card === Number(user.credit_card)) {
-            // setToggleInfo(toggleInfo => !toggleInfo);
-            
-            //Change cart.order_id to searchAcc.order_id
-            fetch(`${process.env.REACT_APP_API_URL}/cart/${cart.order_id}`)
+        const searchAcc = userCart.find(cart => (cart.order.name === user.name))
+            fetch(`${process.env.REACT_APP_API_URL}/cart/${searchAcc.order_id}`)
             .then(res => res.json())
             .then(res => setMyAccount(res));
-            fetch(`${process.env.REACT_APP_API_URL}/order/${cart.order_id}`)
+            fetch(`${process.env.REACT_APP_API_URL}/order/${searchAcc.order_id}`)
             .then(res => res.json())
             .then(res => setMyInfo(res))
-            } else {
-                alert('no match')
-                }
-            })
         }
-        }
+    }
 
     return (
         <div className="myaccount">
