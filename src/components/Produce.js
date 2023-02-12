@@ -9,14 +9,8 @@ function Produce( { sum, onHandleDelete, handleUpdateCart, produce, setProduce, 
 
     const [searchFood, setSearchFood] = useState("")
     const [toggleDisplay, setToggleDisplay] = useState(true)
-
-    const filterProduce = produce.filter(food => {
-        if (filterFood === '') return true;
-
-        return food.kind === filterFood
-    })
     
-    const search = filterProduce.filter(food => {
+    const search = produce.filter(food => {
         return food.produce.toUpperCase().includes(searchFood.toUpperCase())
     })
 

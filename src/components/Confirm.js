@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import '../css/Confirm.css'
 
-function Confirm( { formData, sum, account, handleUpdateInventory, inventory, setInventory, handleUpdateProduce } ) {
+function Confirm( { formData, sum, account, handleUpdateInventory, inventory, setInventory, handleUpdateProduce, setProduce } ) {
 
     const [transactionComplete, setTransactionComplete] = useState(true)
     const ccInfo = [formData.fstdigits, formData.snddigits, formData.thddigits]
@@ -56,10 +56,10 @@ function Confirm( { formData, sum, account, handleUpdateInventory, inventory, se
                 .then(res => res.json())
                 .then(res => handleUpdateProduce(res))
             })
-        }
         setInventory([])
         toggleTransaction()
-    }
+    }}
+
 
     return(
         <div className='confirm'>

@@ -30,7 +30,8 @@ function Shop() {
     const [inventory, setInventory] = useState([])
     const [produce, setProduce] = useState([])
     
-    // console.log(userCart)
+    console.log(userCart)
+    console.log(produce)
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/purchase`)
         .then(res => res.json())
@@ -55,7 +56,7 @@ function Shop() {
     
     useEffect(() => {
         if (filterFood !== '') {
-            fetch(`${process.env.REACT_APP_API_URL}/produce/*`)
+            fetch(`${process.env.REACT_APP_API_URL}/produce/${filterFood}`)
             .then(res => res.json())
             .then(res => setProduce(res))
         } else {
@@ -63,7 +64,7 @@ function Shop() {
             .then(res => res.json())
             .then(res => setProduce(res))
         }
-    }, [])
+    }, [filterFood])
     
     function handleUpdateCart(item) {
         const updateCart = inventory.map(food => {
@@ -82,7 +83,8 @@ function Shop() {
     }
     
     function handleUpdateInventory(food) {
-        setUserCart([...userCart, food])
+        const addToCart = [...userCart, food]
+        setUserCart(addToCart)
         console.log(userCart)
     }
 
@@ -180,6 +182,8 @@ function Shop() {
                             sum={sum}
                             handleUpdateInventory={handleUpdateInventory}
                             handleUpdateProduce={handleUpdateProduce}
+                            produce={produce}
+                            setProduce={setProduce}
                             />
                     </Route>
                     <Route path='/about'>

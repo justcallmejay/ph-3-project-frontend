@@ -7,6 +7,7 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
 
     let history = useHistory();
     
+    const [checkAgree, setCheckAgree] = useState(false)
     const [toggle, setToggle] = useState(false)
     const [existingAcc, setExistingAcc] = useState(true)
     const [errorDisplay, setErrorDisplay] = useState(false)
@@ -46,13 +47,16 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
         const existingCard = account.map(card => {return String(card.credit_card)})
         const inputExistingName = (name) => name === formData.name
         const inputExistingCard = (card) => card === ccNumber
+
         if (existingAcc === false) {
             if (existingName.some(inputExistingName) === true && existingCard.some(inputExistingCard) === true) {
             account.map(acc => {
                 if (acc.name === formData.name) {
+                    //convert to phone to string
                     let newone = String(acc.phone).slice(0,3)
                     let newtwo = String(acc.phone).slice(3,6)
                     let newthree = String(acc.phone).slice(6,10)
+                    //converting back to number
                     formData.areacode = Number(newone)
                     formData.threedigits = Number(newtwo)
                     formData.fourdigits = Number(newthree)
@@ -66,6 +70,9 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
             setError("Complete name")
             setErrorDisplay(!errorDisplay)
         } else if (!formData.areacode || !formData.threedigits || !formData.fourdigits) {
+            setError("Fill out phone number")
+            setErrorDisplay(!errorDisplay)
+        } else if (formData.areacode.length < 3 || formData.threedigits.length < 3 || formData.fourdigits.length < 4 ) {
             setError("Complete phone number")
             setErrorDisplay(!errorDisplay)
         } else if (!formData.fstdigits || !formData.snddigits || !formData.thddigits || !formData.fthdigits || !formData.expmon || !formData.expyr || !formData.code) {
@@ -76,6 +83,9 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
             setErrorDisplay(!errorDisplay)
         } else if (existingName.some(inputExistingName) && existingCard.some(inputExistingCard)) {
             setError("Account already exists")
+            setErrorDisplay(!errorDisplay)
+        } else if (!checkAgree) {
+            setError("Please click agree")
             setErrorDisplay(!errorDisplay)
         // } else if {
         //     const searchName = account.map(acc => {return acc.name})
@@ -183,14 +193,14 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
                         />
                     </div>
                         <div className='toa'>
-                            <input type="checkbox" disabled={ existingAcc ? "" : true}/>
+                            <input type="checkbox" disabled={ existingAcc ? "" : true} onChange={() => setCheckAgree(!checkAgree)}/>
                             <h6>By clicking on checkbox you agree with terms and conditions with Fresh Food Market Place</h6>
                         </div>
                             <h6 className="whats-this-link" onClick={toggleDisplay}>What's this?</h6>
                             {toggle ? 
                         <div className="whats-this-container">
                             <div className="whats-this">
-                            <p>This checkbox states that all the information submitted is accurate and that the user entering the information is authentic.</p>
+                            <p>This checkbox states that all the information submitted is accurate.</p>
                         </div>
                          </div>
                          : ""}
