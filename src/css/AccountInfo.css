@@ -122,22 +122,25 @@ input[type="checkbox"] {
     background-color: azure;
 }
 
-.error-taskbar {
+/* .error-taskbar {
     width: 100%;
     height: 300px;
     background-color: aqua;
     position: absolute;
-}
+} */
 
 .error-msg {
     border: inset rgb(0, 0, 0) 1px;
     position: absolute;
     display: flex;
     align-content: center;
+    animation-name: animation;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
 }
 
 .error-msg-container {
-    top: 100px;
+    /* top: 100px; */
     height: 50px;
     width: 400px;
     /* border: inset rgb(0, 0, 0) 1px; */
@@ -145,4 +148,9 @@ input[type="checkbox"] {
     background-color: rgb(236, 236, 236);
     display: flex;
     align-items: center;
+}
+
+@keyframes animation {
+    0% {top: -50px}
+    100% {top: 0px}
 }

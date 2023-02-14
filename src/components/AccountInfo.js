@@ -6,6 +6,7 @@ import '../css/AccountInfo.css'
 function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
 
     let history = useHistory();
+    const onlyNumbersRegExp = /^\d+$/
     
     const [checkAgree, setCheckAgree] = useState(false)
     const [toggle, setToggle] = useState(false)
@@ -71,6 +72,15 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
             setErrorDisplay(!errorDisplay)
         } else if (!formData.areacode || !formData.threedigits || !formData.fourdigits) {
             setError("Fill out phone number")
+            setErrorDisplay(!errorDisplay)
+        } else if (!onlyNumbersRegExp.test(formData.areacode) || !onlyNumbersRegExp.test(formData.threedigits) || !onlyNumbersRegExp.test(formData.areacode) ||!onlyNumbersRegExp.test(formData.fstdigits) || !onlyNumbersRegExp.test(formData.snddigits) || !onlyNumbersRegExp.test(formData.thddigits) || !onlyNumbersRegExp.test(formData.fthdigits) || !onlyNumbersRegExp.test(formData.expmon) || !onlyNumbersRegExp.test(formData.expyr) || !onlyNumbersRegExp.test(formData.code)) {
+            setError("Use only numbers")
+            setErrorDisplay(!errorDisplay)
+        } else if (formData.expmon > 12) {
+            setError("Month cannot be exceed 12")
+            setErrorDisplay(!errorDisplay)
+        } else if (formData.expyr < 23) {
+            setError("Card expired")
             setErrorDisplay(!errorDisplay)
         } else if (formData.areacode.length < 3 || formData.threedigits.length < 3 || formData.fourdigits.length < 4 ) {
             setError("Complete phone number")
@@ -209,15 +219,13 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
                         <Link to="/checkout"><button className="acc-btn" id="confirm-back">Back</button></Link>
             </div>
                 {errorDisplay ? 
-                <div className="error-msg">
-
-            <div className="error-msg-container">
-                <div className="error">
-                    <div>Error: {error}</div>
-                    
-                    <button onClick={toggleError}>Ok</button>
+            <div className="error-msg">
+                <div className="error-msg-container">
+                    <div className="error">
+                        <div>Error: {error}</div>
+                        <button onClick={toggleError}>Ok</button>
+                    </div>
                 </div>
-            </div>
             </div>
                 : ""}
                 </div>

@@ -32,6 +32,7 @@ function Shop() {
     
     console.log(userCart)
     console.log(produce)
+
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/purchase`)
         .then(res => res.json())
@@ -42,7 +43,7 @@ function Shop() {
         fetch(`${process.env.REACT_APP_API_URL}/cart`)
         .then(res => res.json())
         .then(cart => setUserCart(cart))
-    }, [])
+    }, [inventory])
     
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/order`)
@@ -64,7 +65,7 @@ function Shop() {
             .then(res => res.json())
             .then(res => setProduce(res))
         }
-    }, [filterFood])
+    }, [filterFood, inventory])
     
     function handleUpdateCart(item) {
         const updateCart = inventory.map(food => {
