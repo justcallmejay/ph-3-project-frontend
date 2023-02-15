@@ -3,17 +3,7 @@ import { Link } from 'react-router-dom'
 import CartList from './CartList'
 import '../css/Cart.css'
 
-function Cart( { yAxis, produce, setProduce, userCart, onHandleDelete, sum, inventory, setInventory } ) {
-
-    function onHandleUpdate(item) {
-        const updateInventory = produce.map(food => {
-            if (food.id === item.id) {
-                return item
-            } else 
-            return food
-        })
-        setProduce(updateInventory)
-    }
+function Cart( { yAxis, onHandleDelete, sum, cart } ) {
 
     return(
         <>
@@ -21,14 +11,12 @@ function Cart( { yAxis, produce, setProduce, userCart, onHandleDelete, sum, inve
                 <h2 className="cart-title">Your cart:</h2>
                 <div className='cart-container-thing'>
 
-                {inventory.map(cart => 
+                {cart.map(carts => 
                 // cart.order_id === null ?
                 <CartList 
-                    cart={cart}
-                    produce={produce}
-                    key={cart.id}
+                    carts={carts}
+                    key={carts.id}
                     onHandleDelete={onHandleDelete}
-                    onHandleUpdate={onHandleUpdate}
                     yAxis={yAxis}
                 />
                 // : "" 

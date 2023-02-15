@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import '../css/Confirm.css'
 
-function Confirm( { formData, sum, account, handleUpdateInventory, inventory, setInventory, handleUpdateProduce, setProduce } ) {
+function Confirm( { formData, sum, account, handleUpdateInventory, cart, setCart, handleUpdateProduce, setOrders, orders } ) {
 
     const [transactionComplete, setTransactionComplete] = useState(true)
     const ccInfo = [formData.fstdigits, formData.snddigits, formData.thddigits]
@@ -11,6 +11,7 @@ function Confirm( { formData, sum, account, handleUpdateInventory, inventory, se
     const date = new Date().toDateString();
     console.log(date)
 
+    console.log(cart)
     const maskCreditCard = ccInfo.map(card => {
         return card.replace(/[0-9]/g, "*").match(/.{1,4}/g).join("");
 });
@@ -23,6 +24,7 @@ function Confirm( { formData, sum, account, handleUpdateInventory, inventory, se
     // console.log(findInventory)
 
     function addIdToCart() {
+        // const newArray = []
         const existingName = account.map(person => {return person.name})
         const existingCard = account.map(card => {return String(card.credit_card)})
         const typedName = (name) => name === formData.name
@@ -31,7 +33,7 @@ function Confirm( { formData, sum, account, handleUpdateInventory, inventory, se
 
         const addId = account.find(person => (person.name === formData.name && String(person.credit_card) === ccNumber))
                   
-        inventory.map(acc => {
+        cart.forEach(acc => {
                 // console.log(acc.id)
                 fetch(`${process.env.REACT_APP_API_URL}/account/${acc.id}`, {
                     method: "PATCH",
@@ -42,9 +44,10 @@ function Confirm( { formData, sum, account, handleUpdateInventory, inventory, se
                     })
                 })
                 .then(res => res.json())
-                .then(res => handleUpdateInventory(res));
-            const subtractQuantity = acc.produce.quantity - acc.quantity
-            const subtractDscQuantity = acc.produce.discount_quantity - acc.dsc_quantity
+                .then(acc => setOrders([...orders, acc]));
+                // console.log(newArray)
+                const subtractQuantity = acc.produce.quantity - acc.quantity
+                const subtractDscQuantity = acc.produce.discount_quantity - acc.dsc_quantity
                 fetch(`${process.env.REACT_APP_API_URL}/produce/${acc.produce_id}`, {
                     method: "PATCH",
                     headers: {"Content-Type" : "application/json"},
@@ -56,8 +59,11 @@ function Confirm( { formData, sum, account, handleUpdateInventory, inventory, se
                 .then(res => res.json())
                 .then(res => handleUpdateProduce(res))
             })
-        setInventory([])
+        setCart([])
         toggleTransaction()
+        // const newArrayOrders = orders.concat(newArray)
+        // setOrders(newArrayOrders)
+        // console.log(newArrayOrders)
     }}
 
 
@@ -74,7 +80,7 @@ function Confirm( { formData, sum, account, handleUpdateInventory, inventory, se
                 </div>
                 <div className='receipt-container'>
                     <h3>Receipt:</h3>
-                    {inventory.map(item => 
+                    {cart.map(item => 
                     <div className='receipt' key={item.id}>
                         <p>{item.produce.produce}</p>
                         <p>Amt: {item.quantity}</p>
@@ -93,7 +99,7 @@ function Confirm( { formData, sum, account, handleUpdateInventory, inventory, se
             </div>
         : <div className='success-container'>
             <div className='success'>
-            <h3>Transaction Complete! You may now return </h3><Link to='/shop'><a href='http://localhost:9292/shop'>here</a></Link>
+            <h3>Transaction Complete! You may now return </h3><Link to='/shop'><p>here</p></Link>
             </div>
             </div>}
         </div> 

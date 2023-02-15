@@ -25,26 +25,21 @@ function Shop() {
         code: ""
     })
     const [filterFood, setFilterFood] = useState('')
-    const [userCart, setUserCart] = useState([])
+    const [orders, setOrders] = useState([])
     const [account, setAccount] = useState([])
-    const [inventory, setInventory] = useState([])
+    const [cart, setCart] = useState([])
     const [produce, setProduce] = useState([])
-    
-    console.log(userCart)
-    console.log(produce)
 
-    useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/purchase`)
-        .then(res => res.json())
-        .then(res => setInventory(res))
-    }, [])
     
+    //gets all ordered and non-ordered items
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/cart`)
         .then(res => res.json())
-        .then(cart => setUserCart(cart))
-    }, [inventory])
+        .then(res => setOrders(res))
+    }, [cart])
     
+    console.log('render 1')
+    //gets accounts
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/order`)
         .then(res => res.json())
@@ -55,55 +50,75 @@ function Shop() {
         setAccount([...account, newAccount])
     }
     
+    //gets produce
     useEffect(() => {
-        if (filterFood !== '') {
-            fetch(`${process.env.REACT_APP_API_URL}/produce/${filterFood}`)
-            .then(res => res.json())
-            .then(res => setProduce(res))
-        } else {
-            fetch(`${process.env.REACT_APP_API_URL}/produce`)
-            .then(res => res.json())
-            .then(res => setProduce(res))
-        }
-    }, [filterFood, inventory])
+        // if (filterFood !== '') {
+            //     fetch(`${process.env.REACT_APP_API_URL}/produce/${filterFood}`)
+            //     .then(res => res.json())
+            //     .then(res => setProduce(res))
+            // } else {
+                fetch(`${process.env.REACT_APP_API_URL}/produce`)
+                .then(res => res.json())
+                .then(res => setProduce(res))
+                // }
+            }, [])
+
+            
+    useEffect(() => {
+    const addToCart = orders.map(inCart => {
+    if (inCart.order_id === null) {
+        return inCart
+        } 
+    })
+        setCart(addToCart)
+    }, [])
     
     function handleUpdateCart(item) {
-        const updateCart = inventory.map(food => {
+        const updateCart = cart.map(food => {
             if (food.id === item.id) {
                 return item
             } else {
                 return food
             }
         })
-        setInventory(updateCart)
+        setCart(updateCart)
     }
     
     function onHandleDelete(item) {
-        const deleteItem = inventory.filter(cart => cart.id !== item.id)
-        setInventory(deleteItem)
+        const deleteItem = cart.filter(cart => cart.id !== item.id)
+        setCart(deleteItem)
     }
     
-    function handleUpdateInventory(food) {
-        const addToCart = [...userCart, food]
-        setUserCart(addToCart)
-        console.log(userCart)
+    function handleUpdateInventory() {
+
+        // const updateOrder = orders.map(item => {
+        //     if (item.id === food.id) {
+        //         return food
+        //     } else {
+        //         return item
+        //     }
+        // })
+        // console.log(updateOrder)
+        // const newArrObj = orders.concat(cart)
+        // setOrders(newArrObj)
     }
 
     //This does not pass both items in cart
     function handleUpdateProduce(food) {
         console.log(food)
-        const updateProduce = produce.map(item => {
-            if (item.id === food.id) {
-                return food
-            } else {
-                return item
-            }
-        })
-        setProduce(updateProduce)
+        // const updateProduce = produce.map(item => {
+        //     if (item.id === food.id) {
+        //         return food
+        //     } else {
+        //         return item
+        //     }
+        // })
+        // const newArrObj = produce.concat(updateProduce)
+        // setProduce(newArrObj)
     }
     
     //PREVENT DRY
-    const sumItem = inventory.map(item => {
+    const sumItem = cart.map(item => {
         if (item.order_id === null) {
         return (item.produce.price * item.quantity)
         } else {
@@ -113,7 +128,7 @@ function Shop() {
 
     const cost = sumItem.reduce((a, b) => a + b, 0)
 
-    const discountArray = inventory.map(item => {
+    const discountArray = cart.map(item => {
         if (item.order_id === null) {
             // console.log(item)
             return (item.produce.discount_price * item.dsc_quantity)
@@ -126,12 +141,14 @@ function Shop() {
     const discountTotal = discountArray.reduce((a, b) => a + b, 0)
 
     const sum = discountTotal + cost
-
     
     // const localeString = date.toLocaleDateString();
     // console.log(localeString)
     // console.log(timeElapsed)
 
+    console.log(produce)
+    console.log(orders)
+    console.log('render 2')
 
     return(
         <div className='shop'>
@@ -143,24 +160,26 @@ function Shop() {
                             sum={sum}
                             produce={produce}
                             setProduce={setProduce}
-                            inventory={inventory}
-                            setInventory={setInventory}
+                            cart={cart}
+                            setCart={setCart}
                             handleUpdateCart={handleUpdateCart}
                             filterFood={filterFood}
                             setFilterFood={setFilterFood}
                             onHandleDelete={onHandleDelete}
+                            setOrders={setOrders}
+                            orders={orders}
                         />
                     </Route>
                     <Route path='/my-account'>
                         <MyAccount
-                            userCart={userCart} 
-                            inventory={inventory}
+                            orders={orders} 
+                            cart={cart}
                             />
                     </Route>
                     <Route path="/checkout">
                         <Checkout
                             sum={sum}
-                            inventory={inventory} 
+                            cart={cart} 
                             produce={produce}
                             handleUpdateCart={handleUpdateCart}
                             onHandleDelete={onHandleDelete}
@@ -176,15 +195,17 @@ function Shop() {
                     </Route>
                     <Route path="/confirm">
                         <Confirm
-                            setInventory={setInventory}
+                            setCart={setCart}
                             formData={formData} 
-                            inventory={inventory} 
+                            cart={cart} 
                             account={account}
                             sum={sum}
                             handleUpdateInventory={handleUpdateInventory}
                             handleUpdateProduce={handleUpdateProduce}
                             produce={produce}
                             setProduce={setProduce}
+                            orders={orders}
+                            setOrders={setOrders}
                             />
                     </Route>
                     <Route path='/about'>

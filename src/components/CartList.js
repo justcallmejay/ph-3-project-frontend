@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import '../css/Cart.css'
 
-function CartList( { yAxis, cart, onHandleDelete, onHandleUpdate } ) {
+function CartList( { yAxis, carts, onHandleDelete } ) {
 
     const [hover, setHover] = useState(false)
-    const itemTotal = (cart.produce.price * cart.quantity)
-    const discountTotal = (cart.produce.discount_price * cart.dsc_quantity)
+    const itemTotal = (carts.produce.price * carts.quantity)
+    const discountTotal = (carts.produce.discount_price * carts.dsc_quantity)
 
-    // console.log(cart.produce.discount_price)
+    // console.log(carts.produce.discount_price)
     function handleMouseEnter() {
         setHover(true)
     }
@@ -24,7 +24,6 @@ function CartList( { yAxis, cart, onHandleDelete, onHandleUpdate } ) {
         .then(item => onHandleDelete(item))
     }
 
-
     return(
         <div className='cart-list-container' 
         style={{ transform: `translateY(${yAxis}px)`}}
@@ -32,21 +31,21 @@ function CartList( { yAxis, cart, onHandleDelete, onHandleUpdate } ) {
         onMouseLeave={handleMouseLeave}
         >
                 <img className='cart-image' 
-                    src={cart.produce.image} 
-                    alt={cart.produce.produce} 
+                    src={carts.produce.image} 
+                    alt={carts.produce.produce} 
                 />
             <div className='cart-data'>
-                <h6>{cart.produce.produce}</h6>
-                <p>Price: {cart.produce.price}</p>
-                <p>Qty: {cart.quantity}</p>
+                <h6>{carts.produce.produce}</h6>
+                <p>Price: {carts.produce.price}</p>
+                <p>Qty: {carts.quantity}</p>
                 <p>Total: {itemTotal.toFixed(2)}</p>
-                <p>Disc. Qty: {cart.dsc_quantity}</p>
+                <p>Disc. Qty: {carts.dsc_quantity}</p>
                 <p>Disc. Total:{discountTotal.toFixed(2)}</p>
             </div>
                 <div className="delete-btn-container">
                     {hover ? 
                     <>
-                    <button className='cart-delete-btn' onClick={() => handleDelete(cart)}>Delete</button>
+                    <button className='cart-delete-btn' onClick={() => handleDelete(carts)}>Delete</button>
                     </>
                     : ""}
                 </div>

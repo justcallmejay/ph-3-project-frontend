@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import '../css/MyAccount.css'
 
-function MyAccount( { userCart, inventory } ) {
+function MyAccount( { orders, cart } ) {
     
-    // console.log(userCart)
+    console.log(orders)
 
     const [display, setDisplay] = useState(0)
     const displayItems = 600
@@ -17,22 +17,21 @@ function MyAccount( { userCart, inventory } ) {
     
     const dateArray = myAccount.map(acc => {return acc.purchased_at})
     const uniq = [...new Set(dateArray)]
-    // console.log(uniq)
 
     function displayMore() {
-        if (display !== 0 )
+        if (display !== 0)
         setDisplay((display + displayItems))
     }
-    // console.log((userCart.length / 5) * displayItems)
+    // console.log((orders.length / 5) * displayItems)
     
     let sum = 0
     function displayLess() {
         sum = sum + 1
-        if (sum < (inventory.length / 4)) {
+        if (sum < (cart.length / 4)) {
             return setDisplay((display - displayItems));
         }
     }
-    // console.log(sum)
+
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -45,12 +44,13 @@ function MyAccount( { userCart, inventory } ) {
     }
 
     function gatherInfo() {
-        const existingUser = userCart.map(cart => { return cart.order.name })
-        const existingCard = userCart.map(cart => { return String(cart.order.credit_card) })
+        const existingUser = orders.map(user => { return user.order.name })
+        const existingCard = orders.map(user => { return String(user.order.credit_card) })
         const typedName = (name) => name === user.name
         const typedCard = (card) => card === user.credit_card
         if (existingUser.some(typedName) === true && existingCard.some(typedCard) === true) {
-        const searchAcc = userCart.find(cart => (cart.order.name === user.name))
+        const searchAcc = orders.find(person => (String(person.order.credit_card) === user.credit_card))
+        console.log(searchAcc.order.credit_card)
             fetch(`${process.env.REACT_APP_API_URL}/cart/${searchAcc.order_id}`)
             .then(res => res.json())
             .then(res => setMyAccount(res));
@@ -102,7 +102,7 @@ function MyAccount( { userCart, inventory } ) {
                     }
                     </div>
                         <div className='acc-cart-container'>
-                            {inventory.length > 0 ? 
+                            {cart.length > 0 ? 
                             <>
                             <div className="acc-cart-label">
                                 <h3>Your Cart:</h3>
@@ -110,7 +110,7 @@ function MyAccount( { userCart, inventory } ) {
                             <div className="acc-toggle-container">
                                 <button className="toggle-btns" onClick={displayMore}>Left</button>
                                     <div className='acc-cart-display-container'>
-                                        {inventory.map(cart => 
+                                        {cart.map(cart => 
                                         <div className='myacc-card' key={cart.id} style={{ transform : `translateX(${display}px)`}}>
                                             <img className="myacc-img" src={cart.produce.image} alt={cart.produce.produce}/>
                                             <h3>{cart.produce.produce}</h3>

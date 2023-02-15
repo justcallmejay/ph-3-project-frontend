@@ -22,9 +22,6 @@ function CheckoutList( { cart, onHandleDelete, handleUpdateCart } ) {
     const [submitEdit, setSubmitEdit] = useState(null)
     const [produceQuantity, setProduceQuantity] = useState(cart.quantity)
     const [dscQuantity, setDscQuantity] = useState(cart.dsc_quantity)
-
-    console.log(cart.total)
-    console.log(cart.dsc_total)
     
     function handleEdit(food) {
         setSubmitEdit(null)

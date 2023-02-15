@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../css/ProduceList.css'
 
-function ProduceList( { item, inventory, handleAddtoCart, handleUpdateCart } ) {
+function ProduceList( { item, cart, handleAddtoCart, handleUpdateCart } ) {
 
     const [quantityCount, setQuantityCount] = useState(0)
     const [check, setCheck] = useState(false)
@@ -15,10 +15,10 @@ function ProduceList( { item, inventory, handleAddtoCart, handleUpdateCart } ) {
             alert('there is no more in stock') 
         } else {
             if (quantityCount !== 0 || quantityDiscountCount !== 0) {
-                const existingItem = inventory.map(cart => {return cart.produce_id})
+                const existingItem = cart.map(carts => {return carts.produce_id})
                 const currentItem = (card) => card === food.id
             if (existingItem.some(currentItem) === true) {
-                const qtyNum = inventory.find(item => item.produce_id === food.id)
+                const qtyNum = cart.find(item => item.produce_id === food.id)
                     if (qtyNum.quantity + parseInt(quantityCount) > item.quantity || qtyNum.dsc_quantity + parseInt(quantityDiscountCount) > item.discount_quantity) {
                          alert('Not enough in stock');
                          setQuantityCount(0);
@@ -85,14 +85,14 @@ function ProduceList( { item, inventory, handleAddtoCart, handleUpdateCart } ) {
             {item.quantity > 0 ? 
             <>
             <div>Price: {item.price}</div>
-            <div>Quantity: {item.quantity}</div> 
+            {/* <div>Quantity: {item.quantity}</div>  */}
             </>
             :
             <h4>Sold Out</h4>}
             {item.discount > 0 ? 
             <>
             <div>Discount Price: {item.discount_price}</div>
-            <div>Discount Quantity: {item.discount_quantity}</div>
+            {/* <div>Discount Quantity: {item.discount_quantity}</div> */}
             <div className='discount-container-list'>
                 <div className='discount-label'>
                     <h4>Buy Discount</h4>
