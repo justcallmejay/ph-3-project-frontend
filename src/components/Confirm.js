@@ -44,7 +44,7 @@ function Confirm( { formData, sum, account, handleUpdateInventory, cart, setCart
                     })
                 })
                 .then(res => res.json())
-                .then(acc => setOrders([...orders, acc]));
+                .then(acc => handleUpdateInventory(acc));
                 // console.log(newArray)
                 const subtractQuantity = acc.produce.quantity - acc.quantity
                 const subtractDscQuantity = acc.produce.discount_quantity - acc.dsc_quantity

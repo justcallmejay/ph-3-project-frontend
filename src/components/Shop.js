@@ -89,18 +89,15 @@ function Shop() {
         setCart(deleteItem)
     }
     
-    function handleUpdateInventory() {
-
-        // const updateOrder = orders.map(item => {
-        //     if (item.id === food.id) {
-        //         return food
-        //     } else {
-        //         return item
-        //     }
-        // })
-        // console.log(updateOrder)
-        // const newArrObj = orders.concat(cart)
-        // setOrders(newArrObj)
+    function handleUpdateInventory(food) {
+        const updateOrder = orders.map(item => {
+            if (item.id === food.id) {
+                return food
+            } else {
+                return item
+            }
+        })
+        setCart(updateOrder)
     }
 
     //This does not pass both items in cart
