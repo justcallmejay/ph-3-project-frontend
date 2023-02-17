@@ -27,18 +27,25 @@ function Shop() {
     const [filterFood, setFilterFood] = useState('')
     const [orders, setOrders] = useState([])
     const [account, setAccount] = useState([])
-    const [cart, setCart] = useState([])
     const [produce, setProduce] = useState([])
+    const [cart, setCart] = useState([])
+        
+    useEffect(() => {
+    orders.map(inCart => {
+        if (inCart.order_id === null) {
+            return inCart
+            }}
+        )}
+, [])
 
     
-    //gets all ordered and non-ordered items
+    //gets all purchased items
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/cart`)
+        fetch(`${process.env.REACT_APP_API_URL}/purchased`)
         .then(res => res.json())
         .then(res => setOrders(res))
     }, [cart])
     
-    console.log('render 1')
     //gets accounts
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/order`)
@@ -52,27 +59,12 @@ function Shop() {
     
     //gets produce
     useEffect(() => {
-        // if (filterFood !== '') {
-            //     fetch(`${process.env.REACT_APP_API_URL}/produce/${filterFood}`)
-            //     .then(res => res.json())
-            //     .then(res => setProduce(res))
-            // } else {
                 fetch(`${process.env.REACT_APP_API_URL}/produce`)
                 .then(res => res.json())
                 .then(res => setProduce(res))
                 // }
             }, [])
 
-            
-    useEffect(() => {
-    const addToCart = orders.map(inCart => {
-    if (inCart.order_id === null) {
-        return inCart
-        } 
-    })
-        setCart(addToCart)
-    }, [])
-    
     function handleUpdateCart(item) {
         const updateCart = cart.map(food => {
             if (food.id === item.id) {
@@ -90,28 +82,12 @@ function Shop() {
     }
     
     function handleUpdateInventory(food) {
-        const updateOrder = orders.map(item => {
-            if (item.id === food.id) {
-                return food
-            } else {
-                return item
-            }
-        })
-        setCart(updateOrder)
+        return setOrders([...orders, food])
     }
 
     //This does not pass both items in cart
     function handleUpdateProduce(food) {
         console.log(food)
-        // const updateProduce = produce.map(item => {
-        //     if (item.id === food.id) {
-        //         return food
-        //     } else {
-        //         return item
-        //     }
-        // })
-        // const newArrObj = produce.concat(updateProduce)
-        // setProduce(newArrObj)
     }
     
     //PREVENT DRY
@@ -123,9 +99,10 @@ function Shop() {
         }
     })
 
+
     const cost = sumItem.reduce((a, b) => a + b, 0)
 
-    const discountArray = cart.map(item => {
+    const dscItem = cart.map(item => {
         if (item.order_id === null) {
             // console.log(item)
             return (item.produce.discount_price * item.dsc_quantity)
@@ -135,17 +112,20 @@ function Shop() {
         }
     })
 
-    const discountTotal = discountArray.reduce((a, b) => a + b, 0)
+    const discountTotal = dscItem.reduce((a, b) => a + b, 0)
 
     const sum = discountTotal + cost
-    
-    // const localeString = date.toLocaleDateString();
-    // console.log(localeString)
-    // console.log(timeElapsed)
 
     console.log(produce)
+    // It works, but it isn't console logged in orders.  If you were to go to MyAccount, it will display multiple items despite the console log returning only one.
     console.log(orders)
-    console.log('render 2')
+    // console.log(cart)
+
+    const [error, setError] = useState("")
+    const [errorDisplay, setErrorDisplay] = useState(false)
+    function toggleError() {
+        setErrorDisplay(!errorDisplay)
+    }
 
     return(
         <div className='shop'>
@@ -171,6 +151,11 @@ function Shop() {
                         <MyAccount
                             orders={orders} 
                             cart={cart}
+                            error={error}
+                            setError={setError}
+                            errorDisplay={errorDisplay}
+                            setErrorDisplay={setErrorDisplay}
+                            toggleError={toggleError}
                             />
                     </Route>
                     <Route path="/checkout">
@@ -188,6 +173,11 @@ function Shop() {
                             setFormData={setFormData}
                             account={account}
                             handleAddAccount={handleAddAccount}
+                            error={error}
+                            setError={setError}
+                            errorDisplay={errorDisplay}
+                            setErrorDisplay={setErrorDisplay}
+                            toggleError={toggleError}
                             />
                     </Route>
                     <Route path="/confirm">

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom'
-;import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Error from './Error'
 import '../css/AccountInfo.css'
+import '../css/Error.css'
 
-function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
+function AccountInfo( { account, formData, setFormData, handleAddAccount, error, setError, errorDisplay, setErrorDisplay, toggleError } ) {
 
     let history = useHistory();
     const onlyNumbersRegExp = /^\d+$/
@@ -11,13 +13,8 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
     const [checkAgree, setCheckAgree] = useState(false)
     const [toggle, setToggle] = useState(false)
     const [existingAcc, setExistingAcc] = useState(true)
-    const [errorDisplay, setErrorDisplay] = useState(false)
-    const [error, setError] = useState("")
     const number = [formData.areacode, formData.threedigits, formData.fourdigits].join('')
     const ccNumber = [formData.fstdigits, formData.snddigits, formData.thddigits, formData.fthdigits].join('')
-
-    // console.log(ccNumber)
-    // console.log(existingAcc)
     
     function handleChange(e) {
         const {name, value} = e.target;
@@ -36,10 +33,6 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
     
     function toggleDisplay() {
         setToggle(!toggle)
-    }
-    
-    function toggleError() {
-        setErrorDisplay(!errorDisplay)
     }
     
     function handleSubmit(e) {
@@ -97,16 +90,6 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
         } else if (!checkAgree) {
             setError("Please click agree")
             setErrorDisplay(!errorDisplay)
-        // } else if {
-        //     const searchName = account.map(acc => {return acc.name})
-        //     const searchPhone = account.map(acc => {return acc.phone})
-        //     const searchCC = account.map(acc => {return acc.credit_card})
-        //     const inputName = (user) => user === formData.name
-        //     const inputPhone = (phone) => phone === number
-        //     const inputCC = (cc) => cc === ccNumber
-        //     if (searchName.some(inputName) === true && searchPhone.some(inputPhone) === true && searchCC.some(inputCC) === true) {
-        //         console.log('user exist')
-        //     }            
         } else {
         history.push('/confirm')
         fetch(`${process.env.REACT_APP_API_URL}/order`, {
@@ -219,14 +202,7 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount } ) {
                         <Link to="/checkout"><button className="acc-btn" id="confirm-back">Back</button></Link>
             </div>
                 {errorDisplay ? 
-            <div className="error-msg">
-                <div className="error-msg-container">
-                    <div className="error">
-                        <div>Error: {error}</div>
-                        <button onClick={toggleError}>Ok</button>
-                    </div>
-                </div>
-            </div>
+                <Error error={error} toggleError={toggleError}/>
                 : ""}
                 </div>
     )

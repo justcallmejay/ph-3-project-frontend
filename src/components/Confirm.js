@@ -9,9 +9,7 @@ function Confirm( { formData, sum, account, handleUpdateInventory, cart, setCart
     const ccNumber = [formData.fstdigits, formData.snddigits, formData.thddigits, formData.fthdigits].join('')
     
     const date = new Date().toDateString();
-    console.log(date)
 
-    console.log(cart)
     const maskCreditCard = ccInfo.map(card => {
         return card.replace(/[0-9]/g, "*").match(/.{1,4}/g).join("");
 });
@@ -25,6 +23,7 @@ function Confirm( { formData, sum, account, handleUpdateInventory, cart, setCart
 
     function addIdToCart() {
         // const newArray = []
+        setCart([])
         const existingName = account.map(person => {return person.name})
         const existingCard = account.map(card => {return String(card.credit_card)})
         const typedName = (name) => name === formData.name
@@ -44,7 +43,7 @@ function Confirm( { formData, sum, account, handleUpdateInventory, cart, setCart
                     })
                 })
                 .then(res => res.json())
-                .then(acc => handleUpdateInventory(acc));
+                .then(res => handleUpdateInventory(res));
                 // console.log(newArray)
                 const subtractQuantity = acc.produce.quantity - acc.quantity
                 const subtractDscQuantity = acc.produce.discount_quantity - acc.dsc_quantity
@@ -59,8 +58,7 @@ function Confirm( { formData, sum, account, handleUpdateInventory, cart, setCart
                 .then(res => res.json())
                 .then(res => handleUpdateProduce(res))
             })
-        setCart([])
-        toggleTransaction()
+            toggleTransaction()
         // const newArrayOrders = orders.concat(newArray)
         // setOrders(newArrayOrders)
         // console.log(newArrayOrders)

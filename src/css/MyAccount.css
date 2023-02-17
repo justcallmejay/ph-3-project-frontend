@@ -1,8 +1,13 @@
 .myaccount {
-    width: 80%;
+    height: 800px;
+    width: 1000px;
+    top: 140px;
     left: 45%;
-    top: 50px; 
+    border: inset rgb(0, 0, 0) 1px;
     position: relative;
+    display: flex;
+    justify-content: center;
+    z-index: 0;
 }
 
 .myacc-container {
@@ -223,5 +228,6 @@
     align-items: center;
     justify-content: center;
 }
+
 
 

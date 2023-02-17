@@ -12,14 +12,14 @@ function Cart( { yAxis, onHandleDelete, sum, cart } ) {
                 <div className='cart-container-thing'>
 
                 {cart.map(carts => 
-                // cart.order_id === null ?
+                carts.order_id === null ?
                 <CartList 
                     carts={carts}
                     key={carts.id}
                     onHandleDelete={onHandleDelete}
                     yAxis={yAxis}
                 />
-                // : "" 
+                    : "" 
                 )}
             </div>
             <div className="total">

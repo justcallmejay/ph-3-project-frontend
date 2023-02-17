@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import Error from './Error'
 import '../css/MyAccount.css'
+import '../css/Error.css'
 
-function MyAccount( { orders, cart } ) {
-    
-    console.log(orders)
+function MyAccount( { orders, cart, error, setError, errorDisplay, setErrorDisplay, toggleError } ) {
 
     const [display, setDisplay] = useState(0)
     const displayItems = 600
@@ -32,7 +32,6 @@ function MyAccount( { orders, cart } ) {
         }
     }
 
-
     function handleChange(e) {
         const { name, value } = e.target;
         setUser(info => {
@@ -57,6 +56,10 @@ function MyAccount( { orders, cart } ) {
             fetch(`${process.env.REACT_APP_API_URL}/order/${searchAcc.order_id}`)
             .then(res => res.json())
             .then(res => setMyInfo(res))
+        } else {
+            // alert('not found')
+            setError("Account does not exist")
+            setErrorDisplay(!errorDisplay)
         }
     }
 
@@ -183,6 +186,9 @@ function MyAccount( { orders, cart } ) {
                     </div>
                 </div>
             </div>
+            {errorDisplay ? 
+                <Error error={error} toggleError={toggleError}/>
+                : ""}
         </div>
     )
 }

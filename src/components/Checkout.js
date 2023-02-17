@@ -14,7 +14,7 @@ function Checkout( { sum, handleUpdateCart, onHandleDelete, cart, produce } ) {
                 {cart.length > 0 ? 
                 <>
                 <div className='checkout-cart'>
-                    {cart.map(cart =>  
+                    {cart.map(cart => 
                     <CheckoutList 
                         cart={cart} 
                         key={cart.id} 
