@@ -7,7 +7,10 @@ function MyAccount( { orders, cart, error, setError, errorDisplay, setErrorDispl
 
     const [display, setDisplay] = useState(0)
     const displayItems = 600
-    
+    console.log(error)
+
+    // console.log(cart.length / 4)
+
     const [user, setUser] = useState({
         name: "",
         credit_card: ""
@@ -24,13 +27,13 @@ function MyAccount( { orders, cart, error, setError, errorDisplay, setErrorDispl
     }
     // console.log((orders.length / 5) * displayItems)
     
-    let sum = 0
     function displayLess() {
-        sum = sum + 1
-        if (sum < (cart.length / 4)) {
-            return setDisplay((display - displayItems));
+        if (Math.abs(display) < (cart.length / 5 * displayItems)) {
+            setDisplay((display - displayItems));
         }
     }
+
+    // console.log(Math.abs(display))
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -42,13 +45,9 @@ function MyAccount( { orders, cart, error, setError, errorDisplay, setErrorDispl
         })
     }
 
-    function gatherInfo() {
-        const existingUser = orders.map(user => { return user.order.name })
-        const existingCard = orders.map(user => { return String(user.order.credit_card) })
-        const typedName = (name) => name === user.name
-        const typedCard = (card) => card === user.credit_card
-        if (existingUser.some(typedName) === true && existingCard.some(typedCard) === true) {
-        const searchAcc = orders.find(person => (String(person.order.credit_card) === user.credit_card))
+    function gatherInfo() {        
+        const searchAcc = orders.find(person => (String(person.order.credit_card) === user.credit_card && person.order.name === user.name))
+        if (searchAcc) {
         console.log(searchAcc.order.credit_card)
             fetch(`${process.env.REACT_APP_API_URL}/cart/${searchAcc.order_id}`)
             .then(res => res.json())
@@ -148,26 +147,25 @@ function MyAccount( { orders, cart, error, setError, errorDisplay, setErrorDispl
                                         <h5>{act.slice(0, 10)}</h5>
                                     </div>      
                                 </div>
-                        {myAccount.filter((acc) => acc.purchased_at === act).map((acc) => {
+                        {myAccount.filter((acc) => acc.purchased_at === act).map((aco) => {
                             return (
-                                <div className='purchased-order-container'>
+                                <div className='purchased-order-container' key={aco.id}>
                                 <div className="purchased-name">
-                                    <h4>{acc.produce.produce}</h4>
+                                    <h4>{aco.produce.produce}</h4>
                                 </div>
                                 <div className="purchase-quantity">
-                                    <div>Amount: {acc.quantity}</div>
+                                    <div>Amount: {aco.quantity}</div>
                                 </div>
-
                                 <div className='purchased-total'>
-                                    <div>Total: {acc.total.toFixed(2)}</div>
+                                    <div>Total: {aco.total.toFixed(2)}</div>
                                 </div>
-                                {acc.dsc_quantity > 0 ? 
+                                {aco.dsc_quantity > 0 ? 
                                 <>
                                     <div className='purchased-dsc-quantity'>
-                                        <div>Dsc Qty: {acc.dsc_quantity}</div>
+                                        <div>Dsc Qty: {aco.dsc_quantity}</div>
                                     </div>
                                     <div className='purchased-dsc-quantity'>
-                                        <div>Dsc Total: {acc.dsc_total}</div>
+                                        <div>Dsc Total: {aco.dsc_total}</div>
                                     </div>
                                 </>
                                 : ""}

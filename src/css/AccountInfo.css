@@ -3,7 +3,7 @@
     width: 1000px;
     top: 140px;
     left: 45%;
-    border: inset rgb(0, 0, 0) 1px;
+    /* border: inset rgb(0, 0, 0) 1px; */
     position: relative;
     display: flex;
     justify-content: center;
@@ -89,16 +89,17 @@
     cursor: pointer;
 }
 
-.toa {
+.terms-container {
     height: 260px;
     display: flex;
-    align-items: end;
+    flex-direction: column;
     justify-content: end;
+    align-items: end;
 }
 
-.toa > h6 {
-    width: 200px;
-    margin: 0 20px 0 0;
+.toa {
+    height: 80px;
+    width: 220px;
 }
 
 input[type="checkbox"] {
@@ -108,24 +109,19 @@ input[type="checkbox"] {
 
 .whats-this-link {
     cursor: pointer;
+    right: 160px;
+    position: relative;
+    margin: -10px 0 0 0;
 }
 
 .whats-this-container {
-    top: 490px;
-    left: 5px;
+    top: 500px;
+    left: 270px;
     position: absolute;
-    height: 100px;
-    width: 400px;
+    height: 20px;
+    width: 300px;
     border: inset rgb(0, 0, 0) 1px;
     font-size: 10px;
     z-index: 3;
     background-color: azure;
 }
-
-/* .error-taskbar {
-    width: 100%;
-    height: 300px;
-    background-color: aqua;
-    position: absolute;
-} */
-

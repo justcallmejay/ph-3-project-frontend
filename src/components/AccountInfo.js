@@ -15,6 +15,9 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount, error,
     const [existingAcc, setExistingAcc] = useState(true)
     const number = [formData.areacode, formData.threedigits, formData.fourdigits].join('')
     const ccNumber = [formData.fstdigits, formData.snddigits, formData.thddigits, formData.fthdigits].join('')
+    const ccCode = [formData.expmon, formData.expyr, formData.code].join('')
+
+    console.log(ccCode)
     
     function handleChange(e) {
         const {name, value} = e.target;
@@ -37,13 +40,15 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount, error,
     
     function handleSubmit(e) {
         e.preventDefault();
-        const existingName = account.map(person => {return person.name})
-        const existingCard = account.map(card => {return String(card.credit_card)})
-        const inputExistingName = (name) => name === formData.name
-        const inputExistingCard = (card) => card === ccNumber
+        // const existingName = account.map(person => {return person.name})
+        // const existingCard = account.map(card => {return String(card.credit_card)})
+        // const inputExistingName = (name) => name === formData.name
+        // const inputExistingCard = (card) => card === ccNumber
+        const searchAcc = account.find(acc => (acc.name === formData.name && String(acc.credit_card) === ccNumber && ([acc.exp_mon, acc.exp_yr, acc.code].join('')) === ccCode))
 
         if (existingAcc === false) {
-            if (existingName.some(inputExistingName) === true && existingCard.some(inputExistingCard) === true) {
+            if (searchAcc)  {
+            // if (existingName.some(inputExistingName) && existingCard.some(inputExistingCard)) {
             account.map(acc => {
                 if (acc.name === formData.name) {
                     //convert to phone to string
@@ -84,7 +89,9 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount, error,
         } else if (formData.fstdigits.length < 4 || formData.snddigits.length < 4 || formData.thddigits.length < 4 || formData.fthdigits.length < 4 || formData.expmon.length < 2 || formData.expyr.length < 2 || formData.code.length < 3) {
             setError("Complete credit card information")
             setErrorDisplay(!errorDisplay)
-        } else if (existingName.some(inputExistingName) && existingCard.some(inputExistingCard)) {
+        } else if (searchAcc)
+        // (existingName.some(inputExistingName) && existingCard.some(inputExistingCard)) 
+        {
             setError("Account already exists")
             setErrorDisplay(!errorDisplay)
         } else if (!checkAgree) {
@@ -185,18 +192,20 @@ function AccountInfo( { account, formData, setFormData, handleAddAccount, error,
                         style={{ borderStyle: "solid", borderColor :  existingAcc ? "" : "green" }}
                         />
                     </div>
+                    <div className="terms-container">
                         <div className='toa'>
-                            <input type="checkbox" disabled={ existingAcc ? "" : true} onChange={() => setCheckAgree(!checkAgree)}/>
                             <h6>By clicking on checkbox you agree with terms and conditions with Fresh Food Market Place</h6>
+                            <input type="checkbox" disabled={ existingAcc ? "" : true} onChange={() => setCheckAgree(!checkAgree)}/>
                         </div>
                             <h6 className="whats-this-link" onClick={toggleDisplay}>What's this?</h6>
                             {toggle ? 
                         <div className="whats-this-container">
                             <div className="whats-this">
-                            <p>This checkbox states that all the information submitted is accurate.</p>
+                            <p>This checkbox states that all the information provided is accurate.</p>
                         </div>
                          </div>
                          : ""}
+                    </div>
                         <button className="acc-btn" id="confirm-next">Next</button>
                 </form>
                         <Link to="/checkout"><button className="acc-btn" id="confirm-back">Back</button></Link>

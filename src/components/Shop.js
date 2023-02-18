@@ -127,6 +127,8 @@ function Shop() {
         setErrorDisplay(!errorDisplay)
     }
 
+    console.log(error)
+
     return(
         <div className='shop'>
             <BrowserRouter>

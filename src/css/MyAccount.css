@@ -3,7 +3,7 @@
     width: 1000px;
     top: 140px;
     left: 45%;
-    border: inset rgb(0, 0, 0) 1px;
+    /* border: inset rgb(0, 0, 0) 1px; */
     position: relative;
     display: flex;
     justify-content: center;
@@ -22,7 +22,10 @@
 .acc-info-container {
     height: 180px;
     width: 800px;
-    border: inset rgb(0, 0, 0) 1px;
+    border-radius: 30px 30px 0 0;
+    border-top: inset rgb(0, 0, 0) 1px;
+    border-left: inset rgb(0, 0, 0) 1px;
+    border-right: inset rgb(0, 0, 0) 1px;
     margin: 100px 0 0 0;
 }
 
@@ -114,7 +117,8 @@
 .acc-cart-container {
     height: 300px;
     width: 800px;
-    border: inset rgb(0, 0, 0) 1px;
+    border-left: inset rgb(0, 0, 0) 1px;
+    border-right: inset rgb(0, 0, 0) 1px;
     display: flex;
     flex-direction: column;
 }
@@ -166,7 +170,10 @@
 }
 
 .purchase-history-container {
-    border: inset rgb(0, 0, 0) 1px;
+    border-radius: 0 0 30px 30px;
+    border-left: inset rgb(0, 0, 0) 1px;
+    border-right: inset rgb(0, 0, 0) 1px;
+    border-bottom: inset rgb(0, 0, 0) 1px;
     height: 400px;
     width: 800px;
     display: flex;

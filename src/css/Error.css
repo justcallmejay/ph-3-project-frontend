@@ -1,5 +1,5 @@
 .error-msg {
-    border: inset rgb(0, 0, 0) 1px;
+    /* border: inset rgb(0, 0, 0) 1px; */
     position: absolute;
     display: flex;
     align-content: center;
@@ -10,16 +10,47 @@
 
 .error-msg-container {
     /* top: 100px; */
-    height: 50px;
+    height: 100px;
     width: 400px;
-    /* border: inset rgb(0, 0, 0) 1px; */
+    border: inset rgb(0, 0, 0) 1px;
     border-radius: 10px;
-    background-color: rgb(236, 236, 236);
+    background-color: rgb(255, 255, 255);
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 @keyframes animation {
-    0% {top: -50px}
+    0% {top: -70px}
     100% {top: 0px}
+}
+
+.error {
+    height: 50px;
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: top;
+}
+
+.error-quote {
+    top: 20px;
+    position: relative;
+}
+
+.error-btn-container {
+    height: 50px;
+    width: 400px;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+
+.error-btn {
+    height: 25px;
+    width: 40px;
+    right: 20px;
+    bottom: 10px;
+    position: relative;
 }

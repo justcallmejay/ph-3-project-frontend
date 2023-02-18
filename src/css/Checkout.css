@@ -22,13 +22,14 @@
     width: 1000px;
     top: 20px;
     position: relative;
-    border: inset rgb(0, 0, 0) 1px;
+    /* border: inset rgb(0, 0, 0) 1px; */
 }
 
 .checkout-cart {
     height: 600px;
     width: 100%;
-    border: inset rgb(0, 0, 0) 1px;
+    border-top: inset rgb(0, 0, 0) 1px;
+    border-bottom: inset rgb(0, 0, 0) 1px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
