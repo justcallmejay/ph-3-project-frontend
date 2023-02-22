@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import '../css/Confirm.css'
 
-function Confirm( { formData, sum, account, handleUpdateInventory, cart, setCart, handleUpdateProduce, setOrders, orders } ) {
+function Confirm( { formData, sum, handleUpdateInventory, cart, setCart, handleUpdateProduce } ) {
 
     const [transactionComplete, setTransactionComplete] = useState(true)
     const ccInfo = [formData.fstdigits, formData.snddigits, formData.thddigits]
@@ -14,37 +14,25 @@ function Confirm( { formData, sum, account, handleUpdateInventory, cart, setCart
         return card.replace(/[0-9]/g, "*").match(/.{1,4}/g).join("");
 });
 
-    // console.log(account)
     function toggleTransaction(){
         setTransactionComplete(action => !action)
     }
 
-    // console.log(findInventory)
-
     function addIdToCart() {
-        // const newArray = []
-        setCart([])
-        const existingName = account.map(person => {return person.name})
-        const existingCard = account.map(card => {return String(card.credit_card)})
-        const typedName = (name) => name === formData.name
-        const typedCard = (card) => card === ccNumber
-        if (existingName.some(typedName) && existingCard.some(typedCard)) {
-
-        const addId = account.find(person => (person.name === formData.name && String(person.credit_card) === ccNumber))
-                  
+        fetch(`${process.env.REACT_APP_API_URL}/order/find=${ccNumber}`)
+        .then(res => res.json())
+        .then(account => {
         cart.forEach(acc => {
-                // console.log(acc.id)
                 fetch(`${process.env.REACT_APP_API_URL}/account/${acc.id}`, {
                     method: "PATCH",
                     headers: {"Content-Type" : "application/json"},
                     body: JSON.stringify({
-                        order_id: addId.id,
+                        order_id: account.id,
                         purchased_at: date
                     })
                 })
                 .then(res => res.json())
                 .then(res => handleUpdateInventory(res));
-                // console.log(newArray)
                 const subtractQuantity = acc.produce.quantity - acc.quantity
                 const subtractDscQuantity = acc.produce.discount_quantity - acc.dsc_quantity
                 fetch(`${process.env.REACT_APP_API_URL}/produce/${acc.produce_id}`, {
@@ -59,10 +47,9 @@ function Confirm( { formData, sum, account, handleUpdateInventory, cart, setCart
                 .then(res => handleUpdateProduce(res))
             })
             toggleTransaction()
-        // const newArrayOrders = orders.concat(newArray)
-        // setOrders(newArrayOrders)
-        // console.log(newArrayOrders)
-    }}
+            setCart([])
+})
+}
 
 
     return(
@@ -105,30 +92,3 @@ function Confirm( { formData, sum, account, handleUpdateInventory, cart, setCart
     }
 
 export default Confirm;
-
-// const [toggleDeleteDisplay, setToggleDeleteDisplay] = useState(false)
-
-// function toggleAlert() {
-//     setToggleDeleteDisplay(!toggleDeleteDisplay)
-// }
-
-// function toggleBgAlert() {
-//     if (toggleDeleteDisplay === true) {
-//         setToggleDeleteDisplay(!toggleDeleteDisplay)
-//     }
-// }
-
-// {toggleDeleteDisplay ?
-//     <div className='delete-info-bg'>
-//         <div className="delete-info-container">
-//             <div className='delete-info'>
-//                 <h3>Are you sure you want to go back?  This will erase submitted data from the last page.</h3>
-//             </div>
-//                 <div className='delete-info-btn-container'>
-//                     <Link to="/account-information">
-//                     <button className="confirm-btn">Yes</button>
-//                     </Link>
-//                     <button className="confirm-btn"onClick={toggleAlert}>No</button> 
-//                 </div>
-//         </div>
-//     </div> : ""}

@@ -29,40 +29,17 @@ function Shop() {
     const [account, setAccount] = useState([])
     const [produce, setProduce] = useState([])
     const [cart, setCart] = useState([])
-        
-    useEffect(() => {
-    orders.map(inCart => {
-        if (inCart.order_id === null) {
-            return inCart
-            }}
-        )}
-, [])
 
-    
-    //gets all purchased items
-    useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/purchased`)
-        .then(res => res.json())
-        .then(res => setOrders(res))
-    }, [cart])
-    
-    //gets accounts
-    useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/order`)
-        .then(res => res.json())
-        .then(res => setAccount(res))
-    }, [])
+    const [findUser, setFindUser] = useState([])
     
     function handleAddAccount(newAccount) {
         setAccount([...account, newAccount])
     }
     
-    //gets produce
     useEffect(() => {
                 fetch(`${process.env.REACT_APP_API_URL}/produce`)
                 .then(res => res.json())
                 .then(res => setProduce(res))
-                // }
             }, [])
 
     function handleUpdateCart(item) {
@@ -87,7 +64,14 @@ function Shop() {
 
     //This does not pass both items in cart
     function handleUpdateProduce(food) {
-        console.log(food)
+        const updateProduceStock = produce.map(pro => {
+            if (pro.id === food.id) {
+                return food
+            } else {
+                return pro
+            }
+        })
+        setProduce(updateProduceStock)
     }
     
     //PREVENT DRY
@@ -104,7 +88,6 @@ function Shop() {
 
     const dscItem = cart.map(item => {
         if (item.order_id === null) {
-            // console.log(item)
             return (item.produce.discount_price * item.dsc_quantity)
         } 
         else {
@@ -117,9 +100,6 @@ function Shop() {
     const sum = discountTotal + cost
 
     console.log(produce)
-    // It works, but it isn't console logged in orders.  If you were to go to MyAccount, it will display multiple items despite the console log returning only one.
-    console.log(orders)
-    // console.log(cart)
 
     const [error, setError] = useState("")
     const [errorDisplay, setErrorDisplay] = useState(false)
@@ -145,13 +125,10 @@ function Shop() {
                             filterFood={filterFood}
                             setFilterFood={setFilterFood}
                             onHandleDelete={onHandleDelete}
-                            setOrders={setOrders}
-                            orders={orders}
                         />
                     </Route>
                     <Route path='/my-account'>
                         <MyAccount
-                            orders={orders} 
                             cart={cart}
                             error={error}
                             setError={setError}
@@ -170,10 +147,11 @@ function Shop() {
                         />
                     </Route>
                     <Route path="/account-information">
-                        <AccountInfo 
+                        <AccountInfo
+                            findUser={findUser}
+                            setFindUser={setFindUser} 
                             formData={formData} 
                             setFormData={setFormData}
-                            account={account}
                             handleAddAccount={handleAddAccount}
                             error={error}
                             setError={setError}
@@ -184,6 +162,7 @@ function Shop() {
                     </Route>
                     <Route path="/confirm">
                         <Confirm
+                            findUser={findUser}
                             setCart={setCart}
                             formData={formData} 
                             cart={cart} 
@@ -193,8 +172,6 @@ function Shop() {
                             handleUpdateProduce={handleUpdateProduce}
                             produce={produce}
                             setProduce={setProduce}
-                            orders={orders}
-                            setOrders={setOrders}
                             />
                     </Route>
                     <Route path='/about'>

@@ -3,37 +3,39 @@ import Error from './Error'
 import '../css/MyAccount.css'
 import '../css/Error.css'
 
-function MyAccount( { orders, cart, error, setError, errorDisplay, setErrorDisplay, toggleError } ) {
+function MyAccount( { cart, error, setError, errorDisplay, setErrorDisplay, toggleError } ) {
 
     const [display, setDisplay] = useState(0)
     const displayItems = 600
     console.log(error)
-
-    // console.log(cart.length / 4)
 
     const [user, setUser] = useState({
         name: "",
         credit_card: ""
     })    
     const [myAccount, setMyAccount] = useState([])
-    const [myInfo, setMyInfo] = useState([])
+
+    console.log(myAccount)
     
     const dateArray = myAccount.map(acc => {return acc.purchased_at})
     const uniq = [...new Set(dateArray)]
+    const userAcc = myAccount.map(acc => {return acc.order.name})
+    const uniqUser = [...new Set(userAcc)]
+    const userPhone = myAccount.map(acc => {return acc.order.phone})
+    const uniqPhone = [...new Set(userPhone)]
+
+    console.log(uniqUser)
 
     function displayMore() {
         if (display !== 0)
         setDisplay((display + displayItems))
     }
-    // console.log((orders.length / 5) * displayItems)
     
     function displayLess() {
-        if (Math.abs(display) < (cart.length / 5 * displayItems)) {
+        if (Math.abs(display) < (cart.length / 7 * displayItems)) {
             setDisplay((display - displayItems));
         }
     }
-
-    // console.log(Math.abs(display))
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -45,22 +47,28 @@ function MyAccount( { orders, cart, error, setError, errorDisplay, setErrorDispl
         })
     }
 
-    function gatherInfo() {        
-        const searchAcc = orders.find(person => (String(person.order.credit_card) === user.credit_card && person.order.name === user.name))
-        if (searchAcc) {
-        console.log(searchAcc.order.credit_card)
-            fetch(`${process.env.REACT_APP_API_URL}/cart/${searchAcc.order_id}`)
-            .then(res => res.json())
-            .then(res => setMyAccount(res));
-            fetch(`${process.env.REACT_APP_API_URL}/order/${searchAcc.order_id}`)
-            .then(res => res.json())
-            .then(res => setMyInfo(res))
-        } else {
-            // alert('not found')
-            setError("Account does not exist")
+    function gatherInfo() {
+        if (user.name === "" || user.credit_card === "") {
+            setError("Field is blank")
             setErrorDisplay(!errorDisplay)
+        } else if (user.name !== "" && user.credit_card !== "") {
+        fetch(`${process.env.REACT_APP_API_URL}/order/find=${user.credit_card}`)
+        .then(res => res.json())
+        .then(res => {
+            if (res.name === user.name && String(res.credit_card) === user.credit_card) { 
+            fetch(`${process.env.REACT_APP_API_URL}/cart/${res.id}`)
+            .then(res => res.json())
+            .then(res => setMyAccount(res))
+            } else {
+                setError('Account does not match')
+                setErrorDisplay(!errorDisplay)
+            }
+        })
+            } else {
+                setError("Account does not exist")
+                setErrorDisplay(!errorDisplay)
+            }
         }
-    }
 
     return (
         <div className="myaccount">
@@ -76,8 +84,8 @@ function MyAccount( { orders, cart, error, setError, errorDisplay, setErrorDispl
                                 <h3>Phone:</h3>
                             </div>
                             <div className='acc-input-container'>
-                                <h3>{myInfo.name}</h3>
-                                <h3>{myInfo.phone}</h3>
+                                <h3>{uniqUser}</h3>
+                                <h3>{uniqPhone}</h3>
                             </div>
                         </div>
                         :

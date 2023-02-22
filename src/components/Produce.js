@@ -5,7 +5,7 @@ import ProduceCard from './ProduceCard';
 import ProduceList from './ProduceList';
 import '../css/Produce.css'
 
-function Produce( { sum, onHandleDelete, handleUpdateCart, produce, filterFood, setFilterFood, cart, setCart, setOrders, orders } ) {
+function Produce( { sum, onHandleDelete, handleUpdateCart, produce, filterFood, setFilterFood, cart, setCart } ) {
 
     const [searchFood, setSearchFood] = useState("")
     const [toggleDisplay, setToggleDisplay] = useState(true)
