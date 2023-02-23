@@ -30,7 +30,7 @@
     overflow-y: hidden;
 }
 
-.receipt {
+.receipt, .discount-receipt {
     height: 20px;
     width: 90%;
     margin: 15px 0px 0px 5px;
@@ -38,6 +38,13 @@
     justify-content: space-between;
     font-family: monospace;
     overflow-y: auto;
+    /* border: inset rgb(0, 0, 0) 1px; */
+}
+
+.discount-receipt {
+    margin: 0 0 0 135px;
+    width: 64%;
+    align-content: end;
     /* border: inset rgb(0, 0, 0) 1px; */
 }
 

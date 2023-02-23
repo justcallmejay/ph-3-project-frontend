@@ -25,12 +25,16 @@ function CheckoutList( { cart, onHandleDelete, handleUpdateCart } ) {
     
     function handleEdit(food) {
         setSubmitEdit(null)
+        const updateCheckoutTotal = food.total + (parseInt(produceQuantity, 10) + food.produce.price)
+        const updateCheckoutDscTotal = food.dsc_total + (parseInt(dscQuantity, 10) + food.produce.discount_price) 
         fetch(`${process.env.REACT_APP_API_URL}/cart/${food.id}`, {
             method: "PATCH",
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({
                 quantity: produceQuantity,
-                dsc_quantity: dscQuantity
+                dsc_quantity: dscQuantity,
+                total: updateCheckoutTotal,
+                dsc_total: updateCheckoutDscTotal
             })
         })
         .then(res => res.json())

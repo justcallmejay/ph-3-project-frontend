@@ -29,12 +29,12 @@ function Shop() {
     const [account, setAccount] = useState([])
     const [produce, setProduce] = useState([])
     const [cart, setCart] = useState([])
-
-    const [findUser, setFindUser] = useState([])
     
     function handleAddAccount(newAccount) {
         setAccount([...account, newAccount])
     }
+
+    console.log(cart)
     
     useEffect(() => {
                 fetch(`${process.env.REACT_APP_API_URL}/produce`)
@@ -148,8 +148,6 @@ function Shop() {
                     </Route>
                     <Route path="/account-information">
                         <AccountInfo
-                            findUser={findUser}
-                            setFindUser={setFindUser} 
                             formData={formData} 
                             setFormData={setFormData}
                             handleAddAccount={handleAddAccount}
@@ -162,7 +160,6 @@ function Shop() {
                     </Route>
                     <Route path="/confirm">
                         <Confirm
-                            findUser={findUser}
                             setCart={setCart}
                             formData={formData} 
                             cart={cart} 

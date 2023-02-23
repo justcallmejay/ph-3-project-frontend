@@ -4,6 +4,9 @@ import '../css/Confirm.css'
 
 function Confirm( { formData, sum, handleUpdateInventory, cart, setCart, handleUpdateProduce } ) {
 
+
+    console.log(cart)
+
     const [transactionComplete, setTransactionComplete] = useState(true)
     const ccInfo = [formData.fstdigits, formData.snddigits, formData.thddigits]
     const ccNumber = [formData.fstdigits, formData.snddigits, formData.thddigits, formData.fthdigits].join('')
@@ -66,14 +69,23 @@ function Confirm( { formData, sum, handleUpdateInventory, cart, setCart, handleU
                 <div className='receipt-container'>
                     <h3>Receipt:</h3>
                     {cart.map(item => 
+                    <>
                     <div className='receipt' key={item.id}>
                         <p>{item.produce.produce}</p>
                         <p>Amt: {item.quantity}</p>
                         <p>Price: {item.produce.price}</p>
-                        <p>Totpl: {item.total}</p>
+                        <p>Total: {item.total.toFixed(2)}</p>
                     </div>
-                        )}
+                    {item.dsc_quantity > 0 ? 
+                <div className='discount-receipt'>
+                        <p>Amt: {item.dsc_quantity}</p>
+                        <p>Price: {item.produce.discount_price}</p>
+                        <p>Total: {item.dsc_total.toFixed(2)}</p>
                 </div>
+                 : ""}
+                    </>
+                    )}
+                    </div>
                 <div className='submit-sum'><h3>Total: {sum.toFixed(2)}</h3></div>
                 <div className='confirm-btns'>
                 <Link to="/account-information">

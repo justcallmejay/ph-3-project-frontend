@@ -107,6 +107,7 @@ function AccountInfo( { formData, setFormData, handleAddAccount, error, setError
         //User clicks on checkbox stating that user has shopped before
                             else if (existingAcc === true) {
         //Information matches
+                                    setCheckAgree(!checkAgree);
                                     if (shopper.name === formData.name && 
                                         String(ccNumber) === String(shopper.credit_card) && 
                                         String(formData.expmon) === String(shopper.exp_mon) && 

@@ -7,24 +7,19 @@ function MyAccount( { cart, error, setError, errorDisplay, setErrorDisplay, togg
 
     const [display, setDisplay] = useState(0)
     const displayItems = 600
-    console.log(error)
 
     const [user, setUser] = useState({
         name: "",
         credit_card: ""
     })    
     const [myAccount, setMyAccount] = useState([])
-
-    console.log(myAccount)
     
     const dateArray = myAccount.map(acc => {return acc.purchased_at})
     const uniq = [...new Set(dateArray)]
     const userAcc = myAccount.map(acc => {return acc.order.name})
     const uniqUser = [...new Set(userAcc)]
     const userPhone = myAccount.map(acc => {return acc.order.phone})
-    const uniqPhone = [...new Set(userPhone)]
-
-    console.log(uniqUser)
+    const uniqPhone = String([...new Set(userPhone)])
 
     function displayMore() {
         if (display !== 0)
@@ -85,7 +80,7 @@ function MyAccount( { cart, error, setError, errorDisplay, setErrorDisplay, togg
                             </div>
                             <div className='acc-input-container'>
                                 <h3>{uniqUser}</h3>
-                                <h3>{uniqPhone}</h3>
+                                <h3>({uniqPhone.slice(0,3)}) {uniqPhone.slice(3,6)}-{uniqPhone.slice(6,10)}</h3>
                             </div>
                         </div>
                         :
@@ -157,24 +152,28 @@ function MyAccount( { cart, error, setError, errorDisplay, setErrorDisplay, togg
                                 </div>
                         {myAccount.filter((acc) => acc.purchased_at === act).map((aco) => {
                             return (
-                                <div className='purchased-order-container' key={aco.id}>
-                                <div className="purchased-name">
-                                    <h4>{aco.produce.produce}</h4>
-                                </div>
-                                <div className="purchase-quantity">
-                                    <div>Amount: {aco.quantity}</div>
-                                </div>
-                                <div className='purchased-total'>
-                                    <div>Total: {aco.total.toFixed(2)}</div>
+                                <div className='purchased-order-container'>
+                                <div className="produce-orders" key={aco.id}>
+                                    <div className="purchased-name">
+                                        <h4>{aco.produce.produce}</h4>
+                                    </div>
+                                    <div className="purchase-quantity">
+                                        <div>Amount: {aco.quantity}</div>
+                                    </div>
+                                    <div className='purchased-total'>
+                                        <div>Total: {aco.total.toFixed(2)}</div>
+                                    </div>
                                 </div>
                                 {aco.dsc_quantity > 0 ? 
                                 <>
+                                <div className="produce-discount-orders" key={aco.id}>
                                     <div className='purchased-dsc-quantity'>
                                         <div>Dsc Qty: {aco.dsc_quantity}</div>
                                     </div>
                                     <div className='purchased-dsc-quantity'>
                                         <div>Dsc Total: {aco.dsc_total}</div>
                                     </div>
+                                </div>
                                 </>
                                 : ""}
                             </div>

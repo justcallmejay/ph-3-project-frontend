@@ -56,8 +56,9 @@
 }
 
 .acc-input-container {
-    width: 100px;
+    width: 160px;
     margin: 0px 10px 0 0;
+    /* border: inset rgb(0, 0, 0) 1px; */
 }    
 
 .input-acc-label, .input-basic-field-container {
@@ -201,8 +202,27 @@
 
 .purchased-order-container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     /* border: inset rgb(0, 0, 0) 1px; */
+    align-items: end;
+}
+
+.produce-orders, .produce-discount-orders {
+    display: flex;
+}
+
+.produce-orders {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.produce-discount-orders {
+    margin: -15px 10px 10px 0;
+    width: 370px;
+    /* border: inset rgb(0, 0, 0) 1px; */
+    justify-content: space-between;
+    align-content: center;
+    color: red;
 }
 
 .purchased-name, .purchase-quantity, .purchased-total {
