@@ -29,6 +29,7 @@ function Shop() {
     const [account, setAccount] = useState([])
     const [produce, setProduce] = useState([])
     const [cart, setCart] = useState([])
+    const [searchFood, setSearchFood] = useState("")
     
     function handleAddAccount(newAccount) {
         setAccount([...account, newAccount])
@@ -36,11 +37,23 @@ function Shop() {
 
     console.log(cart)
     
+    //using backend to handle filter
     useEffect(() => {
-                fetch(`${process.env.REACT_APP_API_URL}/produce`)
-                .then(res => res.json())
-                .then(res => setProduce(res))
-            }, [])
+        if (filterFood !== "") {
+            fetch(`${process.env.REACT_APP_API_URL}/produce/${filterFood}`)
+            .then(res => res.json())
+            .then(filterProduce => setProduce(filterProduce))
+        } else {
+            fetch(`${process.env.REACT_APP_API_URL}/produce`)
+            .then(res => res.json())
+            .then(res => setProduce(res))
+        }}, [filterFood])
+
+    useEffect(() => {
+            fetch(`${process.env.REACT_APP_API_URL}/name/${searchFood}`)
+            .then(res => res.json())
+            .then(food => setProduce(food))
+    }, [searchFood])    
 
     function handleUpdateCart(item) {
         const updateCart = cart.map(food => {
@@ -116,6 +129,8 @@ function Shop() {
                 <Switch>
                     <Route path="/shop">
                         <Produce
+                            searchFood={searchFood}
+                            setSearchFood={setSearchFood}
                             sum={sum}
                             produce={produce}
                             setProduce={setProduce}

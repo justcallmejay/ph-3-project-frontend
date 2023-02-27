@@ -17,7 +17,7 @@ function Cart( { yAxis, onHandleDelete, sum, cart } ) {
                     carts={carts}
                     key={carts.id}
                     onHandleDelete={onHandleDelete}
-                    yAxis={yAxis}
+                    // yAxis={yAxis}
                 />
                     : "" 
                 )}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../css/ProduceCard.css'
 
-function ProduceCard( { item, handleAddtoCart, handleUpdateCart, animateAddCart, cart } ) {
+function ProduceCard( { item, handleAddtoCart, handleUpdateCart, cart } ) {
 
     const [check, setCheck] = useState(false)
     const [quantityCount, setQuantityCount] = useState(0)
@@ -121,7 +121,7 @@ function ProduceCard( { item, handleAddtoCart, handleUpdateCart, animateAddCart,
                 onChange={(e) => setQuantityCount(e.target.value)}
             />
             {/* <input type="checkbox"/>Order Discounted Produce */}
-            <button className="add-cart-btn" onClick={() => {addToCart(item); animateAddCart()}}>Add to Cart</button>
+            <button className="add-cart-btn" onClick={() => {addToCart(item)}}>Add to Cart</button>
             </div>
         </div>
     ) 

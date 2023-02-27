@@ -148,10 +148,10 @@ function AccountInfo( { formData, setFormData, handleAddAccount, error, setError
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="name-container">
-                        <label>Full Name:</label>
+                        <label>Name:</label>
                         <input 
                             className="placeholder" name='name' type="text"
-                            placeholder='Full Name' value={formData.name} onChange={handleChange}
+                            placeholder='Name' value={formData.name} onChange={handleChange}
                             style={{ borderStyle: "solid", borderColor :  existingAcc ? "green" : "" }}
                         />
                     </div>

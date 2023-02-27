@@ -5,20 +5,20 @@ import ProduceCard from './ProduceCard';
 import ProduceList from './ProduceList';
 import '../css/Produce.css'
 
-function Produce( { sum, onHandleDelete, handleUpdateCart, produce, filterFood, setFilterFood, cart, setCart } ) {
+function Produce( { setSearchFood, sum, onHandleDelete, handleUpdateCart, produce, filterFood, setFilterFood, cart, setCart } ) {
 
-    const [searchFood, setSearchFood] = useState("")
     const [toggleDisplay, setToggleDisplay] = useState(true)
 
-    const filterProduce = produce.filter(food => {
-        if (filterFood === "") return true
+    //for front-end handling filter functions
+    // const filterProduce = produce.filter(food => {
+    //     if (filterFood === "") return true
 
-        return food.kind === filterFood
-    })
+    //     return food.kind === filterFood
+    // })
     
-    const search = filterProduce.filter(food => {
-        return food.produce.toUpperCase().includes(searchFood.toUpperCase())
-    })
+    // const search = filterProduce.filter(food => {
+    //     return food.produce.toUpperCase().includes(searchFood.toUpperCase())
+    // })
 
     function toggleBtn() {
         setToggleDisplay(!toggleDisplay)
@@ -28,14 +28,14 @@ function Produce( { sum, onHandleDelete, handleUpdateCart, produce, filterFood, 
         setCart([...cart, item])
     }
 
-    const [yAxis, setyAxis] = useState(0)
-    const addToAxis = 0
+    // const [yAxis, setyAxis] = useState(0)
+    // const addToAxis = 0
     
     // console.log(yAxis)
     
-    function animateAddCart() {
-        setyAxis((yAxis + addToAxis))
-    }
+    // function animateAddCart() {
+    //     setyAxis((yAxis + addToAxis))
+    // }
 
     return(
         <div className='produce'>
@@ -52,20 +52,23 @@ function Produce( { sum, onHandleDelete, handleUpdateCart, produce, filterFood, 
 
                 {toggleDisplay ?
                 <div className='produce-items'>
-                    {search.map(item =>
+                    {/*code below if front end is used for filter*/}
+                    {/*search.map(item => */}
+                    {produce.map(item =>
                     <ProduceCard
                         item={item} 
                         key={item.id} 
                         cart={cart} 
                         handleAddtoCart={handleAddtoCart}
                         handleUpdateCart={handleUpdateCart}
-                        animateAddCart={animateAddCart}
                         />
                     )}
                  </div>
                  : 
                  <div className='produce-column'>
-                    {search.map(item => 
+                    {/*code below if front end is used for filter*/}
+                    {/*search.map(item => */}
+                    {produce.map(item => 
                     <ProduceList 
                         item={item} 
                         key={item.id} 
@@ -80,7 +83,7 @@ function Produce( { sum, onHandleDelete, handleUpdateCart, produce, filterFood, 
                     sum={sum}
                     cart={cart}
                     onHandleDelete={onHandleDelete}
-                    yAxis={yAxis}
+                    // yAxis={yAxis}
                     />
                 </div>
                 </div>

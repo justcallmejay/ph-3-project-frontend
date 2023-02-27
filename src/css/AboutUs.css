@@ -13,3 +13,9 @@
     border-top: inset rgb(0, 0, 0) 1px;
     border-bottom:inset rgb(0, 0, 0) 1px
 }
+
+.about-img > img {
+    height: 200px;
+    width: 280px;
+    float: right;
+}

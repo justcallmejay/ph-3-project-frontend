@@ -26,7 +26,7 @@ function CartList( { yAxis, carts, onHandleDelete } ) {
 
     return(
         <div className='cart-list-container' 
-        style={{ transform: `translateY(${yAxis}px)`}}
+        // style={{ transform: `translateY(${yAxis}px)`}}
         onMouseEnter={handleMouseEnter} 
         onMouseLeave={handleMouseLeave}
         >

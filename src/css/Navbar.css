@@ -11,4 +11,6 @@
     box-sizing: border-box;
     z-index: 3;
     overflow: hidden;
+    display: flex;
+    flex-direction: row-reverse;
   }

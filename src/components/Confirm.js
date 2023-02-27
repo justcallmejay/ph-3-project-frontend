@@ -59,7 +59,9 @@ function Confirm( { formData, sum, handleUpdateInventory, cart, setCart, handleU
         <div className='confirm'>
             {transactionComplete ? 
             <div className='confirm-container'>
-                <h2>Information</h2>
+                <div className="info-label">
+                    <h2>Information</h2>
+                </div>
                 <div className='confirm-info'>
                     <h3>Name: {formData.name}</h3>
                     <h3>Phone: ({formData.areacode}) {formData.threedigits}-{formData.fourdigits}</h3>
