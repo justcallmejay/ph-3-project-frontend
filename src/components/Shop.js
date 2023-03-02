@@ -7,6 +7,7 @@ import Confirm from './Confirm';
 import MyAccount from './MyAccount';
 import Navbar from './Navbar';
 import Produce from './Produce';
+import Footer from './Footer'
 import '../index.css'
 
 function Shop() {
@@ -190,6 +191,7 @@ function Shop() {
                         <AboutUs/>
                     </Route>
                 </Switch>
+                <Footer />
             </BrowserRouter>
         </div>
     )

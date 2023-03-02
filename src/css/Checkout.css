@@ -1,26 +1,28 @@
 .checkout {
-    top: 145px;
+    top: 255px;
     left: 45%;
     position: relative;
-    border-radius: 20px;
+    border-radius: 40px;
+    -webkit-box-shadow: 0 0 10px #000000;
+    box-shadow: 0 0 10px #000000;
 }
 
 .checkout-label {
-    width: 1000px;
+    width: 300px;
     height: 100px;
     /* border: inset rgb(0, 0, 0) 1px; */
     top: 20px;
     position: relative;
     display: flex;
     flex-direction: row;
-    /* justify-content: center; */
+    justify-content: center;
     align-items: end;
 }
 
 .checkout-container {
-    height: 800px;
-    width: 1000px;
-    top: 20px;
+    height: 850px;
+    width: 1100px;
+    top: 50px;
     position: relative;
     /* border: inset rgb(0, 0, 0) 1px; */
 }
@@ -28,8 +30,6 @@
 .checkout-cart {
     height: 600px;
     width: 100%;
-    border-top: inset rgb(0, 0, 0) 1px;
-    border-bottom: inset rgb(0, 0, 0) 1px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -45,14 +45,14 @@
 .checkout-total {
     position: relative;
     float: right;
-    margin: 10px 50px 30px 10px;
+    margin: 10px 50px 0 0;
 }
 
 .proceed-btn {
     top: 80px;
     position: relative;
     float: right;
-    margin: 10px -180px 0 30px;
+    margin: -10px -180px 0 10px;
     width: 200px;
     height:80px;
     background-color: black;

@@ -1,8 +1,8 @@
 .myaccount {
-    height: 800px;
+    height: 850px;
     width: 1000px;
-    top: 140px;
-    left: 45%;
+    top: 160px;
+    left: 55%;
     /* border: inset rgb(0, 0, 0) 1px; */
     position: relative;
     display: flex;
@@ -13,6 +13,7 @@
 .myacc-container {
     height: 1000px;
     width: 1000px;
+    position: relative;
     /* border: inset rgb(0, 0, 0) 1px; */
     display: flex;
     flex-direction: column;
@@ -21,7 +22,7 @@
 
 .acc-info-container {
     height: 180px;
-    width: 800px;
+    width: 1100px;
     border-radius: 30px 30px 0 0;
     border-top: inset rgb(0, 0, 0) 1px;
     border-left: inset rgb(0, 0, 0) 1px;
@@ -33,15 +34,15 @@
 
 .input-container {
     height: 170px;
-    width: 800px;
+    width: 1100px;
     /* border: inset rgb(0, 0, 0) 1px; */
     display: flex;
 }
 
 .acc-info-label {
     height: 50px;
-    width: 800px;
-    margin: 0 0 10px 40px; 
+    width: 1100px;
+    margin: 40px 0 20px 40px; 
     /* border: inset rgb(0, 0, 0) 1px; */
     display: flex;
     flex-direction: column;
@@ -87,6 +88,7 @@
 
 .enter-info-field {
     width: 350px;
+    background-color: rgba(231, 231, 231, 0.992);
 }
 
 .input-placeholders {
@@ -99,6 +101,8 @@
     width: 50px;
     margin: 4px 0 0 0;
     cursor: pointer;
+    border: inset rgb(187, 187, 187) .5px;
+    border-radius: 5px;
 }
 
 
@@ -107,7 +111,7 @@
     position: relative;
     /* border: inset rgb(0, 0, 0) 1px; */
     height: 300px;
-    width: 800px;
+    width: 1100px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -119,7 +123,7 @@
 
 .acc-cart-container {
     height: 300px;
-    width: 800px;
+    width: 1100px;
     border-left: inset rgb(0, 0, 0) 1px;
     border-right: inset rgb(0, 0, 0) 1px;
     box-shadow: 5px 0 rgba(195, 195, 195, 0.779);
@@ -129,7 +133,7 @@
 
 .acc-cart-label {
     height: 80px;
-    width: 800px;
+    width: 1100px;
     /* border: inset rgb(0, 0, 0) 1px; */
     display: flex;
     flex-direction: column;
@@ -152,7 +156,7 @@
 
 .acc-toggle-container {
     height: 300px;
-    width: 800px;
+    width: 1100px;
     /* border: inset rgb(0, 0, 0) 1px; */
     display: flex;
     /* align-items: center; */
@@ -179,8 +183,8 @@
     border-right: inset rgb(0, 0, 0) 1px;
     border-bottom: inset rgb(0, 0, 0) 1px;
     box-shadow: 5px 5px rgba(195, 195, 195, 0.779);
-    height: 400px;
-    width: 800px;
+    height: 600px;
+    width: 1100px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -237,17 +241,17 @@
 
 .mycart-label {
     height: 10px;
-    width: 800px;
+    width: 1100px;
 }
 
 .purchase-label {
     height: 50px;
-    width: 800px;
+    width: 1100px;
     /* border: inset rgb(0, 0, 0) 1px; */
     display: flex;
     flex-direction: column;
     justify-content: end;
-    margin: 0 0 10px 40px; 
+    margin: 40px 0 20px 100px;
 }
 
 .empty-purchase {

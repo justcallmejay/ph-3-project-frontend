@@ -8,6 +8,8 @@ function MyAccount( { cart, error, setError, errorDisplay, setErrorDisplay, togg
     const [display, setDisplay] = useState(0)
     const displayItems = 600
 
+    console.log(display)
+
     const [user, setUser] = useState({
         name: "",
         credit_card: ""
@@ -27,7 +29,7 @@ function MyAccount( { cart, error, setError, errorDisplay, setErrorDisplay, togg
     }
     
     function displayLess() {
-        if (Math.abs(display) < (cart.length / 7 * displayItems)) {
+        if (Math.abs(display) < ((cart.length - 4) * displayItems)) {
             setDisplay((display - displayItems));
         }
     }
@@ -137,7 +139,7 @@ function MyAccount( { cart, error, setError, errorDisplay, setErrorDisplay, togg
                 </div>
              <div className="purchase-history-container">
                 <div className='purchase-label'>
-                    <h3>Your purchase:</h3>
+                    <h2>Your purchase:</h2>
                 </div>
                 <div className="purchase-list-container">
                         {myAccount.length !== 0 ?

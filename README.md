@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+# Project # 3
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Fresh Market is a simple e-commerce app created as a project for phase 3 at Flatiron to demostrate the interaction between frontend (React) and backend (Ruby).
 
-## Available Scripts
+Shop 
+Fresh Market allows users to simply select items at the homepage, Shop.  There, the user may click on the number input below each produce and click 'Add to Cart.'  Additionally, user can click on the checkbox above, which will display the number input where the user may select the amount as well.
 
-In the project directory, you can run:
+Filter
+Users can click on the radio buttons on the right most above the produce menu to display either fruits or vegetables.  User can also type in a particular produce.
 
-### `npm start`
+View
+User can switch between cards (default) and list for viewing experiences.  Either choices still operates the produce selection similarly.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+MyAccount
+User can view the items at the cart below.  User can click on the right to view more or return to the previous selected items.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+If the user has shopped in the past, that user may type in the name followed by credit card information used to purchase the items to view the purchase history.
 
-### `npm test`
+Checkout
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+User can update the quantity in this page by hovering over a produce which will then display the button (as well as delete).
 
-### `npm run build`
+AccountInfo
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+User will provide basic information such as name, phone number, credit card information before proceeding to the submit page.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Confirm
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

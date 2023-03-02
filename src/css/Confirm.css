@@ -1,10 +1,12 @@
 .confirm-container {
-    top: 150px;
+    top: 230px;
     left: 45%;
-    width: 1000px;
+    width: 1100px;
     height: 800px;
     position: relative;
-    /* border: inset rgb(0, 0, 0) 1px; */
+    border: inset rgb(0, 0, 0) 1px;
+    -webkit-box-shadow: 0 0 10px #000000;
+    box-shadow: 0 0 10px #000000;
     display: flex;
     flex-direction: column;
     align-items: center;
