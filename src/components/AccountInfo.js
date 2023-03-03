@@ -16,9 +16,9 @@ function AccountInfo( { formData, setFormData, handleAddAccount, error, setError
     const number = [formData.areacode, formData.threedigits, formData.fourdigits].join('')
     const ccNumber = [formData.fstdigits, formData.snddigits, formData.thddigits, formData.fthdigits].join('')
     const ccCode = [formData.expmon, formData.expyr, formData.code].join('')
-
-    console.log(ccCode)
     
+
+    console.log(formData.expmon)
     function handleChange(e) {
         const {name, value} = e.target;
         
@@ -32,6 +32,7 @@ function AccountInfo( { formData, setFormData, handleAddAccount, error, setError
 
     function toggleSearchExistingInfo() {
         setExistingAcc(!existingAcc)
+        setCheckAgree(checkAgree => !checkAgree)
     }
     
     function toggleDisplay() {
@@ -69,7 +70,7 @@ function AccountInfo( { formData, setFormData, handleAddAccount, error, setError
             setError("Complete phone number")
             setErrorDisplay(!errorDisplay)
 //User does not complete credit card info
-        } else if (formData.fstdigits.length < 4 || formData.snddigits.length < 4 || formData.thddigits.length < 4 || formData.fthdigits.length < 4 || formData.expmon.length < 2 || formData.expyr.length < 2 || formData.code.length < 3) {
+        } else if (formData.fstdigits.length < 4 || formData.snddigits.length < 4 || formData.thddigits.length < 4 || formData.fthdigits.length < 4 || formData.expyr.length < 2 || formData.code.length < 3) {
             setError("Complete credit card information")
             setErrorDisplay(!errorDisplay)
 //User doesn't check agree checkbox
@@ -108,6 +109,8 @@ function AccountInfo( { formData, setFormData, handleAddAccount, error, setError
                             else if (existingAcc === true) {
         //Information matches
                                     setCheckAgree(!checkAgree);
+                                    console.log(typeof(shopper.credit_card))
+                                    console.log(typeof(ccNumber))
                                     if (shopper.name === formData.name && 
                                         String(ccNumber) === String(shopper.credit_card) && 
                                         String(formData.expmon) === String(shopper.exp_mon) && 

@@ -1,22 +1,24 @@
 .info-container {
-    height: 800px;
-    width: 1000px;
+    height: 1400px;
+    width: 1100px;
     top: 100px;
-    left: 45%;
-    /* border: inset rgb(0, 0, 0) 1px; */
+    left: 50%;
+    border: inset rgb(0, 0, 0) 1px;
     position: relative;
     display: flex;
     justify-content: center;
     z-index: 0;
+    -webkit-box-shadow: 0 0 10px #000000;
+    box-shadow: 0 0 10px #000000;
 }
 
 .info-box {
-    top: 100px;
+    top: 160px;
     position: relative;
     height: 700px;
-    width: 800px;
-    border: inset rgba(195, 195, 195, 0.779);
-    box-shadow: 10px 10px rgba(195, 195, 195, 0.779);
+    width: 1100px;
+    /* border: inset rgba(195, 195, 195, 0.779);
+    box-shadow: 10px 10px rgba(195, 195, 195, 0.779); */
     border-radius: 20px;
 }
 
@@ -31,16 +33,23 @@
 }
 
 .placeholder {
-    width: 470px;
-    height: 30px;
+    width: 500px;
+    height: 50px;
     margin: 10px 10px 5px 10px;
     border-radius: 10px;
     text-align: center;
 }
 
+.phone {
+    margin: 20px 160px 0 0;
+}
+
+.credit-card {
+    margin: 20px 0 0 0;
+}
+
 .number {
-    width: 60px;
-    height: 30px;
+    width: 120px;
     margin: 20px 10px 5px 10px;
     border-radius: 10px;
     text-align: center;
@@ -53,19 +62,31 @@
     justify-content: center;
 }
 
-.credit-no, .code-no, .number {
-    width: 50px;
-    height: 30px;
+.exp-date {
+    margin: 15px 330px 5px 10px;
+}
+
+.credit-no, .number {
+    width: 120px;
+    height: 50px;
     margin: 3px 10px 5px 10px;
     border-radius: 8px;
     text-align: center;
     font-family: monospace;
 }
 
+.code-no {
+    width: 90px;
+    height: 50px;
+    border-radius: 8px;
+    text-align: center;
+    margin: 10px 0 5px 10px;
+}
+
 .exp-no {
-    width: 25px;
-    height: 30px;
-    margin: 3px 5px 0px 5px;
+    width: 40px;
+    height: 50px;
+    margin: 10px 10px 5px 10px;
     border-radius: 8px;
     text-align: center;
 }

@@ -8,7 +8,7 @@ function Checkout( { sum, handleUpdateCart, onHandleDelete, cart, produce } ) {
     return (
         <div className='checkout'>
             <div className='checkout-label'>
-                <h1>Your Cart:</h1>
+                <h2>Your Cart:</h2>
             </div>
             <div className='checkout-container'>
                 {cart.length > 0 ? 
@@ -32,7 +32,7 @@ function Checkout( { sum, handleUpdateCart, onHandleDelete, cart, produce } ) {
                         </>
             :   
                 <div className='checkout-empty'>
-                    <h1 className='empty'>There is nothing in your cart</h1>
+                    <h2 className='empty'>There is nothing in your cart</h2>
                 </div>
                 }
             </div>
