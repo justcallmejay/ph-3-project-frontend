@@ -76,13 +76,13 @@ function Confirm( { formData, sum, handleUpdateInventory, cart, setCart, handleU
                         <p>{item.produce.produce}</p>
                         <p>Amt: {item.quantity}</p>
                         <p>Price: {item.produce.price}</p>
-                        <p>Total: {item.total.toFixed(2)}</p>
+                        <p>Total: {(item.quantity * item.produce.price).toFixed(2)}</p>
                     </div>
                     {item.dsc_quantity > 0 ? 
                 <div className='discount-receipt'>
                         <p>Amt: {item.dsc_quantity}</p>
                         <p>Price: {item.produce.discount_price}</p>
-                        <p>Total: {item.dsc_total.toFixed(2)}</p>
+                        <p>Total: {(item.dsc_quantity * item.produce.discount_price).toFixed(2)}</p>
                 </div>
                  : ""}
                     </>

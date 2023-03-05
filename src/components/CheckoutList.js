@@ -22,11 +22,22 @@ function CheckoutList( { cart, onHandleDelete, handleUpdateCart } ) {
     const [submitEdit, setSubmitEdit] = useState(null)
     const [produceQuantity, setProduceQuantity] = useState(cart.quantity)
     const [dscQuantity, setDscQuantity] = useState(cart.dsc_quantity)
+
+    function deleteItem(food) {
+        fetch(`${process.env.REACT_APP_API_URL}/cart/${food.id}`, {
+            method: "DELETE"
+        })
+        .then(res => res.json())
+        .then(food => onHandleDelete(food))
+    }
     
     function handleEdit(food) {
+        if (produceQuantity == 0 && dscQuantity == 0) {
+            deleteItem(food)
+        } else {
         setSubmitEdit(null)
-        const updateCheckoutTotal = food.total + (parseInt(produceQuantity, 10) + food.produce.price)
-        const updateCheckoutDscTotal = food.dsc_total + (parseInt(dscQuantity, 10) + food.produce.discount_price) 
+        const updateCheckoutTotal = (parseInt(produceQuantity, 10) * food.produce.price)
+        const updateCheckoutDscTotal = (parseInt(dscQuantity, 10) * food.produce.discount_price) 
         fetch(`${process.env.REACT_APP_API_URL}/cart/${food.id}`, {
             method: "PATCH",
             headers: {"Content-Type" : "application/json"},
@@ -40,15 +51,11 @@ function CheckoutList( { cart, onHandleDelete, handleUpdateCart } ) {
         .then(res => res.json())
         .then(res => handleUpdateCart(res))
         setSubmitEdit(null);
+    }
 }
 
     function handleDelete(item) {
-        console.log(item.id)
-        fetch(`${process.env.REACT_APP_API_URL}/cart/${item.id}`, {
-            method: "DELETE"
-        })
-        .then(res => res.json())
-        .then(item => onHandleDelete(item))
+        deleteItem(item)
     }
 
     return(
@@ -60,6 +67,7 @@ function CheckoutList( { cart, onHandleDelete, handleUpdateCart } ) {
             <div className='checkout-main-info'>
                 <img className="checkout-img" src={cart.produce.image} alt={cart.produce.name}/>
                 <h3>{cart.produce.produce}</h3>
+                {produceQuantity == 0 && dscQuantity == 0 ? <h5 style={{color : "red"}}>Delete?</h5> : ""}
             </div>
             <div className="produce-info">
                 <div className="co-produce-section">
