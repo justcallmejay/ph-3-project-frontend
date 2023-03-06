@@ -32,7 +32,9 @@ function AccountInfo( { formData, setFormData, handleAddAccount, error, setError
 
     function toggleSearchExistingInfo() {
         setExistingAcc(!existingAcc)
+        if (checkAgree === false) {
         setCheckAgree(checkAgree => !checkAgree)
+        }
     }
     
     function toggleDisplay() {
