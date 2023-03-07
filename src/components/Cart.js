@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import CartList from './CartList'
 import '../css/Cart.css'
 
-function Cart( { yAxis, onHandleDelete, sum, cart } ) {
+function Cart( { onHandleDelete, sum, cart } ) {
 
     return(
         <>
@@ -17,7 +17,6 @@ function Cart( { yAxis, onHandleDelete, sum, cart } ) {
                     carts={carts}
                     key={carts.id}
                     onHandleDelete={onHandleDelete}
-                    // yAxis={yAxis}
                 />
                     : "" 
                 )}

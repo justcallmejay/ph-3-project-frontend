@@ -8,8 +8,6 @@ function MyAccount( { cart, error, setError, errorDisplay, setErrorDisplay, togg
     const [display, setDisplay] = useState(0)
     const displayItems = 600
 
-    console.log(display)
-
     const [user, setUser] = useState({
         name: "",
         credit_card: ""
@@ -173,7 +171,7 @@ function MyAccount( { cart, error, setError, errorDisplay, setErrorDisplay, togg
                                         <div>Dsc Qty: {aco.dsc_quantity}</div>
                                     </div>
                                     <div className='purchased-dsc-quantity'>
-                                        <div>Dsc Total: {aco.dsc_total}</div>
+                                        <div>Dsc Total: {aco.dsc_total.toFixed(2)}</div>
                                     </div>
                                 </div>
                                 </>

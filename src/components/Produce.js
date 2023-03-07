@@ -9,17 +9,6 @@ function Produce( { setSearchFood, sum, onHandleDelete, handleUpdateCart, produc
 
     const [toggleDisplay, setToggleDisplay] = useState(true)
 
-    //for front-end handling filter functions
-    // const filterProduce = produce.filter(food => {
-    //     if (filterFood === "") return true
-
-    //     return food.kind === filterFood
-    // })
-    
-    // const search = filterProduce.filter(food => {
-    //     return food.produce.toUpperCase().includes(searchFood.toUpperCase())
-    // })
-
     function toggleBtn() {
         setToggleDisplay(!toggleDisplay)
     }
@@ -27,15 +16,6 @@ function Produce( { setSearchFood, sum, onHandleDelete, handleUpdateCart, produc
     function handleAddtoCart(item) {
         setCart([...cart, item])
     }
-
-    // const [yAxis, setyAxis] = useState(0)
-    // const addToAxis = 0
-    
-    // console.log(yAxis)
-    
-    // function animateAddCart() {
-    //     setyAxis((yAxis + addToAxis))
-    // }
 
     return(
         <div className='produce'>
@@ -83,7 +63,6 @@ function Produce( { setSearchFood, sum, onHandleDelete, handleUpdateCart, produc
                     sum={sum}
                     cart={cart}
                     onHandleDelete={onHandleDelete}
-                    // yAxis={yAxis}
                     />
                 </div>
                 </div>

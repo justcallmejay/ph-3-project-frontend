@@ -13,10 +13,7 @@ function AccountInfo( { formData, setFormData, handleAddAccount, error, setError
     const [checkAgree, setCheckAgree] = useState(false)
     const [toggle, setToggle] = useState(false)
     const [existingAcc, setExistingAcc] = useState(false)
-    const number = [formData.areacode, formData.threedigits, formData.fourdigits].join('')
     const ccNumber = [formData.fstdigits, formData.snddigits, formData.thddigits, formData.fthdigits].join('')
-    const ccCode = [formData.expmon, formData.expyr, formData.code].join('')
-    
 
     console.log(formData.expmon)
     function handleChange(e) {
@@ -110,7 +107,7 @@ function AccountInfo( { formData, setFormData, handleAddAccount, error, setError
         //User clicks on checkbox stating that user has shopped before
                             else if (existingAcc === true) {
         //Information matches
-                                    setCheckAgree(!checkAgree);
+                                    // setCheckAgree(!checkAgree);
                                     console.log(typeof(shopper.credit_card))
                                     console.log(typeof(ccNumber))
                                     if (shopper.name === formData.name && 

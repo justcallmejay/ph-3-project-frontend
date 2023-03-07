@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import '../css/Cart.css'
 
-function CartList( { yAxis, carts, onHandleDelete } ) {
+function CartList( { carts, onHandleDelete } ) {
 
     const [hover, setHover] = useState(false)
     const itemTotal = (carts.produce.price * carts.quantity)
     const discountTotal = (carts.produce.discount_price * carts.dsc_quantity)
 
-    // console.log(carts.produce.discount_price)
     function handleMouseEnter() {
         setHover(true)
     }
@@ -26,7 +25,6 @@ function CartList( { yAxis, carts, onHandleDelete } ) {
 
     return(
         <div className='cart-list-container' 
-        // style={{ transform: `translateY(${yAxis}px)`}}
         onMouseEnter={handleMouseEnter} 
         onMouseLeave={handleMouseLeave}
         >
